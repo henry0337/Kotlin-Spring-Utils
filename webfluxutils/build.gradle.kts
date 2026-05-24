@@ -32,6 +32,16 @@ kotlin {
     }
 }
 
+tasks {
+    bootJar {
+        enabled = false
+    }
+
+    jar {
+        enabled = true
+    }
+}
+
 kapt {
     correctErrorTypes = true
 }

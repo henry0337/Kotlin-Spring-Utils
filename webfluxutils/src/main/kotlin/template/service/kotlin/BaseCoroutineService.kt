@@ -4,6 +4,11 @@ import annotation.KotlinVariant
 import internal.service.kotlin.*
 import template.service.BaseReactiveService
 
+/**
+ * Kotlin coroutine CRUD service base cho các template service của module WebFlux.
+ *
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ */
 @KotlinVariant
 abstract class BaseCoroutineService<T : Any, ID, I1, I2> :
     BaseReactiveService(),

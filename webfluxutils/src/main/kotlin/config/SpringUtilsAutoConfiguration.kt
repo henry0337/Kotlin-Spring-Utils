@@ -10,13 +10,11 @@ import org.springframework.context.MessageSource
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
 import org.springframework.data.r2dbc.config.EnableR2dbcAuditing
-import org.springframework.data.r2dbc.repository.R2dbcRepository
 import org.springframework.data.redis.core.ReactiveRedisTemplate
 import org.springframework.web.reactive.function.client.WebClient
 import service.ReactiveRestClient
 
 @AutoConfiguration
-@ConditionalOnClass(R2dbcRepository::class)
 @EnableR2dbcAuditing
 @Import(WebClientConfig::class)
 class SpringUtilsAutoConfiguration {
@@ -27,6 +25,7 @@ class SpringUtilsAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
+    @ConditionalOnBean(MessageSource::class)
     fun i18nHelper(messageSource: MessageSource) = I18nHelper(messageSource)
 
     @Bean

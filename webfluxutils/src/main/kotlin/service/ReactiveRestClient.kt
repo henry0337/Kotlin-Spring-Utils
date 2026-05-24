@@ -8,17 +8,21 @@ import io.github.resilience4j.retry.annotation.Retry
 import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.jspecify.annotations.NullMarked
 import org.jspecify.annotations.Nullable
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.HttpStatusCode
-import org.springframework.stereotype.Component
+import org.springframework.context.annotation.Lazy
 import org.springframework.web.reactive.function.client.ClientResponse
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
 import utils.Function
 import utils.Predicate
 
-@Component
-class ReactiveRestClient(@PublishedApi internal val webClient: WebClient) {
+open class ReactiveRestClient(private val webClient: WebClient) {
+    @Autowired
+    @Lazy
+    @PublishedApi
+    internal lateinit var self: ReactiveRestClient
 
     /**
      * **[[Java-Interoperability Variant]]**
@@ -42,7 +46,7 @@ class ReactiveRestClient(@PublishedApi internal val webClient: WebClient) {
      */
     @Retry(name = "unwrapGet", fallbackMethod = "retryFallback")
     @CircuitBreaker(name = "unwrapGet", fallbackMethod = "circuitBreakerFallback")
-    fun <T : Any> doGet(
+    open fun <T : Any> doGet(
         url: String,
         responseType: ParameterizedTypeReference<T>,
         params: @Nullable Map<String, Array<Any>>? = null,
@@ -92,7 +96,7 @@ class ReactiveRestClient(@PublishedApi internal val webClient: WebClient) {
      */
     @Retry(name = "unwrapPost", fallbackMethod = "retryFallback")
     @CircuitBreaker(name = "unwrapPost", fallbackMethod = "circuitBreakerFallback")
-    fun <T : Any, B : Any> doPost(
+    open fun <T : Any, B : Any> doPost(
         url: String,
         body: B,
         responseType: ParameterizedTypeReference<T>,
@@ -140,13 +144,13 @@ class ReactiveRestClient(@PublishedApi internal val webClient: WebClient) {
      */
     @KotlinVariant
     @JvmSynthetic
-    final suspend inline fun <reified T : Any> awaitGet(
+    suspend inline fun <reified T : Any> awaitGet(
         url: String,
         params: Map<String, Array<Any>>? = null,
         headers: Map<String, String?>? = null,
         noinline statusPredicate: Predicate<HttpStatusCode>? = null,
         noinline responseHandler: Function<ClientResponse, Mono<out Throwable>>? = null
-    ): T? = doGet(
+    ): T? = self.doGet(
         url,
         responseType = object : ParameterizedTypeReference<T>() {},
         params,
@@ -176,14 +180,14 @@ class ReactiveRestClient(@PublishedApi internal val webClient: WebClient) {
      */
     @KotlinVariant
     @JvmSynthetic
-    final suspend inline fun <reified T : Any, reified B : Any> awaitPost(
+    suspend inline fun <reified T : Any, reified B : Any> awaitPost(
         url: String,
         body: B,
         params: Map<String, Array<Any>>? = null,
         headers: Map<String, String?>? = null,
         noinline statusPredicate: Predicate<HttpStatusCode>? = null,
         noinline responseHandler: Function<ClientResponse, Mono<out Throwable>>? = null
-    ): T? = doPost(
+    ): T? = self.doPost(
         url,
         body,
         responseType = object : ParameterizedTypeReference<T>() {},

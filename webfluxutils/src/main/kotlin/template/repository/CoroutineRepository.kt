@@ -16,6 +16,7 @@ import template.entity.BaseEntity
  *
  * @param T  Kiểu domain mà repository này sẽ quản lý
  * @param ID Kiểu của ID thuộc domain mà repository này sẽ quản lý
+ *
  * @author <a href="https://github.com/henry0337">Myrlennia</a>
  * @see <a href="https://docs.spring.io/spring-data/relational/reference/kotlin/coroutines.html">Coroutine-specific Repository</a>
  */

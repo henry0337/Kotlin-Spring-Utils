@@ -7,7 +7,7 @@ import java.lang.annotation.Inherited
  *
  * Đánh dấu một API được cung cấp bởi thư viện này sẽ chỉ khả dụng cho ngôn ngữ **Kotlin** khi được sử dụng.
  *
- * Nếu như được sử dụng bởi một ngôn ngữ **Java-based** nào khác có thể sử dụng cho **Spring Framework** (Java, Groovy)
+ * Nếu như được sử dụng bởi một ngôn ngữ **JVM** khác tương thích với **Spring Framework** (Java, Groovy)
  * sẽ gây ra lỗi không tương thích mong muốn.
  *
  * @author <a href="https://github.com/henry0337">Myrlennia</a>

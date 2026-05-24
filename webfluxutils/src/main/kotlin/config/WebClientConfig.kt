@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpHeaders
 import org.springframework.web.reactive.function.client.WebClient
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 class WebClientConfig {
     private val acceptedLanguages = mutableListOf("vi-VN", "en-US")
     private val acceptedEncodings = mutableListOf("gzip, deflate")

@@ -9,6 +9,7 @@ import internal.entity.Auditable
 import internal.entity.Conflictable
 import internal.entity.Restorable
 import serializer.LocalDateTimeSerializer
+import kotlin.jvm.JvmName
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toLocalDateTime
@@ -26,12 +27,18 @@ import kotlin.uuid.ExperimentalUuidApi
 abstract class BaseEntity<ID>(
     @Id var id: ID? = null,
     @CreatedBy @InsertOnlyProperty var createdBy: String = "",
+    @get:JvmName("getCreatedDateValue")
+    @set:JvmName("setCreatedDateValue")
     @CreatedDate @InsertOnlyProperty var createdDate: JavaLocalDateTime = Clock.System.now()
         .toLocalDateTime(TimeZone.currentSystemDefault()).toJavaLocalDateTime(),
     @LastModifiedBy var lastModifiedBy: @Nullable String? = null,
+    @get:JvmName("getLastModifiedDateValue")
+    @set:JvmName("setLastModifiedDateValue")
     @LastModifiedDate var lastModifiedDate: @Nullable JavaLocalDateTime? = null,
     var deleted: Short = 0,
     var deletedAt: @Nullable JavaLocalDateTime? = null,
+    @get:JvmName("getEntityVersion")
+    @set:JvmName("setEntityVersion")
     @Version var version: Long = 0,
 ) : Auditable, Conflictable, Restorable, JavaSerializable {
     override fun getCreatedAuditor(): String = createdBy
