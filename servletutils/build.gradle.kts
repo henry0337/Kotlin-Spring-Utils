@@ -8,17 +8,24 @@ plugins {
 }
 
 dependencies {
+    api(projects.shared)
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.boot:spring-boot-starter-restclient")
+    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("tools.jackson.module:jackson-module-kotlin")
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    implementation("io.github.resilience4j:resilience4j-spring-boot4:2.4.0")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
 }
 
 kotlin {
     jvmToolchain(25)
+
+    compilerOptions {
+        freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
+    }
 }
 
 tasks {
@@ -29,4 +36,8 @@ tasks {
     jar {
         enabled = true
     }
+}
+
+kapt {
+    correctErrorTypes = true
 }
