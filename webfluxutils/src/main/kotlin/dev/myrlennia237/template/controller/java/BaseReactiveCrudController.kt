@@ -1,4 +1,4 @@
-package dev.myrlennia237.template.controller.java
+﻿package dev.myrlennia237.template.controller.java
 
 import dev.myrlennia237.template.controller.BaseReactiveController
 
@@ -9,6 +9,6 @@ import dev.myrlennia237.template.controller.BaseReactiveController
  *
  * Thêm `@RestController` và `@RequestMapping` tại subclass để khai báo endpoints.
  *
- * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Ademia</a>
  */
 abstract class BaseReactiveCrudController : BaseReactiveController()

@@ -1,18 +1,14 @@
-package dev.myrlennia237.internal.service.java
+﻿package dev.myrlennia237.internal.service.java
 
 import reactor.core.publisher.Mono
 
 /**
- * Java variant cho contract xóa một entity theo định danh.
- *
- * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Ademia</a>
  */
 internal fun interface Deletable<in ID> {
     /**
-     * Xóa entity theo định danh.
-     *
-     * @param id Định danh của entity cần xóa
-     * @return `Mono` hoàn tất khi thao tác kết thúc
+     * Thực hiện xóa dữ liệu dựa trên ID của chúng.
+     * @param id ID của entity cần xóa
      */
     fun deleteById(id: ID): Mono<Void>
 }

@@ -1,18 +1,16 @@
-package dev.myrlennia237.internal.service.java
+﻿package dev.myrlennia237.internal.service.java
 
 import reactor.core.publisher.Mono
 
 /**
- * Java variant cho contract tạo mới một entity theo dữ liệu đầu vào.
- *
- * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ * @param T Dữ liệu đầu ra, thường là Aggregate Root.
+ * @param I Dữ liệu đầu vào, thường là DTO, Projection hoặc tương tự.
+ * @author <a href="https://github.com/henry0337">Ademia</a>
  */
 internal fun interface Insertable<T : Any, in I> {
     /**
      * Tạo mới một entity từ dữ liệu đầu vào.
-     *
      * @param item Dữ liệu đầu vào dùng để tạo entity
-     * @return `Mono` bọc entity đã được lưu
      */
-    fun insert(item: I): Mono<T>
+    fun save(item: I): Mono<T>
 }

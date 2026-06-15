@@ -1,10 +1,10 @@
-@file:NullMarked
+﻿@file:NullMarked
 
 package dev.myrlennia237.service
 
 import dev.myrlennia237.annotation.KotlinVariant
-import dev.myrlennia237.utils.Function
-import dev.myrlennia237.utils.Predicate
+import dev.myrlennia237.Function
+import dev.myrlennia237.Predicate
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker
 import io.github.resilience4j.retry.annotation.Retry
 import kotlinx.coroutines.reactor.awaitSingleOrNull
@@ -19,34 +19,8 @@ import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
 
 /**
- * HTTP client reactive bọc [WebClient] với tích hợp **Resilience4j** (Retry + Circuit Breaker).
- *
- * Bean này được tự động đăng ký bởi
- * [dev.myrlennia237.config.SpringUtilsAutoConfiguration]. Có thể extend class này để
- * override các fallback method [retryFallback] và [circuitBreakerFallback].
- *
- * ## Cấu hình Resilience4j
- * Khai báo các instance `unwrapGet` và `unwrapPost` trong `application.yml` để tùy chỉnh
- * hành vi retry và circuit breaker. Nếu bỏ qua, Resilience4j sẽ dùng cấu hình mặc định.
- *
- * ```yaml
- * resilience4j:
- *   retry:
- *     instances:
- *       unwrapGet:
- *         max-attempts: 3
- *       unwrapPost:
- *         max-attempts: 3
- *   circuit-breaker:
- *     instances:
- *       unwrapGet:
- *         sliding-window-size: 10
- *       unwrapPost:
- *         sliding-window-size: 10
- * ```
- *
- * @author <a href="https://github.com/henry0337">Myrlennia</a>
- * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
+ * Một Reactive HTTP Client dùng để gọi tới các API bên thứ 3.
+ * @author <a href="https://github.com/henry0337">Ademia</a>
  */
 open class ReactiveRestClient(private val webClient: WebClient) {
     @Autowired
@@ -55,23 +29,17 @@ open class ReactiveRestClient(private val webClient: WebClient) {
     internal lateinit var self: ReactiveRestClient
 
     /**
-     * **[[Java-Interoperability Variant]]**
-     *
-     * Gửi một HTTP GET request đến [url] rồi ánh xạ phản hồi sang kiểu [T].
-     * Có tích hợp sẵn **Retry** và **Circuit Breaker** của Resilience4j.
-     *
-     * **Ghi chú**: [statusPredicate] và [responseHandler] đi kèm với nhau — nếu muốn xử lý lỗi
-     * theo status code thì phải truyền cả hai, không thể truyền một mình [responseHandler].
+     * Gửi một HTTP GET request đến [url] rồi trả về phản hồi với kiểu [T] tương ứng.
      *
      * @param url URL của endpoint cần gọi
      * @param responseType Kiểu phản hồi mong đợi
-     * @param params Query string parameters
-     * @param headers HTTP headers bổ sung
+     * @param params Tham số URL cần truyền vào
+     * @param headers Các header HTTP cần thêm vào request
      * @param statusPredicate Điều kiện để lọc status code lỗi cần xử lý
-     * @param responseHandler Hàm xử lý lỗi khi [statusPredicate] khớp
-     * @param T Kiểu dữ liệu của phần thân phản hồi
-     * @return [Mono] bọc dữ liệu phản hồi kiểu [T]
-     * @author <a href="https://github.com/henry0337">Myrlennia</a>
+     * @param responseHandler Hàm xử lý khi [statusPredicate] khớp
+     * @param T Kiểu phản hồi mong đợi
+     * @return Dữ liệu phản hồi mong muốn nếu thành công, hoặc empty nếu thất bại (được bọc bởi một [Mono]).
+     * @author <a href="https://github.com/henry0337">Ademia</a>
      * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
      */
     @Retry(name = "unwrapGet", fallbackMethod = "retryFallback")
@@ -97,31 +65,29 @@ open class ReactiveRestClient(private val webClient: WebClient) {
             .headers { headers?.forEach { (k, v) -> it.set(k, v) } }
 
         val spec = request.retrieve()
-            .let { if (statusPredicate != null && responseHandler != null) it.onStatus(statusPredicate, responseHandler) else it }
+            .let {
+                if (statusPredicate != null && responseHandler != null)
+                    it.onStatus(statusPredicate, responseHandler)
+                else it
+            }
 
         return spec.bodyToMono(responseType)
     }
 
     /**
-     * **[[Reactive POST]]**
-     *
-     * Gửi một HTTP POST request kèm [body] đến [url] rồi ánh xạ phản hồi sang kiểu [T].
-     * Hoạt động tương tự [doGet] nhưng dành cho các request có phần thân.
-     *
-     * **Ghi chú**: Quy tắc với [statusPredicate] và [responseHandler] giống hệt [doGet] —
-     * phải truyền cả hai hoặc bỏ qua cả hai.
+     * Gửi một HTTP POST request đến [url] rồi trả về phản hồi với kiểu [T] tương ứng.
      *
      * @param url URL của endpoint cần gọi
-     * @param body Dữ liệu gửi kèm trong phần thân request
+     * @param body Dữ liệu gửi kèm trong request body
      * @param responseType Kiểu phản hồi mong đợi
-     * @param params Query string parameters
-     * @param headers HTTP headers bổ sung
+     * @param params Tham số URL cần truyền vào
+     * @param headers Các header HTTP cần thêm vào request
      * @param statusPredicate Điều kiện để lọc status code lỗi cần xử lý
-     * @param responseHandler Hàm xử lý lỗi khi [statusPredicate] khớp
-     * @param T Kiểu dữ liệu của phần thân phản hồi
-     * @param B Kiểu dữ liệu của phần thân request
-     * @return [Mono] bọc dữ liệu phản hồi kiểu [T]
-     * @author <a href="https://github.com/henry0337">Myrlennia</a>
+     * @param responseHandler Hàm xử lý khi [statusPredicate] khớp
+     * @param T Kiểu phản hồi mong đợi
+     * @param B Kiểu dữ liệu đầu vào của request body
+     * @return Dữ liệu phản hồi mong muốn nếu thành công, hoặc empty nếu thất bại (được bọc bởi một [Mono]).
+     * @author <a href="https://github.com/henry0337">Ademia</a>
      * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
      */
     @Retry(name = "unwrapPost", fallbackMethod = "retryFallback")
@@ -149,28 +115,26 @@ open class ReactiveRestClient(private val webClient: WebClient) {
             .bodyValue(body)
 
         val spec = request.retrieve()
-            .let { if (statusPredicate != null && responseHandler != null) it.onStatus(statusPredicate, responseHandler) else it }
+            .let {
+                if (statusPredicate != null && responseHandler != null) it.onStatus(statusPredicate, responseHandler)
+                else it
+            }
 
         return spec.bodyToMono(responseType)
     }
 
     /**
-     * **[[Coroutine GET]]**
+     * Gửi một HTTP GET request đến [url] rồi trả về phản hồi với kiểu [T] tương ứng.
      *
-     * Phiên bản coroutine của [doGet], trả về trực tiếp [T] thay vì [Mono].
-     * Nhờ `reified`, không cần truyền [ParameterizedTypeReference] thủ công — kiểu [T] được
-     * suy diễn tự động tại compile-time.
-     *
-     * **Ghi chú**: Chỉ dành cho **Kotlin**, không khả dụng từ Java.
-     *
+     * (**Ghi chú**: Hàm này chỉ khả dụng cho các **API Kotlin**.)
      * @param url URL của endpoint cần gọi
-     * @param params Query string parameters
-     * @param headers HTTP headers bổ sung
+     * @param params Tham số URL cần truyền vào
+     * @param headers Các header HTTP cần thêm vào request
      * @param statusPredicate Điều kiện để lọc status code lỗi cần xử lý
-     * @param responseHandler Hàm xử lý lỗi khi [statusPredicate] khớp
+     * @param responseHandler Hàm xử lý khi [statusPredicate] khớp
      * @param T Kiểu dữ liệu của phần thân phản hồi
-     * @return Dữ liệu phản hồi kiểu [T], hoặc `null` nếu phản hồi rỗng
-     * @author <a href="https://github.com/henry0337">Myrlennia</a>
+     * @return Dữ liệu phản hồi mong muốn nếu thành công, hoặc `null` nếu thất bại.
+     * @author <a href="https://github.com/henry0337">Ademia</a>
      */
     @KotlinVariant
     @JvmSynthetic
@@ -190,23 +154,19 @@ open class ReactiveRestClient(private val webClient: WebClient) {
     ).awaitSingleOrNull()
 
     /**
-     * **[[Coroutine POST]]**
+     * Gửi một HTTP POST request đến [url] rồi trả về phản hồi với kiểu [T] tương ứng.
      *
-     * Phiên bản coroutine của [doPost], trả về trực tiếp [T] thay vì [Mono].
-     * Tương tự [awaitGet], kiểu [T] và [B] đều được suy diễn tự động nhờ `reified`.
-     *
-     * **Ghi chú**: Chỉ dành cho **Kotlin**, không khả dụng từ Java.
-     *
+     * (**Ghi chú**: Hàm này chỉ khả dụng cho các **API Kotlin**.)
      * @param url URL của endpoint cần gọi
-     * @param body Dữ liệu gửi kèm trong phần thân request
-     * @param params Query string parameters
-     * @param headers HTTP headers bổ sung
+     * @param body Dữ liệu gửi kèm trong request body
+     * @param params Tham số URL cần truyền vào
+     * @param headers Các header HTTP cần thêm vào request
      * @param statusPredicate Điều kiện để lọc status code lỗi cần xử lý
-     * @param responseHandler Hàm xử lý lỗi khi [statusPredicate] khớp
-     * @param T Kiểu dữ liệu của phần thân phản hồi
-     * @param B Kiểu dữ liệu của phần thân request
-     * @return Dữ liệu phản hồi kiểu [T], hoặc `null` nếu phản hồi rỗng
-     * @author <a href="https://github.com/henry0337">Myrlennia</a>
+     * @param responseHandler Hàm xử lý khi [statusPredicate] khớp
+     * @param T Kiểu phản hồi mong đợi
+     * @param B Kiểu dữ liệu đầu vào của request body
+     * @return Dữ liệu phản hồi mong muốn nếu thành công, hoặc `null` nếu thất bại.
+     * @author <a href="https://github.com/henry0337">Ademia</a>
      */
     @KotlinVariant
     @JvmSynthetic

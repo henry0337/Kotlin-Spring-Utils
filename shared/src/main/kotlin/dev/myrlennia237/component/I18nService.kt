@@ -1,4 +1,4 @@
-package dev.myrlennia237.helper
+package dev.myrlennia237.component
 
 import org.slf4j.LoggerFactory
 import org.springframework.context.MessageSource
@@ -7,10 +7,10 @@ import org.springframework.context.i18n.LocaleContextHolder
 import java.util.Locale
 
 /**
- * Helper hỗ trợ tra cứu và dịch message từ [MessageSource] của Spring.
+ * Helper hỗ trợ tra cứu và dịch message từ [org.springframework.context.MessageSource] của Spring.
  * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
-class I18nHelper(private val messageSource: MessageSource) {
+class I18nService(private val messageSource: MessageSource) {
     private val log = LoggerFactory.getLogger(javaClass)
 
     /**

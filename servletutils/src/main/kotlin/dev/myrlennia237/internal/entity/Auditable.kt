@@ -1,6 +1,6 @@
 package dev.myrlennia237.internal.entity
 
-import dev.myrlennia237.utils.JavaLocalDateTime
+import dev.myrlennia237.JavaOffsetDateTime
 
 /**
  * Contract mô tả các trường audit của một entity.
@@ -30,14 +30,14 @@ internal interface Auditable {
      *
      * @return Thời điểm tạo
      */
-    fun getCreatedDate(): JavaLocalDateTime
+    fun getCreatedDate(): JavaOffsetDateTime
 
     /**
      * Cập nhật thời điểm entity này được tạo.
      *
      * @param creationDate Thời điểm tạo mới
      */
-    fun setCreatedDate(creationDate: JavaLocalDateTime)
+    fun setCreatedDate(creationDate: JavaOffsetDateTime)
 
     /**
      * Trả về người dùng hoặc hệ thống đã chỉnh sửa entity lần gần nhất.
@@ -58,12 +58,12 @@ internal interface Auditable {
      *
      * @return Thời điểm chỉnh sửa gần nhất, hoặc `null` nếu chưa có
      */
-    fun getLastModifiedDate(): JavaLocalDateTime?
+    fun getLastModifiedDate(): JavaOffsetDateTime?
 
     /**
      * Cập nhật thời điểm chỉnh sửa gần nhất của entity.
      *
      * @param lastModifiedDate Thời điểm chỉnh sửa, hoặc `null` nếu muốn xóa giá trị
      */
-    fun setLastModifiedDate(lastModifiedDate: JavaLocalDateTime?)
+    fun setLastModifiedDate(lastModifiedDate: JavaOffsetDateTime?)
 }

@@ -1,4 +1,4 @@
-package dev.myrlennia237.config
+﻿package dev.myrlennia237.config
 
 import org.springframework.data.domain.AuditorAware
 import org.springframework.security.core.Authentication
@@ -15,7 +15,7 @@ import java.util.Optional
  * Bean này được tự động đăng ký bởi [SpringMvcAutoConfiguration]. Để override,
  * khai báo bean [AuditorAware] riêng trong application context.
  *
- * @author <a href="https://github.com/henry0338">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 class AuditorAwareImpl : AuditorAware<String> {
     override fun getCurrentAuditor(): Optional<String> {

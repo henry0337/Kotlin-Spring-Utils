@@ -1,19 +1,17 @@
-package dev.myrlennia237.internal.service.kotlin
+﻿package dev.myrlennia237.internal.service.kotlin
 
 import dev.myrlennia237.annotation.KotlinVariant
 
 /**
- * Kotlin variant cho contract tạo mới một entity theo kiểu coroutine.
- *
- * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ * @param T Dữ liệu đầu ra, thường là Aggregate Root.
+ * @param I Dữ liệu đầu vào, thường là DTO, Projection hoặc tương tự.
+ * @author <a href="https://github.com/henry0337">Ademia</a>
  */
 @KotlinVariant
 internal fun interface Insertable<out T, in I> {
     /**
      * Tạo mới một entity từ dữ liệu đầu vào.
-     *
      * @param item Dữ liệu đầu vào dùng để tạo entity
-     * @return Entity đã được lưu
      */
     suspend fun insert(item: I): T
 }

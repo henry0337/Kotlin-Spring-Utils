@@ -1,6 +1,4 @@
-package dev.myrlennia237.template.controller.java
-
-import dev.myrlennia237.template.controller.BaseController
+package dev.myrlennia237.template.controller
 
 /**
  * **[[Java-Interoperability Variant]]**
@@ -9,6 +7,6 @@ import dev.myrlennia237.template.controller.BaseController
  *
  * Thêm `@RestController` và `@RequestMapping` tại subclass để khai báo endpoints.
  *
- * @author <a href="https://github.com/henry0338">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
-abstract class BaseCrudController : BaseController()
+abstract class CrudController : BaseController()

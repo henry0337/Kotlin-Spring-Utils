@@ -1,18 +1,24 @@
-package dev.myrlennia237.template
+package dev.myrlennia237.template.entity
 
+import dev.myrlennia237.JavaOffsetDateTime
+import dev.myrlennia237.JavaSerializable
 import dev.myrlennia237.internal.entity.Auditable
 import dev.myrlennia237.internal.entity.Conflictable
 import dev.myrlennia237.internal.entity.Restorable
-import dev.myrlennia237.utils.JavaLocalDateTime
-import dev.myrlennia237.utils.JavaSerializable
-import jakarta.persistence.*
-import kotlin.jvm.JvmName
+import jakarta.persistence.Column
+import jakarta.persistence.EntityListeners
+import jakarta.persistence.Id
+import jakarta.persistence.MappedSuperclass
+import jakarta.persistence.Version
+import org.hibernate.annotations.SQLDelete
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
-import java.time.LocalDateTime
+import java.io.Serial
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
 
 /**
  * Base entity JPA với đầy đủ tính năng audit, soft delete và optimistic locking.
@@ -28,10 +34,11 @@ import java.time.LocalDateTime
  *
  * @param ID Kiểu của primary key (ví dụ: [Long], [java.util.UUID])
  *
- * @author <a href="https://github.com/henry0338">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
+@SQLDelete(sql = "deleted = 0")
 abstract class BaseEntity<ID>(
     @Id
     open var id: ID? = null,
@@ -45,21 +52,18 @@ abstract class BaseEntity<ID>(
 
     open var deleted: Short = 0,
 
-    open var deletedAt: JavaLocalDateTime? = null,
+    open var deletedAt: JavaOffsetDateTime? = null,
 ) : Auditable, Conflictable, Restorable, JavaSerializable {
-
-    // Khai báo ở class body để dùng @JvmName — tránh clash với getter/setter
-    // được sinh tự động từ tên property (getCreatedDate, setLastModifiedDate, getVersion).
     @get:JvmName("getCreatedDateValue")
     @set:JvmName("setCreatedDateValue")
     @CreatedDate
     @Column(updatable = false)
-    var createdDate: JavaLocalDateTime = LocalDateTime.now()
+    var createdDate: JavaOffsetDateTime = OffsetDateTime.now(ZoneOffset.UTC)
 
     @get:JvmName("getLastModifiedDateValue")
     @set:JvmName("setLastModifiedDateValue")
     @LastModifiedDate
-    var lastModifiedDate: JavaLocalDateTime? = null
+    var lastModifiedDate: JavaOffsetDateTime? = null
 
     @get:JvmName("getEntityVersion")
     @set:JvmName("setEntityVersion")
@@ -68,21 +72,21 @@ abstract class BaseEntity<ID>(
 
     override fun getCreatedAuditor(): String = createdBy
     override fun setCreatedAuditor(id: String) { createdBy = id }
-    override fun getCreatedDate(): JavaLocalDateTime = createdDate
-    override fun setCreatedDate(creationDate: JavaLocalDateTime) { createdDate = creationDate }
+    override fun getCreatedDate(): JavaOffsetDateTime = createdDate
+    override fun setCreatedDate(creationDate: JavaOffsetDateTime) { createdDate = creationDate }
     override fun getLastModifiedAuditor(): String? = lastModifiedBy
     override fun setLastModifiedAuditor(auditor: String?) { lastModifiedBy = auditor }
-    override fun getLastModifiedDate(): JavaLocalDateTime? = lastModifiedDate
-    override fun setLastModifiedDate(lastModifiedDate: JavaLocalDateTime?) { this.lastModifiedDate = lastModifiedDate }
+    override fun getLastModifiedDate(): JavaOffsetDateTime? = lastModifiedDate
+    override fun setLastModifiedDate(lastModifiedDate: JavaOffsetDateTime?) { this.lastModifiedDate = lastModifiedDate }
     override fun getVersion(): Long = version
     override fun setVersion(version: Long) { this.version = version }
     override fun getRemovedState(): Short = deleted
     override fun setRemovedState(removed: Short) { deleted = removed }
-    override fun getDeletedTimestamp(): JavaLocalDateTime? = deletedAt
-    override fun setRemovedTimestamp(deletedAt: JavaLocalDateTime?) { this.deletedAt = deletedAt }
+    override fun getDeletedTimestamp(): JavaOffsetDateTime? = deletedAt
+    override fun setRemovedTimestamp(deletedAt: JavaOffsetDateTime?) { this.deletedAt = deletedAt }
 
     companion object {
-        @java.io.Serial
+        @Serial
         private const val serialVersionUID: Long = 1L
     }
 }

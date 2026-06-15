@@ -1,7 +1,8 @@
-package dev.myrlennia237.template.repository
+﻿package dev.myrlennia237.template.repository
 
-import dev.myrlennia237.template.BaseEntity
+import dev.myrlennia237.template.entity.BaseEntity
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.repository.NoRepositoryBean
 
 /**
@@ -14,9 +15,9 @@ import org.springframework.data.repository.NoRepositoryBean
  * @param T  Kiểu domain mà repository này sẽ quản lý
  * @param ID Kiểu của ID thuộc domain mà repository này sẽ quản lý
  *
- * @author <a href="https://github.com/henry0338">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  * @see <a href="https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html">JPA Repository</a>
  */
 @NoRepositoryBean
 @JvmSuppressWildcards
-interface JpaBaseRepository<T : BaseEntity<ID>, ID : Any> : JpaRepository<T, ID>
+interface BaseRepository<T : BaseEntity<ID>, ID : Any> : JpaRepository<T, ID>, JpaSpecificationExecutor<T>

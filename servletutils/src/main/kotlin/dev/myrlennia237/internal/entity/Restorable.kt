@@ -1,12 +1,13 @@
-package dev.myrlennia237.internal.entity
+﻿package dev.myrlennia237.internal.entity
 
-import dev.myrlennia237.utils.JavaLocalDateTime
-import java.time.LocalDateTime
+import dev.myrlennia237.JavaOffsetDateTime
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
 
 /**
  * Contract mô tả entity có trạng thái xóa logic và có thể được khôi phục.
  *
- * @author <a href="https://github.com/henry0338">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 internal interface Restorable {
     /**
@@ -28,14 +29,14 @@ internal interface Restorable {
      *
      * @return Thời điểm xóa, hoặc `null` nếu entity chưa bị xóa
      */
-    fun getDeletedTimestamp(): JavaLocalDateTime?
+    fun getDeletedTimestamp(): JavaOffsetDateTime?
 
     /**
      * Cập nhật thời điểm entity bị đánh dấu đã xóa.
      *
      * @param deletedAt Thời điểm xóa, hoặc `null` nếu muốn xóa dấu thời gian
      */
-    fun setRemovedTimestamp(deletedAt: JavaLocalDateTime?)
+    fun setRemovedTimestamp(deletedAt: JavaOffsetDateTime?)
 
     /**
      * Kiểm tra entity hiện tại có đang bị xóa logic hay không.
@@ -47,11 +48,11 @@ internal interface Restorable {
     /**
      * Đánh dấu entity hiện tại là đã xóa logic.
      *
-     * Hàm này sẽ đặt trạng thái xóa về `1` và gán thời điểm xóa là thời gian hiện tại.
+     * Hàm này sẽ đặt trạng thái xóa về `1` và gán thời điểm xóa là thời gian hiện tại (UTC).
      */
     fun markAsDeleted() {
         setRemovedState(1.toShort())
-        setRemovedTimestamp(LocalDateTime.now())
+        setRemovedTimestamp(OffsetDateTime.now(ZoneOffset.UTC))
     }
 
     /**

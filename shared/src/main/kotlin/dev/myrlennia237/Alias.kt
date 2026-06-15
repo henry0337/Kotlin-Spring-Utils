@@ -1,13 +1,13 @@
-package dev.myrlennia237.utils
+package dev.myrlennia237
 
 import java.io.Serializable
 import java.time.Duration
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 
 /**
- * Alias cho [LocalDateTime] — tường minh hóa nguồn gốc Java của kiểu thời gian.
+ * Alias cho [OffsetDateTime] — tường minh hóa nguồn gốc Java của kiểu thời gian có timezone offset.
  */
-typealias JavaLocalDateTime = LocalDateTime
+typealias JavaOffsetDateTime = OffsetDateTime
 
 /**
  * Alias cho [Serializable] — dùng để khai báo entity có thể serialize mà không cần

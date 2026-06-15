@@ -1,4 +1,4 @@
-package dev.myrlennia237.template.service.java
+﻿package dev.myrlennia237.template.service.java
 
 import dev.myrlennia237.internal.service.java.*
 import dev.myrlennia237.template.service.BaseReactiveService
@@ -17,7 +17,7 @@ import dev.myrlennia237.template.service.BaseReactiveService
  * @param I1 Kiểu DTO dùng để tạo mới entity (tham số của `insert`)
  * @param I2 Kiểu DTO dùng để cập nhật entity (tham số của `update`)
  *
- * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Ademia</a>
  */
 abstract class BaseReactiveCrudService<T : Any, ID, I1, I2> :
     BaseReactiveService(),

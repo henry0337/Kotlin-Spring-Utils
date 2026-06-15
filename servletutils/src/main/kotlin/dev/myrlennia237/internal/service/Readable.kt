@@ -1,15 +1,14 @@
-package dev.myrlennia237.internal.service.kotlin
+﻿package dev.myrlennia237.internal.service
 
-import dev.myrlennia237.annotation.KotlinVariant
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import java.util.Optional
 
 /**
- * Kotlin variant cho contract đọc dữ liệu dạng blocking.
+ * Java variant cho contract đọc dữ liệu dạng blocking.
  *
- * @author <a href="https://github.com/henry0338">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
-@KotlinVariant
 internal fun interface Readable<T : Any> {
     /**
      * Lấy danh sách entity theo trang.
@@ -21,17 +20,16 @@ internal fun interface Readable<T : Any> {
 }
 
 /**
- * Kotlin variant mở rộng của [Readable] để đọc một entity theo định danh.
+ * Java variant mở rộng của [Readable] để đọc một entity theo định danh.
  *
- * @author <a href="https://github.com/henry0338">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
-@KotlinVariant
 internal interface ReadableWithID<T : Any, in ID> : Readable<T> {
     /**
      * Tìm một entity theo định danh.
      *
      * @param id Định danh của entity cần tìm
-     * @return Entity nếu tìm thấy, hoặc `null`
+     * @return [Optional] bọc entity nếu tìm thấy, hoặc rỗng nếu không có
      */
-    fun findById(id: ID): T?
+    fun findById(id: ID): Optional<T>
 }

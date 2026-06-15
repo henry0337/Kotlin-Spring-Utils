@@ -10,5 +10,5 @@ package dev.myrlennia237.annotation
     AnnotationTarget.FUNCTION,
     AnnotationTarget.PROPERTY
 )
-@Retention(AnnotationRetention.SOURCE)
+@Retention(AnnotationRetention.RUNTIME)
 annotation class KotlinVariant

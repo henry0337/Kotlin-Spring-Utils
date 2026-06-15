@@ -1,9 +1,9 @@
-@file:NullMarked
+﻿@file:NullMarked
 
 package dev.myrlennia237.service
 
 import dev.myrlennia237.annotation.KotlinVariant
-import dev.myrlennia237.utils.Predicate
+import dev.myrlennia237.Predicate
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker
 import io.github.resilience4j.retry.annotation.Retry
 import org.jspecify.annotations.NullMarked
@@ -16,32 +16,7 @@ import org.springframework.web.client.RestClient
 
 /**
  * HTTP client blocking bọc [RestClient] với tích hợp **Resilience4j** (Retry + Circuit Breaker).
- *
- * Bean này được tự động đăng ký bởi
- * [dev.myrlennia237.config.SpringMvcAutoConfiguration]. Có thể extend class này để
- * override các fallback method [retryFallback] và [circuitBreakerFallback].
- *
- * ## Cấu hình Resilience4j
- * Khai báo các instance `unwrapGet` và `unwrapPost` trong `application.yml` để tùy chỉnh
- * hành vi retry và circuit breaker. Nếu bỏ qua, Resilience4j sẽ dùng cấu hình mặc định.
- *
- * ```yaml
- * resilience4j:
- *   retry:
- *     instances:
- *       unwrapGet:
- *         max-attempts: 3
- *       unwrapPost:
- *         max-attempts: 3
- *   circuit-breaker:
- *     instances:
- *       unwrapGet:
- *         sliding-window-size: 10
- *       unwrapPost:
- *         sliding-window-size: 10
- * ```
- *
- * @author <a href="https://github.com/henry0338">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
  */
 open class RestClientHelper(private val restClient: RestClient) {
@@ -67,7 +42,7 @@ open class RestClientHelper(private val restClient: RestClient) {
      * @param errorHandler   Hàm xử lý lỗi khi [statusPredicate] khớp
      * @param T              Kiểu dữ liệu của phần thân phản hồi
      * @return Dữ liệu phản hồi kiểu [T], hoặc `null` nếu phản hồi rỗng
-     * @author <a href="https://github.com/henry0338">Myrlennia</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
      */
     @Retry(name = "unwrapGet", fallbackMethod = "retryFallback")
@@ -117,7 +92,7 @@ open class RestClientHelper(private val restClient: RestClient) {
      * @param T              Kiểu dữ liệu của phần thân phản hồi
      * @param B              Kiểu dữ liệu của phần thân request
      * @return Dữ liệu phản hồi kiểu [T], hoặc `null` nếu phản hồi rỗng
-     * @author <a href="https://github.com/henry0338">Myrlennia</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
      */
     @Retry(name = "unwrapPost", fallbackMethod = "retryFallback")
@@ -165,7 +140,7 @@ open class RestClientHelper(private val restClient: RestClient) {
      * @param errorHandler   Hàm xử lý lỗi khi [statusPredicate] khớp
      * @param T              Kiểu dữ liệu của phần thân phản hồi
      * @return Dữ liệu phản hồi kiểu [T], hoặc `null` nếu phản hồi rỗng
-     * @author <a href="https://github.com/henry0338">Myrlennia</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      */
     @KotlinVariant
     @JvmSynthetic
@@ -201,7 +176,7 @@ open class RestClientHelper(private val restClient: RestClient) {
      * @param T              Kiểu dữ liệu của phần thân phản hồi
      * @param B              Kiểu dữ liệu của phần thân request
      * @return Dữ liệu phản hồi kiểu [T], hoặc `null` nếu phản hồi rỗng
-     * @author <a href="https://github.com/henry0338">Myrlennia</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      */
     @KotlinVariant
     @JvmSynthetic

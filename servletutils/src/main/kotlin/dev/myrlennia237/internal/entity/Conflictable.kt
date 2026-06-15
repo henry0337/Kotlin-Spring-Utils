@@ -1,9 +1,9 @@
-package dev.myrlennia237.internal.entity
+﻿package dev.myrlennia237.internal.entity
 
 /**
  * Contract mô tả entity có cơ chế versioning để kiểm soát xung đột cập nhật.
  *
- * @author <a href="https://github.com/henry0338">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 internal interface Conflictable {
     /**

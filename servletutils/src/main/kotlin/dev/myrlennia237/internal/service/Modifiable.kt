@@ -1,14 +1,11 @@
-package dev.myrlennia237.internal.service.kotlin
-
-import dev.myrlennia237.annotation.KotlinVariant
+﻿package dev.myrlennia237.internal.service
 
 /**
- * Kotlin variant cho contract cập nhật một entity theo định danh.
+ * Java variant cho contract cập nhật một entity theo định danh.
  *
- * @author <a href="https://github.com/henry0338">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
-@KotlinVariant
-internal fun interface Modifiable<out T : Any, ID, in I> {
+internal fun interface Modifiable<T : Any, ID, in I> {
     /**
      * Cập nhật entity tương ứng với [id] bằng dữ liệu từ [body].
      *

@@ -1,7 +1,7 @@
-package dev.myrlennia237.template.repository
+﻿package dev.myrlennia237.template.repository
 
 import dev.myrlennia237.annotation.KotlinVariant
-import dev.myrlennia237.template.entity.BaseEntity
+import dev.myrlennia237.template.entity.Entity
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import org.springframework.data.repository.kotlin.CoroutineSortingRepository
@@ -17,11 +17,11 @@ import org.springframework.data.repository.kotlin.CoroutineSortingRepository
  * @param T  Kiểu domain mà repository này sẽ quản lý
  * @param ID Kiểu của ID thuộc domain mà repository này sẽ quản lý
  *
- * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Ademia</a>
  * @see <a href="https://docs.spring.io/spring-data/relational/reference/kotlin/coroutines.html">Coroutine-specific Repository</a>
  */
 @KotlinVariant
 @NoRepositoryBean
-interface CoroutineRepository<T : BaseEntity<ID>, ID : Any> :
+interface CoroutineRepository<T : Entity<ID>, ID : Any> :
     CoroutineCrudRepository<T, ID>,
     CoroutineSortingRepository<T, ID>

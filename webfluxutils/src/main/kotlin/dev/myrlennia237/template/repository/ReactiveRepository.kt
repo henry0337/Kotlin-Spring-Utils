@@ -1,6 +1,6 @@
-package dev.myrlennia237.template.repository
+﻿package dev.myrlennia237.template.repository
 
-import dev.myrlennia237.template.entity.BaseEntity
+import dev.myrlennia237.template.entity.Entity
 import org.springframework.data.r2dbc.repository.R2dbcRepository
 import org.springframework.data.repository.NoRepositoryBean
 
@@ -15,9 +15,9 @@ import org.springframework.data.repository.NoRepositoryBean
  * @param T  Kiểu domain mà repository này sẽ quản lý
  * @param ID Kiểu của ID thuộc domain mà repository này sẽ quản lý
  *
- * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Ademia</a>
  * @see <a href="https://docs.spring.io/spring-data/relational/reference/r2dbc/repositories.html">R2DBC Repository</a>
  */
 @NoRepositoryBean
 @JvmSuppressWildcards
-interface ReactiveRepository<T : BaseEntity<ID>, ID : Any> : R2dbcRepository<T, ID>
+interface ReactiveRepository<T : Entity<ID>, ID : Any> : R2dbcRepository<T, ID>

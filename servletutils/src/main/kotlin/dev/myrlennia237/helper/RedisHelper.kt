@@ -1,6 +1,6 @@
-package dev.myrlennia237.helper
+﻿package dev.myrlennia237.helper
 
-import dev.myrlennia237.utils.JavaDuration
+import dev.myrlennia237.JavaDuration
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.data.redis.core.ValueOperations
 
@@ -11,9 +11,9 @@ import org.springframework.data.redis.core.ValueOperations
  * [dev.myrlennia237.config.SpringMvcAutoConfiguration] khi có [StringRedisTemplate]
  * trong Spring context. Có thể extend class này để thêm các thao tác tùy chỉnh.
  *
- * @author <a href="https://github.com/henry0338">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
-open class BlockingRedisHelper(redisTemplate: StringRedisTemplate) {
+open class RedisHelper(redisTemplate: StringRedisTemplate) {
     private val redisOps: ValueOperations<String, String> = redisTemplate.opsForValue()
 
     /**

@@ -1,9 +1,9 @@
-package dev.myrlennia237.internal.service.java
+﻿package dev.myrlennia237.internal.service
 
 /**
  * Java variant cho contract vô hiệu hóa (xóa logic) một entity theo định danh.
  *
- * @author <a href="https://github.com/henry0338">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 internal fun interface Reversible<ID> {
     /**

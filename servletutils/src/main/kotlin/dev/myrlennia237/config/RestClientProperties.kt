@@ -1,4 +1,4 @@
-package dev.myrlennia237.config
+﻿package dev.myrlennia237.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 
@@ -19,7 +19,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties
  * @param acceptEncodings    Danh sách giá trị của header `Accept-Encoding`; mặc định `["gzip, deflate"]`
  * @param defaultContentType Giá trị mặc định của header `Content-Type`; mặc định `"application/json"`
  *
- * @author <a href="https://github.com/henry0338">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @ConfigurationProperties(prefix = "spring-utils.rest-client")
 data class RestClientProperties(
