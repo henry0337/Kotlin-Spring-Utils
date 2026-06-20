@@ -1,4 +1,4 @@
-﻿@file:NullMarked
+@file:NullMarked
 
 package dev.myrlennia237.service
 
@@ -20,7 +20,7 @@ import reactor.core.publisher.Mono
 
 /**
  * Một Reactive HTTP Client dùng để gọi tới các API bên thứ 3.
- * @author <a href="https://github.com/henry0337">Ademia</a>
+ * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 open class ReactiveRestClient(private val webClient: WebClient) {
     @Autowired
@@ -39,7 +39,7 @@ open class ReactiveRestClient(private val webClient: WebClient) {
      * @param responseHandler Hàm xử lý khi [statusPredicate] khớp
      * @param T Kiểu phản hồi mong đợi
      * @return Dữ liệu phản hồi mong muốn nếu thành công, hoặc empty nếu thất bại (được bọc bởi một [Mono]).
-     * @author <a href="https://github.com/henry0337">Ademia</a>
+     * @author <a href="https://github.com/henry0337">Muharux</a>
      * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
      */
     @Retry(name = "unwrapGet", fallbackMethod = "retryFallback")
@@ -87,7 +87,7 @@ open class ReactiveRestClient(private val webClient: WebClient) {
      * @param T Kiểu phản hồi mong đợi
      * @param B Kiểu dữ liệu đầu vào của request body
      * @return Dữ liệu phản hồi mong muốn nếu thành công, hoặc empty nếu thất bại (được bọc bởi một [Mono]).
-     * @author <a href="https://github.com/henry0337">Ademia</a>
+     * @author <a href="https://github.com/henry0337">Muharux</a>
      * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
      */
     @Retry(name = "unwrapPost", fallbackMethod = "retryFallback")
@@ -134,7 +134,7 @@ open class ReactiveRestClient(private val webClient: WebClient) {
      * @param responseHandler Hàm xử lý khi [statusPredicate] khớp
      * @param T Kiểu dữ liệu của phần thân phản hồi
      * @return Dữ liệu phản hồi mong muốn nếu thành công, hoặc `null` nếu thất bại.
-     * @author <a href="https://github.com/henry0337">Ademia</a>
+     * @author <a href="https://github.com/henry0337">Muharux</a>
      */
     @KotlinVariant
     @JvmSynthetic
@@ -166,7 +166,7 @@ open class ReactiveRestClient(private val webClient: WebClient) {
      * @param T Kiểu phản hồi mong đợi
      * @param B Kiểu dữ liệu đầu vào của request body
      * @return Dữ liệu phản hồi mong muốn nếu thành công, hoặc `null` nếu thất bại.
-     * @author <a href="https://github.com/henry0337">Ademia</a>
+     * @author <a href="https://github.com/henry0337">Muharux</a>
      */
     @KotlinVariant
     @JvmSynthetic
@@ -187,9 +187,9 @@ open class ReactiveRestClient(private val webClient: WebClient) {
         responseHandler
     ).awaitSingleOrNull()
 
-    @Suppress("UNUSED_PARAMETER", "unused")
+    @Suppress("unused")
     protected fun <T : Any> retryFallback(ex: Throwable): Mono<T> = Mono.error(ex)
 
-    @Suppress("UNUSED_PARAMETER", "unused")
+    @Suppress("unused")
     protected fun <T : Any> circuitBreakerFallback(ex: Throwable): Mono<T> = Mono.error(ex)
 }

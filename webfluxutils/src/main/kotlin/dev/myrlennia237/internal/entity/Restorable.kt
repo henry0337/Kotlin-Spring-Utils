@@ -1,13 +1,12 @@
-﻿package dev.myrlennia237.internal.entity
+package dev.myrlennia237.internal.entity
 
-import dev.myrlennia237.JavaOffsetDateTime
-import java.time.OffsetDateTime
-import java.time.ZoneOffset
+import dev.myrlennia237.JavaInstant
+import java.time.Instant
 
 /**
  * Đánh dấu một Entity sẽ áp dụng cơ chế xóa mềm lên data của chúng thay vì xóa hoàn toàn, đồng thời áp dụng cơ chế
  * khôi phục tương ứng cho mỗi dữ liệu đó.
- * @author <a href="https://github.com/henry0337">Ademia</a>
+ * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 internal interface Restorable {
     /**
@@ -29,14 +28,14 @@ internal interface Restorable {
      *
      * @return Thời điểm xóa, hoặc `null` nếu entity chưa bị xóa
      */
-    fun getDeletedTimestamp(): JavaOffsetDateTime?
+    fun getDeletedTimestamp(): JavaInstant?
 
     /**
      * Cập nhật thời điểm entity bị đánh dấu đã xóa.
      *
      * @param deletedAt Thời điểm xóa, hoặc `null` nếu muốn xóa dấu thời gian
      */
-    fun setRemovedTimestamp(deletedAt: JavaOffsetDateTime?)
+    fun setRemovedTimestamp(deletedAt: JavaInstant?)
 
     /**
      * Kiểm tra entity hiện tại có đang bị xóa logic hay không.
@@ -51,8 +50,8 @@ internal interface Restorable {
      * Hàm này sẽ đặt trạng thái xóa về `1` và gán thời điểm xóa là thời gian hiện tại (UTC).
      */
     fun markAsDeleted() {
-        setRemovedState(1.toShort())
-        setRemovedTimestamp(OffsetDateTime.now(ZoneOffset.UTC))
+        setRemovedState(1)
+        setRemovedTimestamp(Instant.now())
     }
 
     /**
@@ -61,7 +60,7 @@ internal interface Restorable {
      * Hàm này sẽ đặt trạng thái xóa về `0` và xóa thời điểm xóa.
      */
     fun restore() {
-        setRemovedState(0.toShort())
+        setRemovedState(0)
         setRemovedTimestamp(null)
     }
 }

@@ -1,17 +1,16 @@
-﻿package dev.myrlennia237.internal.service
+package dev.myrlennia237.internal.service
 
 /**
- * Java variant cho contract cập nhật một entity theo định danh.
- *
- * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ * @param T Dữ liệu đầu ra, thường là Aggregate Root.
+ * @param ID Kiểu của ID dùng để tìm kiếm dữ liệu đầu ra.
+ * @param I Dữ liệu đầu vào, thường là DTO, Projection hoặc tương tự.
+ * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 internal fun interface Modifiable<T : Any, ID, in I> {
     /**
-     * Cập nhật entity tương ứng với [id] bằng dữ liệu từ [body].
-     *
-     * @param id   Định danh của entity cần cập nhật
-     * @param body Dữ liệu đầu vào dùng để cập nhật entity
-     * @return Entity sau khi đã được cập nhật
+     * Cập nhật dữ liệu của một entity theo ID.
+     * @param id ID của entity cần cập nhật
+     * @param body Dữ liệu mới để thay thế
      */
     fun update(id: ID, body: I): T
 }

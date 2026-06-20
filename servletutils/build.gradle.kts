@@ -18,6 +18,9 @@ dependencies {
     implementation("tools.jackson.module:jackson-module-kotlin")
     implementation("io.github.resilience4j:resilience4j-spring-boot4:2.4.0")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
+    implementation("io.github.openfeign.querydsl:querydsl-jpa:7.4.0")
+    kapt("io.github.openfeign.querydsl:querydsl-apt:7.4.0:jpa")
+    kapt("jakarta.persistence:jakarta.persistence-api")
 }
 
 kotlin {

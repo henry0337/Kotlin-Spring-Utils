@@ -8,7 +8,7 @@ import java.util.Locale
 
 /**
  * Helper hỗ trợ tra cứu và dịch message từ [org.springframework.context.MessageSource] của Spring.
- * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 class I18nService(private val messageSource: MessageSource) {
     private val log = LoggerFactory.getLogger(javaClass)
@@ -22,7 +22,7 @@ class I18nService(private val messageSource: MessageSource) {
      * @param args Tham số thay thế cho message, nếu có
      * @param locale Locale dùng để resolve message; mặc định lấy từ `LocaleContextHolder`
      * @return Message đã dịch, hoặc chuỗi rỗng nếu không tìm thấy `key`
-     * @author <a href="https://github.com/henry0337">Myrlennia</a>
+     * @author <a href="https://github.com/henry0337">Muharux</a>
      */
     @JvmOverloads
     fun translate(

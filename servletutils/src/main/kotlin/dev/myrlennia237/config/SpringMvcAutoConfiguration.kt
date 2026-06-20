@@ -1,8 +1,10 @@
 package dev.myrlennia237.config
 
+import com.querydsl.jpa.impl.JPAQueryFactory
 import dev.myrlennia237.component.I18nService
-import dev.myrlennia237.helper.RedisHelper
-import dev.myrlennia237.service.RestClientHelper
+import dev.myrlennia237.service.RedisService
+import dev.myrlennia237.service.HttpClient
+import jakarta.persistence.EntityManager
 import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
@@ -30,11 +32,14 @@ class SpringMvcAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    fun restClientHelper(restClient: RestClient) = RestClientHelper(restClient)
+    fun httpClient(restClient: RestClient) = HttpClient(restClient)
 
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnClass(StringRedisTemplate::class)
     @ConditionalOnBean(StringRedisTemplate::class)
-    fun redisHelper(redisTemplate: StringRedisTemplate) = RedisHelper(redisTemplate)
+    fun redisService(redisTemplate: StringRedisTemplate) = RedisService(redisTemplate)
+
+    @Bean
+    fun jpaQueryFactory(entityManager: EntityManager): JPAQueryFactory = JPAQueryFactory(entityManager)
 }

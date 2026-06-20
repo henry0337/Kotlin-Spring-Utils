@@ -10,7 +10,7 @@ import kotlin.time.Duration
 import kotlin.time.toJavaDuration
 
 /**
- * @author <a href="https://github.com/henry0337">Ademia</a>
+ * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 open class ReactiveRedisService(redisTemplate: ReactiveStringRedisTemplate) {
     private val redisOps: ReactiveValueOperations<String, String> = redisTemplate.opsForValue()

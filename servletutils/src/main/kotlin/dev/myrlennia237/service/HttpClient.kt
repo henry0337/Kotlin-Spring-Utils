@@ -15,34 +15,27 @@ import org.springframework.http.HttpStatusCode
 import org.springframework.web.client.RestClient
 
 /**
- * HTTP client blocking bọc [RestClient] với tích hợp **Resilience4j** (Retry + Circuit Breaker).
- * @author <a href="https://github.com/henry0337">Myrlennia</a>
- * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
+ * Một HTTP Client dùng để gọi tới các API bên thứ 3.
+ * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-open class RestClientHelper(private val restClient: RestClient) {
+open class HttpClient(private val restClient: RestClient) {
     @Autowired
     @Lazy
     @PublishedApi
-    internal lateinit var self: RestClientHelper
+    internal lateinit var self: HttpClient
 
     /**
-     * **[[Java-Interoperability Variant]]**
+     * Gửi một HTTP GET request đến [url] rồi trả về phản hồi với kiểu [T] tương ứng.
      *
-     * Gửi một HTTP GET request đến [url] rồi ánh xạ phản hồi sang kiểu [T].
-     * Có tích hợp sẵn **Retry** và **Circuit Breaker** của Resilience4j.
-     *
-     * **Ghi chú**: [statusPredicate] và [errorHandler] đi kèm với nhau — nếu muốn xử lý lỗi
-     * theo status code thì phải truyền cả hai, không thể truyền một mình [errorHandler].
-     *
-     * @param url            URL của endpoint cần gọi
-     * @param responseType   Kiểu phản hồi mong đợi
-     * @param params         Query string parameters
-     * @param headers        HTTP headers bổ sung
+     * @param url URL của endpoint cần gọi
+     * @param responseType Kiểu phản hồi mong đợi
+     * @param params Tham số URL cần truyền vào
+     * @param headers Các header HTTP cần thêm vào request
      * @param statusPredicate Điều kiện để lọc status code lỗi cần xử lý
-     * @param errorHandler   Hàm xử lý lỗi khi [statusPredicate] khớp
-     * @param T              Kiểu dữ liệu của phần thân phản hồi
-     * @return Dữ liệu phản hồi kiểu [T], hoặc `null` nếu phản hồi rỗng
-     * @author <a href="https://github.com/henry0337">Myrlennia</a>
+     * @param errorHandler Hàm xử lý khi [statusPredicate] khớp
+     * @param T Kiểu phản hồi mong đợi
+     * @return Dữ liệu phản hồi mong muốn nếu thành công, hoặc `null` nếu thất bại.
+     * @author <a href="https://github.com/henry0337">Muharux</a>
      * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
      */
     @Retry(name = "unwrapGet", fallbackMethod = "retryFallback")
@@ -74,25 +67,19 @@ open class RestClientHelper(private val restClient: RestClient) {
     }
 
     /**
-     * **[[Java-Interoperability Variant]]**
+     * Gửi một HTTP POST request đến [url] rồi trả về phản hồi với kiểu [T] tương ứng.
      *
-     * Gửi một HTTP POST request kèm [body] đến [url] rồi ánh xạ phản hồi sang kiểu [T].
-     * Hoạt động tương tự [doGet] nhưng dành cho các request có phần thân.
-     *
-     * **Ghi chú**: Quy tắc với [statusPredicate] và [errorHandler] giống hệt [doGet] —
-     * phải truyền cả hai hoặc bỏ qua cả hai.
-     *
-     * @param url            URL của endpoint cần gọi
-     * @param body           Dữ liệu gửi kèm trong phần thân request
-     * @param responseType   Kiểu phản hồi mong đợi
-     * @param params         Query string parameters
-     * @param headers        HTTP headers bổ sung
+     * @param url URL của endpoint cần gọi
+     * @param body Dữ liệu gửi kèm trong request body
+     * @param responseType Kiểu phản hồi mong đợi
+     * @param params Tham số URL cần truyền vào
+     * @param headers Các header HTTP cần thêm vào request
      * @param statusPredicate Điều kiện để lọc status code lỗi cần xử lý
-     * @param errorHandler   Hàm xử lý lỗi khi [statusPredicate] khớp
-     * @param T              Kiểu dữ liệu của phần thân phản hồi
-     * @param B              Kiểu dữ liệu của phần thân request
-     * @return Dữ liệu phản hồi kiểu [T], hoặc `null` nếu phản hồi rỗng
-     * @author <a href="https://github.com/henry0337">Myrlennia</a>
+     * @param errorHandler Hàm xử lý khi [statusPredicate] khớp
+     * @param T Kiểu phản hồi mong đợi
+     * @param B Kiểu dữ liệu đầu vào của request body
+     * @return Dữ liệu phản hồi mong muốn nếu thành công, hoặc `null` nếu thất bại.
+     * @author <a href="https://github.com/henry0337">Muharux</a>
      * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
      */
     @Retry(name = "unwrapPost", fallbackMethod = "retryFallback")
@@ -140,7 +127,7 @@ open class RestClientHelper(private val restClient: RestClient) {
      * @param errorHandler   Hàm xử lý lỗi khi [statusPredicate] khớp
      * @param T              Kiểu dữ liệu của phần thân phản hồi
      * @return Dữ liệu phản hồi kiểu [T], hoặc `null` nếu phản hồi rỗng
-     * @author <a href="https://github.com/henry0337">Myrlennia</a>
+     * @author <a href="https://github.com/henry0337">Muharux</a>
      */
     @KotlinVariant
     @JvmSynthetic
@@ -176,7 +163,7 @@ open class RestClientHelper(private val restClient: RestClient) {
      * @param T              Kiểu dữ liệu của phần thân phản hồi
      * @param B              Kiểu dữ liệu của phần thân request
      * @return Dữ liệu phản hồi kiểu [T], hoặc `null` nếu phản hồi rỗng
-     * @author <a href="https://github.com/henry0337">Myrlennia</a>
+     * @author <a href="https://github.com/henry0337">Muharux</a>
      */
     @KotlinVariant
     @JvmSynthetic
@@ -197,9 +184,9 @@ open class RestClientHelper(private val restClient: RestClient) {
         errorHandler
     )
 
-    @Suppress("UNUSED_PARAMETER", "unused")
+    @Suppress("unused")
     protected fun <T : Any> retryFallback(ex: Throwable): T = throw ex
 
-    @Suppress("UNUSED_PARAMETER", "unused")
+    @Suppress("unused")
     protected fun <T : Any> circuitBreakerFallback(ex: Throwable): T = throw ex
 }

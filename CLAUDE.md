@@ -71,17 +71,17 @@ spring-utils:
 
 ## Tech Stack
 
-| Component | Version |
-|-----------|---------|
-| Kotlin | 2.3.21 |
-| Java Toolchain | 25 |
-| Spring Boot | 4.0.6 |
-| Spring WebFlux / R2DBC | 4.0.6 |
-| Kotlinx Coroutines | via BOM |
-| Kotlinx Serialization | 1.10.0 |
-| Kotlinx DateTime | 0.7.1 |
-| Resilience4j | 2.4.0 |
-| Gradle | 9.4.1 |
+| Component              | Version |
+|------------------------|---------|
+| Kotlin                 | 2.3.21  |
+| Java Toolchain         | 25      |
+| Spring Boot            | 4.0.6   |
+| Spring WebFlux / R2DBC | 4.0.6   |
+| Kotlinx Coroutines     | via BOM |
+| Kotlinx Serialization  | 1.10.0  |
+| Kotlinx DateTime       | 0.7.1   |
+| Resilience4j           | 2.4.0   |
+| Gradle                 | 9.4.1   |
 
 ## Key Conventions
 

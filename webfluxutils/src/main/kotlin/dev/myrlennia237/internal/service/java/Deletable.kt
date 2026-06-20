@@ -1,9 +1,9 @@
-﻿package dev.myrlennia237.internal.service.java
+package dev.myrlennia237.internal.service.java
 
 import reactor.core.publisher.Mono
 
 /**
- * @author <a href="https://github.com/henry0337">Ademia</a>
+ * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 internal fun interface Deletable<in ID> {
     /**

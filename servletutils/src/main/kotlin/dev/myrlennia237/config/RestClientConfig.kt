@@ -1,4 +1,4 @@
-﻿package dev.myrlennia237.config
+package dev.myrlennia237.config
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
@@ -13,7 +13,7 @@ import org.springframework.web.client.RestClient
  * từng giá trị qua `spring-utils.rest-client.*` trong `application.yml` mà không cần
  * khai báo lại toàn bộ bean.
  *
- * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Muharux</a>
  * @see RestClientProperties
  */
 @Configuration(proxyBeanMethods = false)

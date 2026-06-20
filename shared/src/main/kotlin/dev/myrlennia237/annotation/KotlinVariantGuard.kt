@@ -7,7 +7,7 @@ object KotlinVariantGuard {
     /**
      * Ném [IllegalCallerException] nếu caller trực tiếp không phải Kotlin code.
      *
-     * Kotlin class được nhận diện qua annotation [kotlin.Metadata] mà Kotlin compiler
+     * Kotlin class được nhận diện qua annotation [Metadata] mà Kotlin compiler
      * tự động thêm vào mọi class được biên dịch từ `.kt` hoặc `.kts`.
      */
     fun check() {

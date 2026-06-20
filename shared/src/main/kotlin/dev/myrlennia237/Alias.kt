@@ -2,12 +2,12 @@ package dev.myrlennia237
 
 import java.io.Serializable
 import java.time.Duration
-import java.time.OffsetDateTime
+import java.time.Instant
 
 /**
- * Alias cho [OffsetDateTime] — tường minh hóa nguồn gốc Java của kiểu thời gian có timezone offset.
+ * Alias cho [Instant] — tường minh hóa nguồn gốc Java của kiểu thời gian UTC.
  */
-typealias JavaOffsetDateTime = OffsetDateTime
+typealias JavaInstant = Instant
 
 /**
  * Alias cho [Serializable] — dùng để khai báo entity có thể serialize mà không cần

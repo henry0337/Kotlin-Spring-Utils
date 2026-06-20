@@ -1,14 +1,12 @@
-﻿package dev.myrlennia237.internal.service
+package dev.myrlennia237.internal.service
 
 /**
- * Java variant cho contract vô hiệu hóa (xóa logic) một entity theo định danh.
- *
- * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ * @param ID Kiểu của ID dùng để tìm kiếm dữ liệu đầu ra.
+ * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 internal fun interface Reversible<ID> {
     /**
-     * Vô hiệu hóa entity tương ứng với [id] bằng cơ chế xóa logic.
-     *
+     * Vô hiệu hóa một bản ghi được chỉ định theo ID.
      * @param id Định danh của entity cần vô hiệu hóa
      */
     fun disable(id: ID)

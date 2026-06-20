@@ -1,15 +1,12 @@
-﻿package dev.myrlennia237.internal.service
+package dev.myrlennia237.internal.service
 
 /**
- * Java variant cho contract xóa vĩnh viễn một entity theo định danh.
- *
- * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 internal fun interface Deletable<ID> {
     /**
-     * Xóa vĩnh viễn entity tương ứng với [id] khỏi cơ sở dữ liệu.
-     *
-     * @param id Định danh của entity cần xóa
+     * Thực hiện xóa dữ liệu dựa trên ID của chúng.
+     * @param id ID của entity cần xóa
      */
     fun deleteById(id: ID)
 }

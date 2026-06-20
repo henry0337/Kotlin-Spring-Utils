@@ -1,12 +1,12 @@
-﻿package dev.myrlennia237.template.controller
+package dev.myrlennia237.template.controller
 
 import dev.myrlennia237.component.I18nService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Indexed
 
 /**
- * Marker base class cho tất cả REST controller trong module WebFlux.
- * @author <a href="https://github.com/henry0337">Ademia</a>
+ * Lớp base cho tất cả controller có sẵn trong dự án.
+ * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 @Indexed
 abstract class BaseReactiveController {

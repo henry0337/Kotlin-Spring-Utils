@@ -1,10 +1,10 @@
-﻿package dev.myrlennia237.internal.entity
+package dev.myrlennia237.internal.entity
 
-import dev.myrlennia237.JavaOffsetDateTime
+import java.time.Instant
 
 /**
  * Chứa thông tin truy vết tới đối tượng thực hiện tinh chỉnh dữ liệu trên cơ sở dữ liệu.
- * @author <a href="https://github.com/henry0337">Ademia</a>
+ * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 internal interface Auditable {
     /**
@@ -20,12 +20,12 @@ internal interface Auditable {
     /**
      * @return Thời điểm dữ liệu được tạo ra.
      */
-    fun getCreatedDate(): JavaOffsetDateTime
+    fun getCreatedDate(): Instant
 
     /**
      * @param creationDate Thời điểm dữ liệu được tạo ra.
      */
-    fun setCreatedDate(creationDate: JavaOffsetDateTime)
+    fun setCreatedDate(creationDate: Instant)
 
     /**
      * @return Tên tác nhân chỉnh sửa gần nhất, hoặc `null` nếu chưa có.
@@ -40,10 +40,10 @@ internal interface Auditable {
     /**
      * @return Thời điểm chỉnh sửa gần nhất, hoặc `null` nếu chưa có.
      */
-    fun getLastModifiedDate(): JavaOffsetDateTime?
+    fun getLastModifiedDate(): Instant?
 
     /**
      * @param lastModifiedDate Thời điểm chỉnh sửa gần nhất, hoặc `null` nếu muốn xóa giá trị.
      */
-    fun setLastModifiedDate(lastModifiedDate: JavaOffsetDateTime?)
+    fun setLastModifiedDate(lastModifiedDate: Instant?)
 }

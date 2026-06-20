@@ -1,11 +1,11 @@
-﻿package dev.myrlennia237.internal.service.kotlin
+package dev.myrlennia237.internal.service.kotlin
 
 import dev.myrlennia237.annotation.KotlinVariant
 
 /**
  * @param T Dữ liệu đầu ra, thường là Aggregate Root.
  * @param I Dữ liệu đầu vào, thường là DTO, Projection hoặc tương tự.
- * @author <a href="https://github.com/henry0337">Ademia</a>
+ * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 @KotlinVariant
 internal fun interface Insertable<out T, in I> {

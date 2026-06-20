@@ -1,10 +1,19 @@
-﻿package dev.myrlennia237.template.service
+package dev.myrlennia237.template.service
 
+import com.querydsl.jpa.impl.JPAQueryFactory
+import dev.myrlennia237.component.I18nService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Indexed
 
 /**
- * Marker base class cho tất cả service trong module servletutils.
- * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ * Marker base class cho tất cả service trong module WebFlux.
+ * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 @Indexed
-abstract class BaseService
+abstract class BaseService {
+    @set:Autowired(required = false)
+    protected lateinit var i18nService: I18nService
+
+    @set:Autowired(required = false)
+    protected lateinit var queryFactory: JPAQueryFactory
+}
