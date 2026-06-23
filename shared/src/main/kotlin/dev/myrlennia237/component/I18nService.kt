@@ -7,7 +7,6 @@ import org.springframework.context.i18n.LocaleContextHolder
 import java.util.Locale
 
 /**
- * Helper hỗ trợ tra cứu và dịch message từ [org.springframework.context.MessageSource] của Spring.
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 class I18nService(private val messageSource: MessageSource) {
@@ -18,7 +17,7 @@ class I18nService(private val messageSource: MessageSource) {
      *
      * Nếu `key` không tồn tại trong resource bundle, hàm sẽ log cảnh báo và trả về chuỗi rỗng.
      *
-     * @param key Message code cần tra cứu
+     * @param code Message code cần tra cứu
      * @param args Tham số thay thế cho message, nếu có
      * @param locale Locale dùng để resolve message; mặc định lấy từ `LocaleContextHolder`
      * @return Message đã dịch, hoặc chuỗi rỗng nếu không tìm thấy `key`
@@ -26,12 +25,12 @@ class I18nService(private val messageSource: MessageSource) {
      */
     @JvmOverloads
     fun translate(
-        key: String,
+        code: String,
         args: Array<Any>? = null,
         locale: Locale = LocaleContextHolder.getLocale()
     ): String {
         return try {
-            messageSource.getMessage(key, args, locale)
+            messageSource.getMessage(code, args, locale)
         } catch (e: NoSuchMessageException) {
             log.warn(e.localizedMessage)
             ""

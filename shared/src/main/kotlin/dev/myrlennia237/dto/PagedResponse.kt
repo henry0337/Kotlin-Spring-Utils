@@ -21,6 +21,7 @@ data class PagedResponse<T>(
          * Phương thức khởi tạo nhanh một [PagedResponse] với các tham số lấy từ [Page].
          * @param source Tham số liên quan tới phân trang.
          */
+        @JvmStatic
         fun <T : Any> from(source: Page<T>): PagedResponse<T> = PagedResponse(
             content = source.content,
             page = source.number,
@@ -40,12 +41,4 @@ data class PagedResponse<T>(
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 @KotlinVariant
-fun <T : Any> Page<T>.toPagedResponse() = PagedResponse(
-    content = content,
-    page = number,
-    size = size,
-    totalElements = totalElements,
-    totalPages = totalPages,
-    hasNext = hasNext(),
-    hasPrevious = hasPrevious(),
-)
+fun <T : Any> Page<T>.toPagedResponse() = PagedResponse.from(this)

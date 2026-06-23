@@ -15,6 +15,7 @@ allprojects {
 
 subprojects {
 	pluginManager.apply("java-library")
+	pluginManager.apply("maven-publish")
 	pluginManager.apply("org.springframework.boot")
 	pluginManager.apply("io.spring.dependency-management")
 

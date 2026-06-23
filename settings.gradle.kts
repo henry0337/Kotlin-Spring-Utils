@@ -14,9 +14,9 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "javainteroputils"
+rootProject.name = "kotlin-spring-util"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-include("servletutils")
-include("webfluxutils")
+include("servlet")
+include("webflux")
 include("shared")
