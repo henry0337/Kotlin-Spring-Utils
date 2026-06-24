@@ -2,22 +2,23 @@ package dev.myrlennia237.template.controller.kotlin
 
 import dev.myrlennia237.annotation.KotlinVariant
 import dev.myrlennia237.dto.PagedResponse
-import dev.myrlennia237.template.controller.BaseReactiveController
-import kotlin.uuid.Uuid
+import dev.myrlennia237.template.controller.ReactiveRestController
 import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ResponseStatus
+import org.springframework.web.bind.annotation.RestController
+import kotlin.uuid.Uuid
 
 /**
- * Controller dạng REST đặc thù cho phía Kotlin giúp khởi tạo nhanh các API.
- * @param T  Kiểu domain (thường là DTO phía response)
- * @param I1 Kiểu DTO dùng để tạo mới entity
- * @param I2 Kiểu DTO dùng để cập nhật entity
+ * Chỉ định một lớp được đánh dấu là [RestController] là một lớp chuyên xử lý các tác vụ liên quan tới CRUD.
  *
+ * @param T  **Entity** hoặc **Output DTO** mong muốn
+ * @param I1 **Input DTO** dùng để tạo mới bản ghi
+ * @param I2 **Input DTO** dùng để cập nhật dữ liệu bản ghi
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 @KotlinVariant
-abstract class CoroutineCrudController<T : Any, in I1, in I2> : BaseReactiveController() {
+abstract class CoroutineRestController<T : Any, in I1, in I2> : ReactiveRestController() {
 
     /**
      * Lấy toàn bộ bản ghi dưới dạng phân trang.

@@ -10,7 +10,7 @@ plugins {
 
 allprojects {
 	group = "dev.myrlennia237"
-	version = "0.1.0"
+	version = "0.1.0-SNAPSHOT"
 }
 
 subprojects {
@@ -23,9 +23,20 @@ subprojects {
 		toolchain {
 			languageVersion = JavaLanguageVersion.of(25)
 		}
+		withSourcesJar()
 	}
 
 	tasks.withType<Test> {
 		useJUnitPlatform()
+	}
+
+	afterEvaluate {
+		configure<PublishingExtension> {
+			publications {
+				create<MavenPublication>("maven") {
+					from(components["java"])
+				}
+			}
+		}
 	}
 }

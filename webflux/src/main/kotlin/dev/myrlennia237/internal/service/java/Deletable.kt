@@ -4,6 +4,8 @@ import reactor.core.publisher.Mono
 import java.util.UUID
 
 /**
+ * Contract xóa vĩnh viễn entity khỏi cơ sở dữ liệu theo ID.
+ *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 internal fun interface Deletable {

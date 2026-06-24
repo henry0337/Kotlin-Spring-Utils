@@ -9,37 +9,38 @@ import java.util.UUID
  */
 internal interface Auditable {
     /**
-     * @return UUID của tác nhân tạo dữ liệu.
+     * Đối tượng thực hiện tạo mới bản ghi.
      */
     fun getCreatedAuditor(): UUID?
 
     /**
-     * @param id UUID của tác nhân tạo dữ liệu.
+     * @param id Đối tượng thực hiện tạo mới bản ghi.
      */
     fun setCreatedAuditor(id: UUID?)
 
     /**
-     * @return Thời điểm dữ liệu được tạo ra.
+     * @return Thời gian bản ghi này được tạo ra.
      */
     fun getCreatedDate(): JavaInstant
 
     /**
-     * @param creationDate Thời điểm dữ liệu được tạo ra.
+     * @param creationDate Thời gian bản ghi này được tạo ra.
      */
     fun setCreatedDate(creationDate: JavaInstant)
 
     /**
-     * @return UUID của tác nhân chỉnh sửa gần nhất, hoặc `null` nếu chưa có.
+     * Đối tượng cuối cùng thực hiện chỉnh sửa bản ghi này.
+     * @return UUID của đối tượng chỉnh sửa gần nhất, hoặc `null` nếu chưa có.
      */
     fun getLastModifiedAuditor(): UUID?
 
     /**
-     * @param auditor UUID của tác nhân chỉnh sửa, hoặc `null` nếu muốn xóa giá trị.
+     * @param auditor UUID của đối tượng chỉnh sửa gần nhất, hoặc `null` nếu chưa có.
      */
     fun setLastModifiedAuditor(auditor: UUID?)
 
     /**
-     * @return Thời điểm chỉnh sửa gần nhất, hoặc `null` nếu chưa có.
+     * Thời gian lần cuối bản ghi này được chỉnh sửa.
      */
     fun getLastModifiedDate(): JavaInstant?
 

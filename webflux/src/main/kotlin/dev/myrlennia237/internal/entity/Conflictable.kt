@@ -9,7 +9,7 @@ package dev.myrlennia237.internal.entity
  */
 internal interface Conflictable {
     /**
-     * @return Một số nguyên 64-bit đại diện cho phiên bản chỉnh sửa mới nhất của dữ liệu hiện tại.
+     * Một số nguyên 64-bit đại diện cho phiên bản chỉnh sửa mới nhất của dữ liệu hiện tại.
      */
     fun getVersion(): Long
 

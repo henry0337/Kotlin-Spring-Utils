@@ -5,8 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Indexed
 
 /**
- * Marker base class cho tất cả REST controller trong module WebFlux.
+ * Lớp nền cho tất cả REST controller trong module **servlet** (Spring MVC).
+ *
+ * Cung cấp quyền truy cập vào [I18nService][dev.myrlennia237.component.I18nService] nếu bean này
+ * có trong context — lớp kế thừa có thể gọi `i18nService.translate(...)` để trả thông báo lỗi
+ * đã được dịch mà không cần khai báo thêm dependency.
+ *
  * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @see dev.myrlennia237.component.I18nService
  */
 @Indexed
 abstract class BaseController {

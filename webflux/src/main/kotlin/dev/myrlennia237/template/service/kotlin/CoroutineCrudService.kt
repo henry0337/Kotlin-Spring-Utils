@@ -9,11 +9,14 @@ import dev.myrlennia237.internal.service.kotlin.ReadableWithID
 import dev.myrlennia237.internal.service.kotlin.Reversible
 import dev.myrlennia237.template.service.BaseReactiveService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 
 /**
- * @param T  Kiểu domain
- * @param I1 Kiểu DTO dùng để tạo mới entity (tham số của `insert`)
- * @param I2 Kiểu DTO dùng để cập nhật entity (tham số của `update`)
+ * Chỉ định một lớp được đánh dấu là [Service] là một lớp nghiệp vụ chuyên xử lý các tác vụ liên quan tới CRUD.
+ *
+ * @param T  **Entity** hoặc **Output DTO** mong muốn
+ * @param I1 **Input DTO** dùng để tạo mới bản ghi
+ * @param I2 **Input DTO** dùng để cập nhật dữ liệu bản ghi
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 @KotlinVariant

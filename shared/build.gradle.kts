@@ -5,9 +5,6 @@ plugins {
     id("org.springframework.boot")
 }
 
-group = "dev.myrlennia237"
-version = "0.1.0"
-
 dependencies {
     api("org.springframework:spring-context")
     implementation("org.springframework.data:spring-data-commons")

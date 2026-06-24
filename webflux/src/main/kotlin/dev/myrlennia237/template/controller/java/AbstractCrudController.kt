@@ -1,21 +1,27 @@
 package dev.myrlennia237.template.controller.java
 
 import dev.myrlennia237.dto.PagedResponse
-import dev.myrlennia237.template.controller.BaseReactiveController
+import dev.myrlennia237.template.controller.ReactiveRestController
+import dev.myrlennia237.util.ResponseHelper
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Mono
 import java.util.UUID
 
 /**
- * Controller dạng REST giúp khởi tạo nhanh các API.
- * @param T  Kiểu domain (thường là DTO phía response)
- * @param I1 Kiểu DTO dùng để tạo mới entity
- * @param I2 Kiểu DTO dùng để cập nhật entity
+ * Chỉ định một lớp được đánh dấu là [RestController] là một lớp chuyên xử lý các tác vụ liên quan tới CRUD.
  *
+ * @param T  **Entity** hoặc **Output DTO** mong muốn
+ * @param I1 **Input DTO** dùng để tạo mới bản ghi
+ * @param I2 **Input DTO** dùng để cập nhật dữ liệu bản ghi
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-abstract class AbstractCrudController<T : Any, in I1, in I2> : BaseReactiveController() {
+abstract class AbstractCrudController<T : Any, in I1, in I2> : ReactiveRestController() {
+
+    @set:Autowired
+    protected lateinit var responseHelper: ResponseHelper
 
     /**
      * Lấy toàn bộ bản ghi dưới dạng phân trang.

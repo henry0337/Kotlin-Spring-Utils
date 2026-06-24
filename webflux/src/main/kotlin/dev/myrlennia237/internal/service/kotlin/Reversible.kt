@@ -4,6 +4,8 @@ import dev.myrlennia237.annotation.KotlinVariant
 import kotlin.uuid.Uuid
 
 /**
+ * Contract vô hiệu hóa và kích hoạt lại entity theo cơ chế xóa mềm — Kotlin coroutine variant.
+ *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 @KotlinVariant

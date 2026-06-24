@@ -1,5 +1,13 @@
 package dev.myrlennia237.annotation
 
+/**
+ * Tiện ích bảo vệ runtime cho các API được đánh dấu [KotlinVariant].
+ *
+ * Gọi [check] ở đầu mỗi hàm cần giới hạn với Kotlin để ném [IllegalCallerException]
+ * ngay tại runtime nếu caller là Java class.
+ *
+ * @see KotlinVariant
+ */
 object KotlinVariantGuard {
 
     private const val LIB_PACKAGE = "dev.myrlennia237"
@@ -29,6 +37,15 @@ object KotlinVariantGuard {
         }
     }
 
+    /**
+     * Xác định xem [frame] có đến từ code bên ngoài thư viện hay không.
+     *
+     * Stack frame thuộc package `dev.myrlennia237`, JDK (`java.*`, `jdk.*`, `sun.*`)
+     * hoặc Kotlin runtime (`kotlin.*`, `kotlinx.*`) đều bị bỏ qua.
+     *
+     * @param frame Stack frame cần kiểm tra
+     * @return `true` nếu frame đến từ code ngoài thư viện và ngoài runtime
+     */
     private fun isExternalFrame(frame: StackTraceElement): Boolean {
         val cls = frame.className
         return !cls.startsWith(LIB_PACKAGE) &&

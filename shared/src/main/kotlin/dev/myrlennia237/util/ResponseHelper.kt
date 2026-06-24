@@ -1,11 +1,11 @@
 package dev.myrlennia237.util
 
 import dev.myrlennia237.config.ServerWebExchangeContextFilter
+import dev.myrlennia237.dto.PagedResponse
+import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Component
 import reactor.core.publisher.Mono
 
-@Component
 class ResponseHelper {
     /**
      * Bọc kết quả của [source] trong một [ResponseEntity] với HTTP status 200 OK.
@@ -62,4 +62,14 @@ class ResponseHelper {
         return source.map<ResponseEntity<T>> { ResponseEntity.ok(it) }
             .defaultIfEmpty(ResponseEntity.notFound().build())
     }
+
+    /**
+     * Bọc kết quả của [source] trong một [ResponseEntity] 200 OK sau khi chuyển đổi [Page] thành [PagedResponse].
+     *
+     * @param T      Kiểu dữ liệu của từng phần tử trong trang
+     * @param source [Mono] chứa [Page] cần chuyển đổi
+     * @return [Mono] phát ra [ResponseEntity] với status 200 OK bọc [PagedResponse]
+     */
+    fun <T : Any> awaitPaged(source: Mono<Page<T>>): Mono<ResponseEntity<PagedResponse<T>>> =
+        source.map { page -> ResponseEntity.ok(PagedResponse.from(page)) }
 }

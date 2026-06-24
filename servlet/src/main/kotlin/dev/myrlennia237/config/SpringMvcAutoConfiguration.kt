@@ -16,6 +16,23 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.web.client.RestClient
 
+/**
+ * Auto-configuration cho module `servlet` — đăng ký các bean cốt lõi khi thư viện được
+ * import vào dự án Spring Boot MVC (Servlet).
+ *
+ * Tất cả bean đều dùng điều kiện [@ConditionalOnMissingBean][org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean],
+ * cho phép consumer override bất kỳ bean nào bằng cách khai báo bean cùng kiểu.
+ *
+ * Các bean được cung cấp:
+ * - [AuditorAwareImpl] — lấy UUID người dùng hiện tại cho JPA auditing
+ * - [I18nService][dev.myrlennia237.component.I18nService] — dịch message từ [MessageSource][org.springframework.context.MessageSource]
+ * - [HttpClient] — HTTP client blocking tích hợp Resilience4j
+ * - [RedisService] — Redis helper blocking (chỉ khi có bean [StringRedisTemplate][org.springframework.data.redis.core.StringRedisTemplate])
+ * - [JPAQueryFactory][com.querydsl.jpa.impl.JPAQueryFactory] — factory cho QueryDSL JPA
+ *
+ * @see AuditorAwareImpl
+ * @see HttpClient
+ */
 @AutoConfiguration
 @EnableJpaAuditing
 @Import(RestClientConfig::class)

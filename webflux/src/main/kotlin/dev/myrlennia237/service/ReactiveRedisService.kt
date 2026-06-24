@@ -10,6 +10,13 @@ import kotlin.time.Duration
 import kotlin.time.toJavaDuration
 
 /**
+ * Redis helper reactive, bọc các thao tác phổ biến của
+ * [ReactiveStringRedisTemplate][org.springframework.data.redis.core.ReactiveStringRedisTemplate].
+ *
+ * Được auto-configure khi bean [ReactiveStringRedisTemplate][org.springframework.data.redis.core.ReactiveStringRedisTemplate]
+ * có mặt trong context. Hỗ trợ cả Java API (trả về [reactor.core.publisher.Mono]) lẫn
+ * Kotlin coroutine API (hàm `suspend`).
+ *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 open class ReactiveRedisService(redisTemplate: ReactiveStringRedisTemplate) {

@@ -4,6 +4,8 @@ import reactor.core.publisher.Mono
 import java.util.UUID
 
 /**
+ * Contract vô hiệu hóa và kích hoạt lại entity theo cơ chế xóa mềm (soft delete).
+ *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 internal interface Reversible {

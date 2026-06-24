@@ -5,6 +5,12 @@ import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.data.redis.core.ValueOperations
 
 /**
+ * Redis helper blocking, bọc các thao tác phổ biến của
+ * [StringRedisTemplate][org.springframework.data.redis.core.StringRedisTemplate].
+ *
+ * Được auto-configure khi bean [StringRedisTemplate][org.springframework.data.redis.core.StringRedisTemplate]
+ * có mặt trong context.
+ *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 open class RedisService(redisTemplate: StringRedisTemplate) {

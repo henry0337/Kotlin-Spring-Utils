@@ -3,7 +3,9 @@ package dev.myrlennia237.internal.service
 import java.util.UUID
 
 /**
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * Contract xóa vĩnh viễn entity khỏi cơ sở dữ liệu theo ID (Spring MVC / blocking variant).
+ *
+ * @author <a href="https://github.com/henry0338">Muharux</a>
  */
 internal fun interface Deletable {
     /**

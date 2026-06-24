@@ -1,17 +1,12 @@
-@file:UseSerializers(InstantSerializer::class)
 @file:NullMarked
 
 package dev.myrlennia237.template.entity
 
 import dev.myrlennia237.JavaInstant
 import dev.myrlennia237.JavaSerializable
-import dev.myrlennia237.config.InstantSerializer
 import dev.myrlennia237.internal.entity.Auditable
 import dev.myrlennia237.internal.entity.Conflictable
 import dev.myrlennia237.internal.entity.Restorable
-import kotlinx.serialization.Contextual
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.UseSerializers
 import org.jspecify.annotations.NullMarked
 import org.jspecify.annotations.Nullable
 import org.springframework.data.annotation.CreatedBy
@@ -22,40 +17,76 @@ import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.annotation.Version
 import org.springframework.data.relational.core.mapping.InsertOnlyProperty
 import java.util.UUID
-import kotlin.uuid.ExperimentalUuidApi
 
 /**
+ * Đánh dấu mỗi lớp kế thừa lớp này là một **Entity** - đại diện cho một bảng trong cơ sở dữ liệu.
+ *
+ * Hỗ trợ:
+ * - Xóa mềm (thông qua [Restorable])
+ * - Auditing (thông qua [Auditable])
+ * - Bảo vệ tính toàn vẹn của dữ liệu (thông qua [Conflictable])
+ *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-@Serializable
-@OptIn(ExperimentalUuidApi::class)
 abstract class Entity(
-    @Id @Contextual
-    var id: UUID? = null,
 
+    /**
+     * Identifier duy nhất cho bản ghi hiện tại.
+     */
+    @Id
+    var id: @Nullable UUID? = null,
+
+    /**
+     * Đối tượng thực hiện tạo bản ghi này.
+     */
     @CreatedBy @InsertOnlyProperty
     var createdBy: @Nullable UUID? = null,
 
+    /**
+     * Thời gian bản ghi này được tạo ra.
+     */
     @get:JvmName("getCreatedDateValue")
     @set:JvmName("setCreatedDateValue")
     @CreatedDate @InsertOnlyProperty
     var createdDate: JavaInstant = JavaInstant.now(),
 
+    /**
+     * Đối tượng cuối cùng thực hiện chỉnh sửa bản ghi này.
+     */
     @LastModifiedBy
     var lastModifiedBy: @Nullable UUID? = null,
 
+    /**
+     * Thời gian lần cuối bản ghi này được chỉnh sửa.
+     */
     @get:JvmName("getLastModifiedDateValue")
     @set:JvmName("setLastModifiedDateValue")
     @LastModifiedDate
     var lastModifiedDate: @Nullable JavaInstant? = null,
 
-    var deleted: Short = 0,
+    /**
+     * Trạng thái sử dụng hiện tại của bản ghi.
+     */
+    var disabled: Boolean = false,
 
-    var deletedAt: @Nullable JavaInstant? = null,
+    /**
+     * Thời gian lần cuối vô hiệu hóa bản ghi này.
+     */
+    var lastDisabledAt: @Nullable JavaInstant? = null,
 
+    /**
+     * Đối tượng gần đây nhất thực hiện vô hiệu hóa bản ghi này.
+     */
+    var lastDisabledBy: @Nullable UUID? = null,
+
+    /**
+     * Phiên bản hiện tại của dữ liệu.
+     *
+     * Dùng để kiểm tra tính toàn vẹn của dữ liệu khi được tương tác từ nhiều nguồn.
+     */
     @get:JvmName("getEntityVersion")
     @set:JvmName("setEntityVersion")
-    @Version var version: Long = 0,
+    @Version var version: Long = 0
 ) : Auditable, Conflictable, Restorable, JavaSerializable {
     override fun getCreatedAuditor(): UUID? = createdBy
     override fun setCreatedAuditor(id: UUID?) {
@@ -82,14 +113,19 @@ abstract class Entity(
         this.version = version
     }
 
-    override fun getRemovedState(): Short = deleted
-    override fun setRemovedState(removed: Short) {
-        deleted = removed
+    override fun getDisabledState(): Boolean = disabled
+    override fun setDisabledState(removed: Boolean) {
+        disabled = removed
     }
 
-    override fun getDeletedTimestamp(): JavaInstant? = deletedAt
-    override fun setRemovedTimestamp(deletedAt: JavaInstant?) {
-        this.deletedAt = deletedAt
+    override fun getDisabledTimestamp(): JavaInstant? = lastDisabledAt
+    override fun setDisabledTimestamp(deletedAt: JavaInstant?) {
+        this.lastDisabledAt = deletedAt
+    }
+
+    override fun getDisabledBy(): UUID? = lastDisabledBy
+    override fun setDisabledBy(by: UUID?) {
+        this.lastDisabledBy = by
     }
 
     companion object {
