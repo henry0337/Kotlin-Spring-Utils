@@ -22,12 +22,12 @@ import java.util.UUID
  */
 @NoRepositoryBean
 @JvmSuppressWildcards
-interface ModifiedR2dbcRepository<T : Entity> : ReactiveCrudRepository<T, UUID>, ReactiveSortingRepository<T, UUID>,
+public interface ModifiedR2dbcRepository<T : Entity> : ReactiveCrudRepository<T, UUID>, ReactiveSortingRepository<T, UUID>,
     ReactiveQuerydslPredicateExecutor<T> {
 
     /**
      * Tìm kiếm tất cả bản ghi có trong cơ sở dữ liệu, áp dụng tính năng **phân trang dữ liệu**.
      * @param pageable Tham số phân trang dữ liệu
      */
-    fun findAllBy(pageable: Pageable): Flux<T>
+    public fun findAllBy(pageable: Pageable): Flux<T>
 }

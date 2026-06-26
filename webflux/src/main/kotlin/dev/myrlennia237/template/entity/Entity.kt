@@ -28,19 +28,19 @@ import java.util.UUID
  *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-abstract class Entity(
+public abstract class Entity(
 
     /**
      * Identifier duy nhất cho bản ghi hiện tại.
      */
     @Id
-    var id: @Nullable UUID? = null,
+    public var id: @Nullable UUID? = null,
 
     /**
      * Đối tượng thực hiện tạo bản ghi này.
      */
     @CreatedBy @InsertOnlyProperty
-    var createdBy: @Nullable UUID? = null,
+    public var createdBy: @Nullable UUID? = null,
 
     /**
      * Thời gian bản ghi này được tạo ra.
@@ -48,13 +48,13 @@ abstract class Entity(
     @get:JvmName("getCreatedDateValue")
     @set:JvmName("setCreatedDateValue")
     @CreatedDate @InsertOnlyProperty
-    var createdDate: JavaInstant = JavaInstant.now(),
+    public var createdDate: JavaInstant = JavaInstant.now(),
 
     /**
      * Đối tượng cuối cùng thực hiện chỉnh sửa bản ghi này.
      */
     @LastModifiedBy
-    var lastModifiedBy: @Nullable UUID? = null,
+    public var lastModifiedBy: @Nullable UUID? = null,
 
     /**
      * Thời gian lần cuối bản ghi này được chỉnh sửa.
@@ -62,22 +62,22 @@ abstract class Entity(
     @get:JvmName("getLastModifiedDateValue")
     @set:JvmName("setLastModifiedDateValue")
     @LastModifiedDate
-    var lastModifiedDate: @Nullable JavaInstant? = null,
+    public var lastModifiedDate: @Nullable JavaInstant? = null,
 
     /**
      * Trạng thái sử dụng hiện tại của bản ghi.
      */
-    var disabled: Boolean = false,
+    public var disabled: Boolean = false,
 
     /**
      * Thời gian lần cuối vô hiệu hóa bản ghi này.
      */
-    var lastDisabledAt: @Nullable JavaInstant? = null,
+    public var lastDisabledAt: @Nullable JavaInstant? = null,
 
     /**
      * Đối tượng gần đây nhất thực hiện vô hiệu hóa bản ghi này.
      */
-    var lastDisabledBy: @Nullable UUID? = null,
+    public var lastDisabledBy: @Nullable UUID? = null,
 
     /**
      * Phiên bản hiện tại của dữ liệu.
@@ -86,7 +86,7 @@ abstract class Entity(
      */
     @get:JvmName("getEntityVersion")
     @set:JvmName("setEntityVersion")
-    @Version var version: Long = 0
+    @Version public var version: Long = 0
 ) : Auditable, Conflictable, Restorable, JavaSerializable {
     override fun getCreatedAuditor(): UUID? = createdBy
     override fun setCreatedAuditor(id: UUID?) {
@@ -128,7 +128,7 @@ abstract class Entity(
         this.lastDisabledBy = by
     }
 
-    companion object {
+    public companion object {
         @java.io.Serial
         private const val serialVersionUID: Long = 1L
     }

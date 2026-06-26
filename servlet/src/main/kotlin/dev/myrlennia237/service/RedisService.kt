@@ -13,7 +13,7 @@ import org.springframework.data.redis.core.ValueOperations
  *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-open class RedisService(redisTemplate: StringRedisTemplate) {
+public class RedisService(redisTemplate: StringRedisTemplate) {
     private val redisOps: ValueOperations<String, String> = redisTemplate.opsForValue()
 
     /**
@@ -24,7 +24,7 @@ open class RedisService(redisTemplate: StringRedisTemplate) {
      * @return `true` nếu ghi thành công, `false` nếu giá trị [duration] không hợp lệ hoặc lỗi khác.
      */
     @JvmOverloads
-    fun set(key: String, value: String, duration: JavaDuration? = null): Boolean {
+    public fun set(key: String, value: String, duration: JavaDuration? = null): Boolean {
         return when {
             duration != null && (duration.isZero || duration.isNegative) -> false
             duration != null -> { redisOps.set(key, value, duration); true }
@@ -37,7 +37,7 @@ open class RedisService(redisTemplate: StringRedisTemplate) {
      * @param key Tên khóa cần đọc
      * @return Giá trị được lưu trong [key] nếu tồn tại, hoặc `null` nếu không có.
      */
-    fun get(key: String): String? = redisOps.get(key)
+    public fun get(key: String): String? = redisOps.get(key)
 
     /**
      * Đọc một đoạn con của giá trị [key] bằng lệnh Redis `GETRANGE`.
@@ -48,6 +48,6 @@ open class RedisService(redisTemplate: StringRedisTemplate) {
      * @return Chuỗi con tương ứng, hoặc `null` nếu key không tồn tại
      */
     @JvmOverloads
-    fun getRange(key: String, start: Long = 0, end: Long = -1): String? =
+    public fun getRange(key: String, start: Long = 0, end: Long = -1): String? =
         redisOps.get(key, start, end)
 }

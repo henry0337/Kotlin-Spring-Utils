@@ -16,6 +16,6 @@ import java.util.UUID
  */
 @NoRepositoryBean
 @JvmSuppressWildcards
-interface ModifiedJpaRepository<T : BaseEntity> : ListCrudRepository<T, UUID>,
+public interface ModifiedJpaRepository<T : BaseEntity> : ListCrudRepository<T, UUID>,
     ListPagingAndSortingRepository<T, UUID>,
     ListQuerydslPredicateExecutor<T>

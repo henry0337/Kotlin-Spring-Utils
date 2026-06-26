@@ -37,33 +37,33 @@ import org.springframework.web.reactive.function.client.WebClient
 @AutoConfiguration
 @EnableR2dbcAuditing
 @Import(WebClientConfig::class)
-class SpringReactiveAutoConfiguration {
+public class SpringReactiveAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    fun auditorAware() = AsyncAuditorAware()
+    public fun auditorAware(): AsyncAuditorAware = AsyncAuditorAware()
 
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnBean(MessageSource::class)
-    fun i18nService(messageSource: MessageSource) = I18nService(messageSource)
+    public fun i18nService(messageSource: MessageSource): I18nService = I18nService(messageSource)
 
     @Bean
     @ConditionalOnMissingBean
-    fun reactiveHttpClient(webClient: WebClient) = ReactiveHttpClient(webClient)
+    public fun reactiveHttpClient(webClient: WebClient): ReactiveHttpClient = ReactiveHttpClient(webClient)
 
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnClass(ReactiveStringRedisTemplate::class)
     @ConditionalOnBean(ReactiveStringRedisTemplate::class)
-    fun reactiveRedisHelper(redisTemplate: ReactiveStringRedisTemplate) =
+    public fun reactiveRedisHelper(redisTemplate: ReactiveStringRedisTemplate): ReactiveRedisService =
         ReactiveRedisService(redisTemplate)
 
     @Bean
     @ConditionalOnMissingBean
-    fun reactorHelper() = ReactorHelper()
+    public fun reactorHelper(): ReactorHelper = ReactorHelper()
 
     @Bean
     @ConditionalOnMissingBean
-    fun responseHelper() = ResponseHelper()
+    public fun responseHelper(): ResponseHelper = ResponseHelper()
 }

@@ -19,7 +19,7 @@ import kotlin.time.toJavaDuration
  *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-open class ReactiveRedisService(redisTemplate: ReactiveStringRedisTemplate) {
+public class ReactiveRedisService(redisTemplate: ReactiveStringRedisTemplate) {
     private val redisOps: ReactiveValueOperations<String, String> = redisTemplate.opsForValue()
 
     /**
@@ -30,7 +30,7 @@ open class ReactiveRedisService(redisTemplate: ReactiveStringRedisTemplate) {
      * @return `true` nếu ghi thành công, `false` nếu giá trị [duration] không hợp lệ hoặc lỗi khác.
      */
     @JvmOverloads
-    fun set(
+    public fun set(
         key: String,
         value: String,
         duration: JavaDuration = Duration.INFINITE.toJavaDuration(),
@@ -45,7 +45,7 @@ open class ReactiveRedisService(redisTemplate: ReactiveStringRedisTemplate) {
      * @param key Tên khóa cần đọc
      * @return Giá trị được lưu trong [key] nếu tồn tại, không thì trả về [Mono.empty].
      */
-    fun get(key: String) = redisOps.get(key)
+    public fun get(key: String): Mono<String> = redisOps.get(key)
 
     /**
      * Đọc ra giá trị được gán vào [key] tương ứng.
@@ -56,5 +56,5 @@ open class ReactiveRedisService(redisTemplate: ReactiveStringRedisTemplate) {
      */
     @KotlinVariant
     @JvmSynthetic
-    suspend fun awaitGet(key: String): String? = redisOps.getAndAwait(key)
+    public suspend fun awaitGet(key: String): String? = redisOps.getAndAwait(key)
 }

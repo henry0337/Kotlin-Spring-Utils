@@ -17,7 +17,7 @@ import java.util.Locale
  * @see org.springframework.context.MessageSource
  * @see org.springframework.context.i18n.LocaleContextHolder
  */
-class I18nService(private val messageSource: MessageSource) {
+public class I18nService(private val messageSource: MessageSource) {
     private val log = LoggerFactory.getLogger(javaClass)
 
     /**
@@ -32,7 +32,7 @@ class I18nService(private val messageSource: MessageSource) {
      * @author <a href="https://github.com/henry0337">Muharux</a>
      */
     @JvmOverloads
-    fun translate(
+    public fun translate(
         code: String,
         args: Array<Any>? = null,
         locale: Locale = LocaleContextHolder.getLocale()

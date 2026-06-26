@@ -1,4 +1,4 @@
-package dev.myrlennia237.dto
+package dev.myrlennia237.component
 
 import dev.myrlennia237.annotation.KotlinVariant
 import org.springframework.data.domain.Page
@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page
  * Phiên bản tối giản hơn của [Page].
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-data class PagedResponse<T>(
+public data class PagedResponse<T>(
     val content: List<T>,
     val page: Int,
     val size: Int,
@@ -16,13 +16,13 @@ data class PagedResponse<T>(
     val hasNext: Boolean,
     val hasPrevious: Boolean,
 ) {
-    companion object {
+    public companion object {
         /**
          * Phương thức khởi tạo nhanh một [PagedResponse] với các tham số lấy từ [Page].
          * @param source Tham số liên quan tới phân trang.
          */
         @JvmStatic
-        fun <T : Any> from(source: Page<T>): PagedResponse<T> = PagedResponse(
+        public fun <T : Any> from(source: Page<T>): PagedResponse<T> = PagedResponse(
             content = source.content,
             page = source.number,
             size = source.size,
@@ -41,4 +41,5 @@ data class PagedResponse<T>(
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 @KotlinVariant
-fun <T : Any> Page<T>.toPagedResponse() = PagedResponse.from(this)
+@JvmSynthetic
+public fun <T : Any> Page<T>.toPagedResponse(): PagedResponse<T> = PagedResponse.from(this)

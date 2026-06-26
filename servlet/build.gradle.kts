@@ -19,11 +19,15 @@ dependencies {
     implementation("io.github.resilience4j:resilience4j-spring-boot4:2.4.0")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
     implementation("io.github.openfeign.querydsl:querydsl-jpa:7.4.0")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("com.tngtech.archunit:archunit:1.4.2")
     kapt("io.github.openfeign.querydsl:querydsl-apt:7.4.0:jpa")
     kapt("jakarta.persistence:jakarta.persistence-api")
 }
 
 kotlin {
+    // https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
+    explicitApi() // Kích hoạt chế độ Explicit API
     jvmToolchain(25)
 
     compilerOptions {

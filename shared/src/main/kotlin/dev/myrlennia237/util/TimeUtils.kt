@@ -4,7 +4,10 @@ import java.time.Duration
 import java.time.LocalDateTime
 import java.time.Month
 
-object TimeUtils {
+/**
+ * @author <a href="https://github.com/henry0337">Muharux</a>
+ */
+public object TimeUtils {
     /**
      * Tạo [Duration] từ số ngày, giờ, phút, giây.
      *
@@ -15,7 +18,7 @@ object TimeUtils {
      * @return [Duration] tương ứng
      */
     @JvmStatic
-    fun ofDuration(days: Long, hours: Long, minutes: Long, seconds: Long): Duration {
+    public fun ofDuration(days: Long, hours: Long, minutes: Long, seconds: Long): Duration {
         return Duration.ofDays(days)
             .plusHours(hours)
             .plusMinutes(minutes)
@@ -34,7 +37,7 @@ object TimeUtils {
      * @return [LocalDateTime] tương ứng
      */
     @JvmStatic
-    fun ofLocalDateTime(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int): LocalDateTime {
+    public fun ofLocalDateTime(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int): LocalDateTime {
         return LocalDateTime.of(year, Month.of(month), day, hour, minute, second)
     }
 }

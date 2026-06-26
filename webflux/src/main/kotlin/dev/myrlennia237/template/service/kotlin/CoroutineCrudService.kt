@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 @KotlinVariant
-abstract class CoroutineCrudService<T : Any, in I1, in I2> : BaseReactiveService(),
+public abstract class CoroutineCrudService<T : Any, in I1, in I2> : BaseReactiveService(),
     ReadableWithID<T>,
     Insertable<T, I1>,
     Modifiable<T, I2>,

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service
  * @param I2 **Input DTO** dùng để cập nhật dữ liệu bản ghi
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-abstract class AbstractCrudService<T : Any, in I1, in I2> : BaseReactiveService(),
+public abstract class AbstractCrudService<T : Any, in I1, in I2> : BaseReactiveService(),
     ReadableWithID<T>,
     Insertable<T, I1>,
     Modifiable<T, I2>,

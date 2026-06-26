@@ -25,36 +25,36 @@ import java.util.UUID
  */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
-abstract class BaseEntity(
+public abstract class BaseEntity(
     @Id
-    var id: UUID? = null,
+    public var id: UUID? = null,
 
     @CreatedBy
     @Column(updatable = false)
-    var createdBy: UUID? = null,
+    public var createdBy: UUID? = null,
 
     @LastModifiedBy
-    var lastModifiedBy: UUID? = null,
+    public var lastModifiedBy: UUID? = null,
 
-    var deleted: Short = 0,
+    public var deleted: Short = 0,
 
-    var deletedAt: JavaInstant? = null,
+    public var deletedAt: JavaInstant? = null,
 
     @CreatedDate
     @Column(updatable = false)
     @get:JvmName("getCreatedDateValue")
     @set:JvmName("setCreatedDateValue")
-    var createdDate: JavaInstant = JavaInstant.now(),
+    public var createdDate: JavaInstant = JavaInstant.now(),
 
     @LastModifiedDate
     @get:JvmName("getLastModifiedDateValue")
     @set:JvmName("setLastModifiedDateValue")
-    var lastModifiedDate: JavaInstant? = null,
+    public var lastModifiedDate: JavaInstant? = null,
 
     @Version
     @get:JvmName("getEntityVersion")
     @set:JvmName("setEntityVersion")
-    var version: Long = 0
+    public var version: Long = 0
 ) : Auditable, Conflictable, Restorable, JavaSerializable {
     override fun getCreatedAuditor(): UUID? = createdBy
     override fun setCreatedAuditor(id: UUID?) {
@@ -91,7 +91,7 @@ abstract class BaseEntity(
         this.deletedAt = deletedAt
     }
 
-    companion object {
+    public companion object {
         @Serial
         private const val serialVersionUID: Long = 1L
     }

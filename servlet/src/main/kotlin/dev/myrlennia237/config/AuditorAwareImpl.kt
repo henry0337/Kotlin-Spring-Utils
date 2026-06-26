@@ -1,6 +1,6 @@
 ﻿package dev.myrlennia237.config
 
-import dev.myrlennia237.security.UserPrincipal
+import dev.myrlennia237.component.UserPrincipal
 import org.springframework.data.domain.AuditorAware
 import org.springframework.security.core.context.SecurityContextHolder
 import java.util.Optional
@@ -16,7 +16,7 @@ import java.util.UUID
  *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-class AuditorAwareImpl : AuditorAware<UUID> {
+public class AuditorAwareImpl : AuditorAware<UUID> {
     override fun getCurrentAuditor(): Optional<UUID> {
         val auth = SecurityContextHolder.getContext().authentication
         if (auth == null || !auth.isAuthenticated) return Optional.empty()

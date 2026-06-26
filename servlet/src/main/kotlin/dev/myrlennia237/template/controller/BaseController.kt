@@ -15,7 +15,7 @@ import org.springframework.stereotype.Indexed
  * @see dev.myrlennia237.component.I18nService
  */
 @Indexed
-abstract class BaseController {
+public abstract class BaseController {
     @set:Autowired(required = false)
     protected lateinit var i18nService: I18nService
 }

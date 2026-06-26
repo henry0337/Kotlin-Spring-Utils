@@ -9,4 +9,4 @@ package dev.myrlennia237.template.controller
  *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-abstract class CrudController : BaseController()
+public abstract class CrudController : BaseController()

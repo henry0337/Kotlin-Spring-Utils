@@ -17,7 +17,7 @@ import org.springframework.web.reactive.function.client.WebClient
  */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(WebClientProperties::class)
-class WebClientConfig(private val properties: WebClientProperties) {
+public class WebClientConfig(private val properties: WebClientProperties) {
     /**
      * Tạo [WebClient] với default headers đọc từ [WebClientProperties].
      *
@@ -25,7 +25,7 @@ class WebClientConfig(private val properties: WebClientProperties) {
      * @return [WebClient] đã cấu hình sẵn headers mặc định
      */
     @Bean
-    fun webClient(builder: WebClient.Builder): WebClient = builder
+    public fun webClient(builder: WebClient.Builder): WebClient = builder
         .defaultHeaders {
             val headers = HttpHeaders()
             headers.add(HttpHeaders.ACCEPT, "*/*")

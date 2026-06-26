@@ -18,7 +18,7 @@ import org.springframework.web.client.RestClient
  * Một HTTP Client dùng để gọi tới các API bên thứ 3.
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-open class HttpClient(private val restClient: RestClient) {
+public class HttpClient(private val restClient: RestClient) {
     @Autowired
     @Lazy
     @PublishedApi
@@ -40,7 +40,7 @@ open class HttpClient(private val restClient: RestClient) {
      */
     @Retry(name = "unwrapGet", fallbackMethod = "retryFallback")
     @CircuitBreaker(name = "unwrapGet", fallbackMethod = "circuitBreakerFallback")
-    open fun <T : Any> doGet(
+    public fun <T : Any> doGet(
         url: String,
         responseType: ParameterizedTypeReference<T>,
         params: @Nullable Map<String, Array<Any>>? = null,
@@ -84,7 +84,7 @@ open class HttpClient(private val restClient: RestClient) {
      */
     @Retry(name = "unwrapPost", fallbackMethod = "retryFallback")
     @CircuitBreaker(name = "unwrapPost", fallbackMethod = "circuitBreakerFallback")
-    open fun <T : Any, B : Any> doPost(
+    public fun <T : Any, B : Any> doPost(
         url: String,
         body: B,
         responseType: ParameterizedTypeReference<T>,
@@ -131,7 +131,7 @@ open class HttpClient(private val restClient: RestClient) {
      */
     @KotlinVariant
     @JvmSynthetic
-    inline fun <reified T : Any> get(
+    public inline fun <reified T : Any> get(
         url: String,
         params: Map<String, Array<Any>>? = null,
         headers: Map<String, String?>? = null,
@@ -167,7 +167,7 @@ open class HttpClient(private val restClient: RestClient) {
      */
     @KotlinVariant
     @JvmSynthetic
-    inline fun <reified T : Any, reified B : Any> post(
+    public inline fun <reified T : Any, reified B : Any> post(
         url: String,
         body: B,
         params: Map<String, Array<Any>>? = null,
@@ -185,8 +185,8 @@ open class HttpClient(private val restClient: RestClient) {
     )
 
     @Suppress("unused")
-    protected fun <T : Any> retryFallback(ex: Throwable): T = throw ex
+    public fun <T : Any> retryFallback(ex: Throwable): Nothing = throw ex
 
     @Suppress("unused")
-    protected fun <T : Any> circuitBreakerFallback(ex: Throwable): T = throw ex
+    public fun <T : Any> circuitBreakerFallback(ex: Throwable): Nothing = throw ex
 }

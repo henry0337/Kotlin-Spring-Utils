@@ -18,9 +18,9 @@ import org.springframework.web.client.RestClient
  */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(RestClientProperties::class)
-class RestClientConfig(private val properties: RestClientProperties) {
+public class RestClientConfig(private val properties: RestClientProperties) {
     @Bean
-    fun restClient(builder: RestClient.Builder): RestClient = builder
+    public fun restClient(builder: RestClient.Builder): RestClient = builder
         .defaultHeaders {
             val headers = HttpHeaders()
             headers.add(HttpHeaders.ACCEPT, "*/*")

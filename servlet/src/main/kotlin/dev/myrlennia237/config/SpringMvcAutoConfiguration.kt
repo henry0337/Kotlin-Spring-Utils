@@ -36,28 +36,28 @@ import org.springframework.web.client.RestClient
 @AutoConfiguration
 @EnableJpaAuditing
 @Import(RestClientConfig::class)
-class SpringMvcAutoConfiguration {
+public class SpringMvcAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    fun auditorAware() = AuditorAwareImpl()
+    public fun auditorAware(): AuditorAwareImpl = AuditorAwareImpl()
 
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnBean(MessageSource::class)
-    fun i18nHelper(messageSource: MessageSource) = I18nService(messageSource)
+    public fun i18nHelper(messageSource: MessageSource): I18nService = I18nService(messageSource)
 
     @Bean
     @ConditionalOnMissingBean
-    fun httpClient(restClient: RestClient) = HttpClient(restClient)
+    public fun httpClient(restClient: RestClient): HttpClient = HttpClient(restClient)
 
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnClass(StringRedisTemplate::class)
     @ConditionalOnBean(StringRedisTemplate::class)
-    fun redisService(redisTemplate: StringRedisTemplate) = RedisService(redisTemplate)
+    public fun redisService(redisTemplate: StringRedisTemplate): RedisService = RedisService(redisTemplate)
 
     @Bean
     @ConditionalOnMissingBean
-    fun jpaQueryFactory(entityManager: EntityManager): JPAQueryFactory = JPAQueryFactory(entityManager)
+    public fun jpaQueryFactory(entityManager: EntityManager): JPAQueryFactory = JPAQueryFactory(entityManager)
 }

@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired
  *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-abstract class CrudService<T : Any, I1, I2> : BaseService(),
+public abstract class CrudService<T : Any, I1, I2> : BaseService(),
     ReadableWithID<T>,
     Insertable<T, I1>,
     Modifiable<T, I2>,

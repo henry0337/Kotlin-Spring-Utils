@@ -22,10 +22,12 @@ dependencies {
     implementation("io.github.resilience4j:resilience4j-spring-boot4:2.4.0")
     implementation("io.github.openfeign.querydsl:querydsl-r2dbc:7.4.0")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("com.tngtech.archunit:archunit:1.4.2")
 }
 
 kotlin {
+    explicitApi()
     jvmToolchain(25)
 
     compilerOptions {

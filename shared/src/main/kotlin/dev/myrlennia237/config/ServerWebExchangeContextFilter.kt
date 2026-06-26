@@ -18,7 +18,7 @@ import reactor.util.context.Context
  *
  * @see getExchange
  */
-class ServerWebExchangeContextFilter : WebFilter {
+public class ServerWebExchangeContextFilter : WebFilter {
     /**
      * Đặt [exchange] vào Reactor Context rồi tiếp tục chuỗi filter.
      *
@@ -33,7 +33,7 @@ class ServerWebExchangeContextFilter : WebFilter {
         return chain.filter(exchange).contextWrite(Context.of(ServerWebExchange::class.java, exchange))
     }
 
-    companion object {
+    public companion object {
         /**
          * Lấy [ServerWebExchange] từ Reactor Context của chuỗi hiện tại.
          *
@@ -43,7 +43,7 @@ class ServerWebExchangeContextFilter : WebFilter {
          * @return [Mono] phát ra exchange hiện tại, hoặc rỗng nếu không tìm thấy
          */
         @JvmStatic
-        fun getExchange(): Mono<ServerWebExchange> {
+        public fun getExchange(): Mono<ServerWebExchange> {
             return Mono.deferContextual {
                 Mono.justOrEmpty(it.getOrEmpty(ServerWebExchange::class.java))
             }

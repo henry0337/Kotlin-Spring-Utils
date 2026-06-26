@@ -1,6 +1,6 @@
 ﻿package dev.myrlennia237.config
 
-import dev.myrlennia237.security.UserPrincipal
+import dev.myrlennia237.component.UserPrincipal
 import org.springframework.data.domain.ReactiveAuditorAware
 import org.springframework.security.core.context.ReactiveSecurityContextHolder
 import reactor.core.publisher.Mono
@@ -16,13 +16,12 @@ import java.util.UUID
  *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-class AsyncAuditorAware : ReactiveAuditorAware<UUID> {
+public class AsyncAuditorAware : ReactiveAuditorAware<UUID> {
     override fun getCurrentAuditor(): Mono<UUID> =
         ReactiveSecurityContextHolder.getContext().flatMap { ctx ->
             val auth = ctx.authentication ?: return@flatMap Mono.empty()
             if (!auth.isAuthenticated) return@flatMap Mono.empty()
-            (auth.principal as? UserPrincipal)
-                ?.let { Mono.just(it.userId) }
+            (auth.principal as? UserPrincipal)?.let { Mono.just(it.userId) }
                 ?: Mono.empty()
         }
 }

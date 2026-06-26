@@ -22,7 +22,7 @@ import reactor.core.publisher.Mono
  * Một Reactive HTTP Client dùng để gọi tới các API bên thứ 3.
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-open class ReactiveHttpClient(private val webClient: WebClient) {
+public class ReactiveHttpClient(private val webClient: WebClient) {
     @Autowired
     @Lazy
     @PublishedApi
@@ -44,7 +44,7 @@ open class ReactiveHttpClient(private val webClient: WebClient) {
      */
     @Retry(name = "unwrapGet", fallbackMethod = "retryFallback")
     @CircuitBreaker(name = "unwrapGet", fallbackMethod = "circuitBreakerFallback")
-    open fun <T : Any> doGet(
+    public fun <T : Any> doGet(
         url: String,
         responseType: ParameterizedTypeReference<T>,
         params: @Nullable Map<String, Array<Any>>? = null,
@@ -92,7 +92,7 @@ open class ReactiveHttpClient(private val webClient: WebClient) {
      */
     @Retry(name = "unwrapPost", fallbackMethod = "retryFallback")
     @CircuitBreaker(name = "unwrapPost", fallbackMethod = "circuitBreakerFallback")
-    open fun <T : Any, B : Any> doPost(
+    public fun <T : Any, B : Any> doPost(
         url: String,
         body: B,
         responseType: ParameterizedTypeReference<T>,
@@ -138,7 +138,7 @@ open class ReactiveHttpClient(private val webClient: WebClient) {
      */
     @KotlinVariant
     @JvmSynthetic
-    suspend inline fun <reified T : Any> awaitGet(
+    public suspend inline fun <reified T : Any> awaitGet(
         url: String,
         params: Map<String, Array<Any>>? = null,
         headers: Map<String, String?>? = null,
@@ -170,7 +170,7 @@ open class ReactiveHttpClient(private val webClient: WebClient) {
      */
     @KotlinVariant
     @JvmSynthetic
-    suspend inline fun <reified T : Any, reified B : Any> awaitPost(
+    public suspend inline fun <reified T : Any, reified B : Any> awaitPost(
         url: String,
         body: B,
         params: Map<String, Array<Any>>? = null,
@@ -188,8 +188,8 @@ open class ReactiveHttpClient(private val webClient: WebClient) {
     ).awaitSingleOrNull()
 
     @Suppress("unused")
-    protected fun <T : Any> retryFallback(ex: Throwable): Mono<T> = Mono.error(ex)
+    private fun <T : Any> retryFallback(ex: Throwable): Mono<T> = Mono.error(ex)
 
     @Suppress("unused")
-    protected fun <T : Any> circuitBreakerFallback(ex: Throwable): Mono<T> = Mono.error(ex)
+    private fun <T : Any> circuitBreakerFallback(ex: Throwable): Mono<T> = Mono.error(ex)
 }

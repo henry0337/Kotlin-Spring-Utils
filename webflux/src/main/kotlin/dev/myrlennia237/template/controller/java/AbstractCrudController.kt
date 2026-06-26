@@ -1,6 +1,6 @@
 package dev.myrlennia237.template.controller.java
 
-import dev.myrlennia237.dto.PagedResponse
+import dev.myrlennia237.component.PagedResponse
 import dev.myrlennia237.template.controller.ReactiveRestController
 import dev.myrlennia237.util.ResponseHelper
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,7 +18,7 @@ import java.util.UUID
  * @param I2 **Input DTO** dùng để cập nhật dữ liệu bản ghi
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-abstract class AbstractCrudController<T : Any, in I1, in I2> : ReactiveRestController() {
+public abstract class AbstractCrudController<T : Any, in I1, in I2> : ReactiveRestController() {
 
     @set:Autowired
     protected lateinit var responseHelper: ResponseHelper
@@ -29,7 +29,7 @@ abstract class AbstractCrudController<T : Any, in I1, in I2> : ReactiveRestContr
      * @param pageable Cấu hình phân trang (page, size, sort)
      * @return `200 OK` kèm danh sách bản ghi và thông tin điều hướng phân trang
      */
-    abstract fun findAll(pageable: Pageable): Mono<ResponseEntity<PagedResponse<T>>>
+    public abstract fun findAll(pageable: Pageable): Mono<ResponseEntity<PagedResponse<T>>>
 
     /**
      * Tìm bản ghi theo ID.
@@ -37,7 +37,7 @@ abstract class AbstractCrudController<T : Any, in I1, in I2> : ReactiveRestContr
      * @param id Định danh của bản ghi cần tìm
      * @return `200 OK` nếu tìm thấy, `404 Not Found` nếu không có bản ghi tương ứng
      */
-    abstract fun findById(id: UUID): Mono<ResponseEntity<T>>
+    public abstract fun findById(id: UUID): Mono<ResponseEntity<T>>
 
     /**
      * Tạo mới một bản ghi.
@@ -45,7 +45,7 @@ abstract class AbstractCrudController<T : Any, in I1, in I2> : ReactiveRestContr
      * @param body DTO chứa thông tin cần thiết để tạo bản ghi
      * @return `201 Created` kèm bản ghi vừa được tạo
      */
-    abstract fun create(body: I1): Mono<ResponseEntity<T>>
+    public abstract fun create(body: I1): Mono<ResponseEntity<T>>
 
     /**
      * Cập nhật thông tin bản ghi theo ID.
@@ -54,7 +54,7 @@ abstract class AbstractCrudController<T : Any, in I1, in I2> : ReactiveRestContr
      * @param body DTO chứa thông tin muốn thay đổi
      * @return `200 OK` kèm bản ghi sau khi cập nhật
      */
-    abstract fun update(id: UUID, body: I2): Mono<ResponseEntity<T>>
+    public abstract fun update(id: UUID, body: I2): Mono<ResponseEntity<T>>
 
     /**
      * Xóa vĩnh viễn một bản ghi theo ID.
@@ -62,7 +62,7 @@ abstract class AbstractCrudController<T : Any, in I1, in I2> : ReactiveRestContr
      * @param id Định danh của bản ghi cần xóa
      * @return `204 No Content` khi xóa thành công
      */
-    abstract fun delete(id: UUID): Mono<ResponseEntity<Void>>
+    public abstract fun delete(id: UUID): Mono<ResponseEntity<Void>>
 
     /**
      * Vô hiệu hóa một bản ghi theo ID (xóa mềm).
@@ -70,7 +70,7 @@ abstract class AbstractCrudController<T : Any, in I1, in I2> : ReactiveRestContr
      * @param id Định danh của bản ghi cần vô hiệu hóa
      * @return `204 No Content` khi vô hiệu hóa thành công
      */
-    abstract fun disable(id: UUID): Mono<ResponseEntity<Void>>
+    public abstract fun disable(id: UUID): Mono<ResponseEntity<Void>>
 
     /**
      * Kích hoạt lại một bản ghi đã bị vô hiệu hóa theo ID.
@@ -78,5 +78,5 @@ abstract class AbstractCrudController<T : Any, in I1, in I2> : ReactiveRestContr
      * @param id Định danh của bản ghi cần kích hoạt lại
      * @return `204 No Content` khi kích hoạt lại thành công
      */
-    abstract fun enable(id: UUID): Mono<ResponseEntity<Void>>
+    public abstract fun enable(id: UUID): Mono<ResponseEntity<Void>>
 }

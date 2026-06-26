@@ -1,28 +1,45 @@
 package dev.myrlennia237.util
 
-object CommonUtils {
+/**
+ * @author <a href="https://github.com/henry0337">Muharux</a>
+ */
+public object CommonUtils {
     /**
-     * Đảm bảo đối tượng không thể `null`.
+     * Yêu cầu `instance` được chỉ định không thể chứa `null` làm giá trị hợp lệ.
      *
-     * [IllegalStateException] sẽ được ném ra nếu như đối tượng được truyền vào có giá trị `null`.
+     * [IllegalArgumentException] sẽ được ném ra nếu như đối tượng được truyền vào có giá trị `null`.
      *
-     * @param T Kiểu dữ liệu của đối tượng
-     * @param instance Đối tượng cần kiểm tra
+     * @param instance  Đối tượng cần kiểm tra
+     * @param T         Kiểu dữ liệu của đối tượng cần kiểm tra
      * @return Chính instance đó nếu nó không `null`.
-     * @throws IllegalStateException nếu [instance] là `null`.
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @throws IllegalArgumentException nếu [instance] là `null`.
      */
     @JvmStatic
-    fun <T : Any> assertNonNull(instance: T?): T = requireNotNull(instance)
+    public fun <T : Any> requireNonNull(instance: T?): T = requireNotNull(instance)
 
     /**
      * Trả về chính `instance` được cung cấp nếu nó không `null`, ngược lại trả về giá trị mặc định được cung cấp.
      *
-     * @param T Kiểu dữ liệu của đối tượng
-     * @param instance Đối tượng cần kiểm tra
-     * @param defaultValue Giá trị mặc định nếu [instance] là `null`
+     * @param instance      Đối tượng cần kiểm tra
+     * @param defaultValue  Giá trị mặc định nếu [instance] là `null`
+     * @param T             Kiểu dữ liệu của đối tượng
      * @return Chính instance đó nếu nó không `null` hoặc giá trị mặc định nếu [instance] là `null`.
      */
     @JvmStatic
-    fun <T : Any> assertNonNull(instance: T?, defaultValue: T): T = instance ?: defaultValue
+    public fun <T : Any> requireNonNull(instance: T?, defaultValue: T): T = instance ?: defaultValue
+
+    /**
+     * Trả về chính `instance` được cung cấp nếu nó không `null`, ngược lại hiển thị ra thông báo lỗi.
+     *
+     * @param instance  Đối tượng cần kiểm tra
+     * @param error     Thông báo lỗi sẽ hiển thị ở console
+     * @param T         Kiểu dữ liệu của đối tượng cần kiểm tra
+     * @return Chính instance đó nếu nó không `null` hoặc giá trị mặc định nếu [instance] là `null`.
+     * @throws IllegalArgumentException nếu [instance] là `null`.
+     */
+    @JvmStatic
+    public fun <T : Any> requireNonNull(
+        instance: T?,
+        error: String = "`instance` không thể chứa giá trị `null`."
+    ): T = requireNotNull(instance) { error }
 }
