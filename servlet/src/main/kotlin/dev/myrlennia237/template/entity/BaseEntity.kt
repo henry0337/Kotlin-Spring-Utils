@@ -19,7 +19,7 @@ import java.io.Serial
 import java.util.UUID
 
 /**
- * Khai báo một lớp mà bản thân nó không phải là **một Entity**, nhưng các cấu hình ánh xạ của nó sẽ được kế thừa bởi
+ * Khai báo một lớp mà bản thân nó không phải là một **Entity**, nhưng các cấu hình ánh xạ của nó sẽ được kế thừa bởi
  * các entity kế thừa từ nó.
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */

@@ -1,7 +1,7 @@
 package dev.myrlennia237.internal.service.kotlin
 
 import dev.myrlennia237.annotation.KotlinVariant
-import dev.myrlennia237.component.PagedResponse
+import dev.myrlennia237.component.dto.PagedResponse
 import kotlin.uuid.Uuid
 import org.springframework.data.domain.Pageable
 

@@ -1,4 +1,4 @@
-package dev.myrlennia237.component
+package dev.myrlennia237.component.dto
 
 import dev.myrlennia237.annotation.KotlinVariant
 import org.springframework.data.domain.Page

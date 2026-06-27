@@ -27,7 +27,8 @@ dependencies {
 }
 
 kotlin {
-    explicitApi()
+    // https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
+    explicitApi() // Kích hoạt chế độ Explicit API
     jvmToolchain(25)
 
     compilerOptions {
@@ -35,6 +36,7 @@ kotlin {
             "-Xjsr305=strict",
             "-Xannotation-default-target=param-property",
             "-opt-in=kotlin.uuid.ExperimentalUuidApi",
+            "-Xreturn-value-checker=full"
         )
     }
 }

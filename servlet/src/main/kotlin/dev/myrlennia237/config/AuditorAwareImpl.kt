@@ -1,6 +1,6 @@
 ﻿package dev.myrlennia237.config
 
-import dev.myrlennia237.component.UserPrincipal
+import dev.myrlennia237.contract.UserPrincipal
 import org.springframework.data.domain.AuditorAware
 import org.springframework.security.core.context.SecurityContextHolder
 import java.util.Optional

@@ -1,6 +1,6 @@
 package dev.myrlennia237.internal.service.java
 
-import dev.myrlennia237.component.PagedResponse
+import dev.myrlennia237.component.dto.PagedResponse
 import org.springframework.data.domain.Pageable
 import reactor.core.publisher.Mono
 import java.util.UUID

@@ -34,7 +34,7 @@ public object CommonUtils {
      * @param instance  Đối tượng cần kiểm tra
      * @param error     Thông báo lỗi sẽ hiển thị ở console
      * @param T         Kiểu dữ liệu của đối tượng cần kiểm tra
-     * @return Chính instance đó nếu nó không `null` hoặc giá trị mặc định nếu [instance] là `null`.
+     * @return Chính instance đó nếu nó không `null` hoặc hiển thị thông báo lỗi nếu [instance] là `null`.
      * @throws IllegalArgumentException nếu [instance] là `null`.
      */
     @JvmStatic
@@ -42,4 +42,13 @@ public object CommonUtils {
         instance: T?,
         error: String = "`instance` không thể chứa giá trị `null`."
     ): T = requireNotNull(instance) { error }
+
+    /**
+     * Đánh dấu một [List] sẽ không thể thực hiện các tác vụ liên quan tới chính sửa dữ liệu bên trong chúng
+     * sau khi được chuyển đổi.
+     *
+     * @return Một phiên bản bất biến sau chuyển đổi của [List].
+     */
+    @JvmStatic
+    public fun <T : Any> toImmutableList(list: MutableList<T>): List<T> = java.util.List.copyOf(list)
 }

@@ -1,4 +1,4 @@
-package dev.myrlennia237.component
+package dev.myrlennia237.contract
 
 import java.util.UUID
 

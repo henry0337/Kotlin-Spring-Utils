@@ -9,12 +9,7 @@ import dev.myrlennia237.internal.service.Reversible
 import org.springframework.beans.factory.annotation.Autowired
 
 /**
- * **[[Java-Interoperability Variant]]**
- *
  * Base class cho service CRUD dành cho dự án **Java** trên môi trường Spring MVC (Servlet).
- *
- * Subclass phải implement 7 operations:
- * `findAll`, `findById`, `insert`, `update`, `deleteById`, `disable`, `enable`.
  *
  * @param T  Kiểu entity domain
  * @param I1 Kiểu DTO dùng để tạo mới entity (tham số của `insert`)

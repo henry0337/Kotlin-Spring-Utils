@@ -31,7 +31,11 @@ kotlin {
     jvmToolchain(25)
 
     compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
+        freeCompilerArgs.addAll(
+            "-Xjsr305=strict",
+            "-Xannotation-default-target=param-property",
+            "-Xreturn-value-checker=full"
+        )
     }
 }
 

@@ -7,15 +7,18 @@ plugins {
 dependencies {
     api("org.springframework:spring-context")
     api("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.0")
+    implementation("org.springframework.boot:spring-boot-starter-mail")
     implementation("org.springframework.data:spring-data-commons")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.security:spring-security-config")
+    implementation("org.springframework:spring-tx")
     implementation("io.swagger.core.v3:swagger-annotations:2.2.41")
     implementation("org.slf4j:slf4j-api")
 }
 
 kotlin {
-    explicitApi()
+    // https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
+    explicitApi() // Kích hoạt chế độ Explicit API
     jvmToolchain(25)
 
     compilerOptions {

@@ -1,11 +1,9 @@
 package dev.myrlennia237.template.controller.kotlin
 
 import dev.myrlennia237.annotation.KotlinVariant
-import dev.myrlennia237.component.PagedResponse
+import dev.myrlennia237.component.dto.PagedResponse
 import dev.myrlennia237.template.controller.ReactiveRestController
 import org.springframework.data.domain.Pageable
-import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import kotlin.uuid.Uuid
 
@@ -43,7 +41,6 @@ public abstract class CoroutineRestController<T : Any, in I1, in I2> : ReactiveR
      * @param body DTO chứa thông tin cần thiết để tạo bản ghi
      * @return Bản ghi vừa được tạo
      */
-    @ResponseStatus(HttpStatus.CREATED)
     public abstract suspend fun create(body: I1): T
 
     /**
@@ -60,7 +57,6 @@ public abstract class CoroutineRestController<T : Any, in I1, in I2> : ReactiveR
      *
      * @param id Định danh của bản ghi cần xóa
      */
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public abstract suspend fun delete(id: Uuid)
 
     /**
@@ -68,7 +64,6 @@ public abstract class CoroutineRestController<T : Any, in I1, in I2> : ReactiveR
      *
      * @param id Định danh của bản ghi cần vô hiệu hóa
      */
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public abstract suspend fun disable(id: Uuid)
 
     /**
@@ -76,6 +71,5 @@ public abstract class CoroutineRestController<T : Any, in I1, in I2> : ReactiveR
      *
      * @param id Định danh của bản ghi cần kích hoạt lại
      */
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public abstract suspend fun enable(id: Uuid)
 }

@@ -1,6 +1,6 @@
 package dev.myrlennia237.template.controller.java
 
-import dev.myrlennia237.component.PagedResponse
+import dev.myrlennia237.component.dto.PagedResponse
 import dev.myrlennia237.template.controller.ReactiveRestController
 import dev.myrlennia237.util.ResponseHelper
 import org.springframework.beans.factory.annotation.Autowired
