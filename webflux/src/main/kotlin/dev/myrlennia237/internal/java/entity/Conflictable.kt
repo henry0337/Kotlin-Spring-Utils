@@ -1,4 +1,4 @@
-package dev.myrlennia237.internal.entity
+package dev.myrlennia237.internal.java.entity
 
 /**
  * Chỉ định một **Aggregate Root** sẽ sử dụng cơ chế **khóa lạc quan (optimistic locking)** lên các dữ liệu mà nó quản lý.

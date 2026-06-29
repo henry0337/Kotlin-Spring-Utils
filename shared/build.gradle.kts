@@ -14,6 +14,7 @@ dependencies {
     implementation("org.springframework:spring-tx")
     implementation("io.swagger.core.v3:swagger-annotations:2.2.41")
     implementation("org.slf4j:slf4j-api")
+    compileOnly("org.jetbrains:annotations:26.1.0")
 }
 
 kotlin {
@@ -25,7 +26,9 @@ kotlin {
         freeCompilerArgs.addAll(
             "-Xjsr305=strict",
             "-Xannotation-default-target=param-property",
-            "-Xreturn-value-checker=full"
+            // Experimental: Return value checker, available only in Kotlin 2.3.x or later.
+            // After upgraded to Kotlin 2.3.x, uncomment to use if needed.
+             "-Xreturn-value-checker=full"
         )
     }
 }

@@ -1,14 +1,10 @@
-@file:NullMarked
-
 package dev.myrlennia237.template.entity
 
 import dev.myrlennia237.JavaInstant
 import dev.myrlennia237.JavaSerializable
-import dev.myrlennia237.internal.entity.Auditable
-import dev.myrlennia237.internal.entity.Conflictable
-import dev.myrlennia237.internal.entity.Restorable
-import org.jspecify.annotations.NullMarked
-import org.jspecify.annotations.Nullable
+import dev.myrlennia237.internal.java.entity.Auditable
+import dev.myrlennia237.internal.java.entity.Conflictable
+import dev.myrlennia237.internal.java.entity.Restorable
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.Id
@@ -19,7 +15,8 @@ import org.springframework.data.relational.core.mapping.InsertOnlyProperty
 import java.util.UUID
 
 /**
- * Đánh dấu mỗi lớp kế thừa lớp này là một **Entity** - đại diện cho một bảng trong cơ sở dữ liệu.
+ * Khai báo một lớp mà bản thân nó không phải là một **Entity**, nhưng các cấu hình ánh xạ của nó sẽ được kế thừa bởi
+ * các entity kế thừa từ nó.
  *
  * Hỗ trợ:
  * - Xóa mềm (thông qua [Restorable])
@@ -34,13 +31,13 @@ public abstract class Entity(
      * Identifier duy nhất cho bản ghi hiện tại.
      */
     @Id
-    public var id: @Nullable UUID? = null,
+    public var id: UUID? = null,
 
     /**
      * Đối tượng thực hiện tạo bản ghi này.
      */
     @CreatedBy @InsertOnlyProperty
-    public var createdBy: @Nullable UUID? = null,
+    public var createdBy: UUID? = null,
 
     /**
      * Thời gian bản ghi này được tạo ra.
@@ -54,7 +51,7 @@ public abstract class Entity(
      * Đối tượng cuối cùng thực hiện chỉnh sửa bản ghi này.
      */
     @LastModifiedBy
-    public var lastModifiedBy: @Nullable UUID? = null,
+    public var lastModifiedBy: UUID? = null,
 
     /**
      * Thời gian lần cuối bản ghi này được chỉnh sửa.
@@ -62,7 +59,7 @@ public abstract class Entity(
     @get:JvmName("getLastModifiedDateValue")
     @set:JvmName("setLastModifiedDateValue")
     @LastModifiedDate
-    public var lastModifiedDate: @Nullable JavaInstant? = null,
+    public var lastModifiedDate: JavaInstant? = null,
 
     /**
      * Trạng thái sử dụng hiện tại của bản ghi.
@@ -72,12 +69,12 @@ public abstract class Entity(
     /**
      * Thời gian lần cuối vô hiệu hóa bản ghi này.
      */
-    public var lastDisabledAt: @Nullable JavaInstant? = null,
+    public var lastDisabledAt: JavaInstant? = null,
 
     /**
      * Đối tượng gần đây nhất thực hiện vô hiệu hóa bản ghi này.
      */
-    public var lastDisabledBy: @Nullable UUID? = null,
+    public var lastDisabledBy: UUID? = null,
 
     /**
      * Phiên bản hiện tại của dữ liệu.

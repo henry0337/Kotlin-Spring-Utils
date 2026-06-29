@@ -1,4 +1,4 @@
-package dev.myrlennia237.internal.entity
+package dev.myrlennia237.internal.java.entity
 
 import dev.myrlennia237.JavaInstant
 import java.util.UUID

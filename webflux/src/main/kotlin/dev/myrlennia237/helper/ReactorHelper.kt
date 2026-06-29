@@ -1,4 +1,4 @@
-package dev.myrlennia237.util
+package dev.myrlennia237.helper
 
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono

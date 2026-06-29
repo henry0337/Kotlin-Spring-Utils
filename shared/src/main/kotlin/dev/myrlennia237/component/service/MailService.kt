@@ -51,7 +51,7 @@ public class MailService(private val mailSender: JavaMailSender) {
     }
 
     /**
-     * Thực hiện gửi mail điện tử tới các [recipient] chỉ định.
+     * Thực hiện gửi mail điện tử bất đồng bộ tới các [recipient] chỉ định.
      *
      * @param from Người gửi mail
      * @param recipient Đối tượng nhận mail, có thể nhiều hơn 1

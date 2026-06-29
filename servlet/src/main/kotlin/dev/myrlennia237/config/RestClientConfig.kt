@@ -6,16 +6,6 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpHeaders
 import org.springframework.web.client.RestClient
 
-/**
- * Cấu hình [RestClient] mặc định cho thư viện.
- *
- * Default headers được áp dụng theo [RestClientProperties] — consumer có thể override
- * từng giá trị qua `spring-utils.rest-client.*` trong `application.yml` mà không cần
- * khai báo lại toàn bộ bean.
- *
- * @author <a href="https://github.com/henry0337">Muharux</a>
- * @see RestClientProperties
- */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(RestClientProperties::class)
 public class RestClientConfig(private val properties: RestClientProperties) {

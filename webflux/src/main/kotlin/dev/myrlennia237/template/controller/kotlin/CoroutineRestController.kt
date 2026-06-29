@@ -1,7 +1,7 @@
 package dev.myrlennia237.template.controller.kotlin
 
 import dev.myrlennia237.annotation.KotlinVariant
-import dev.myrlennia237.component.dto.PagedResponse
+import dev.myrlennia237.dto.KPagedResponse
 import dev.myrlennia237.template.controller.ReactiveRestController
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.RestController
@@ -24,7 +24,7 @@ public abstract class CoroutineRestController<T : Any, in I1, in I2> : ReactiveR
      * @param pageable Cấu hình phân trang (page, size, sort)
      * @return Danh sách bản ghi của trang hiện tại kèm thông tin điều hướng
      */
-    public abstract suspend fun findAll(pageable: Pageable): PagedResponse<T>
+    public abstract suspend fun findAll(pageable: Pageable): KPagedResponse<T>
 
     /**
      * Tìm bản ghi theo ID. Ném [org.springframework.web.server.ResponseStatusException]

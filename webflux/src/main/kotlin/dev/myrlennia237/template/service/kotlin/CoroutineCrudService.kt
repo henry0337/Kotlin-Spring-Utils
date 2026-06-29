@@ -1,12 +1,12 @@
 package dev.myrlennia237.template.service.kotlin
 
 import dev.myrlennia237.annotation.KotlinVariant
-import dev.myrlennia237.config.AsyncAuditorAware
-import dev.myrlennia237.internal.service.kotlin.Deletable
-import dev.myrlennia237.internal.service.kotlin.Insertable
-import dev.myrlennia237.internal.service.kotlin.Modifiable
-import dev.myrlennia237.internal.service.kotlin.ReadableWithID
-import dev.myrlennia237.internal.service.kotlin.Reversible
+import dev.myrlennia237.config.KAsyncAuditorAware
+import dev.myrlennia237.internal.kotlin.service.KDeletable
+import dev.myrlennia237.internal.kotlin.service.KInsertable
+import dev.myrlennia237.internal.kotlin.service.KModifiable
+import dev.myrlennia237.internal.kotlin.service.KReadableWithID
+import dev.myrlennia237.internal.kotlin.service.KReversible
 import dev.myrlennia237.template.service.BaseReactiveService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -21,12 +21,12 @@ import org.springframework.stereotype.Service
  */
 @KotlinVariant
 public abstract class CoroutineCrudService<T : Any, in I1, in I2> : BaseReactiveService(),
-    ReadableWithID<T>,
-    Insertable<T, I1>,
-    Modifiable<T, I2>,
-    Deletable,
-    Reversible {
+    KReadableWithID<T>,
+    KInsertable<T, I1>,
+    KModifiable<T, I2>,
+    KDeletable,
+    KReversible {
 
     @set:Autowired
-    protected lateinit var auditorAware: AsyncAuditorAware
+    protected lateinit var auditorAware: KAsyncAuditorAware
 }

@@ -50,8 +50,4 @@ public class SpringMvcAutoConfiguration {
     @ConditionalOnMissingBean
     @ConditionalOnBean(JavaMailSender::class)
     public fun mailService(mailSender: JavaMailSender): MailService = MailService(mailSender)
-
-    @Bean
-    @ConditionalOnMissingBean
-    public fun applicationContextProvider(): ApplicationContextProvider = ApplicationContextProvider()
 }

@@ -2,7 +2,6 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.spring")
     kotlin("kapt")
-    kotlin("plugin.serialization")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
 }
@@ -34,7 +33,9 @@ kotlin {
         freeCompilerArgs.addAll(
             "-Xjsr305=strict",
             "-Xannotation-default-target=param-property",
-            "-Xreturn-value-checker=full"
+            // Experimental: Return value checker, available only in Kotlin 2.3.x or later.
+            // After upgraded to Kotlin 2.3.x, uncomment to use if needed.
+             "-Xreturn-value-checker=full"
         )
     }
 }

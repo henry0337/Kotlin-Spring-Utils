@@ -1,7 +1,8 @@
-package dev.myrlennia237.internal.service.kotlin
+package dev.myrlennia237.internal.java.service.kotlin
 
 import dev.myrlennia237.annotation.KotlinVariant
 import dev.myrlennia237.component.dto.PagedResponse
+import dev.myrlennia237.internal.kotlin.service.KReadable
 import kotlin.uuid.Uuid
 import org.springframework.data.domain.Pageable
 
@@ -23,7 +24,7 @@ internal fun interface Readable<T : Any> {
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 @KotlinVariant
-internal interface ReadableWithID<T : Any> : Readable<T> {
+internal interface ReadableWithID<T : Any> : KReadable<T> {
     /**
      * Tìm dữ liệu bản ghi theo ID.
      * @param id Định danh của entity cần tìm

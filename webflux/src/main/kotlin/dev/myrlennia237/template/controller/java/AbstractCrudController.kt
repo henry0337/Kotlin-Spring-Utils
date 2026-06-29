@@ -2,7 +2,7 @@ package dev.myrlennia237.template.controller.java
 
 import dev.myrlennia237.component.dto.PagedResponse
 import dev.myrlennia237.template.controller.ReactiveRestController
-import dev.myrlennia237.util.ResponseHelper
+import dev.myrlennia237.helper.ResponseHelper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity

@@ -29,7 +29,7 @@ public data class PagedResponse<T>(
             totalElements = source.totalElements,
             totalPages = source.totalPages,
             hasNext = source.hasNext(),
-            hasPrevious = source.hasPrevious(),
+            hasPrevious = source.hasPrevious()
         )
     }
 }

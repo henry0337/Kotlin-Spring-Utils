@@ -17,6 +17,8 @@ dependencies {
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    implementation("org.springframework.boot:spring-boot-starter-kotlinx-serialization-json")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
     implementation("tools.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.7.1")
     implementation("io.github.resilience4j:resilience4j-spring-boot4:2.4.0")
@@ -36,7 +38,10 @@ kotlin {
             "-Xjsr305=strict",
             "-Xannotation-default-target=param-property",
             "-opt-in=kotlin.uuid.ExperimentalUuidApi",
-            "-Xreturn-value-checker=full"
+            "-opt-in=kotlin.time.ExperimentalTime",
+            // Experimental: Return value checker, available only in Kotlin 2.3.x or later.
+            // After upgraded to Kotlin 2.3.x, uncomment to use if needed.
+             "-Xreturn-value-checker=full"
         )
     }
 }

@@ -1,4 +1,4 @@
-package dev.myrlennia237.internal.service.kotlin
+package dev.myrlennia237.internal.java.service.kotlin
 
 import dev.myrlennia237.annotation.KotlinVariant
 
