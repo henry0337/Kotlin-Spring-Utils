@@ -10,8 +10,8 @@ public class ReactorHelper {
     /**
      * Tạo một [Mono] mới phát ra một [data] được chỉ định, dữ liệu đó sẽ được thu thập vào thời điểm khởi tạo.
      *
-     * @param T    Kiểu dữ liệu của dữ liệu đầu vào
-     * @param data Dữ liệu sẽ được phát ra
+     * @param T         Kiểu dữ liệu của dữ liệu đầu vào
+     * @param data      Dữ liệu sẽ được phát ra
      * @see Mono.just
      */
     public fun <T : Any> only(data: T): Mono<T> = Mono.just(data)
@@ -19,8 +19,8 @@ public class ReactorHelper {
     /**
      * Tạo một [Mono] mới phát ra một [instance] được chỉ định nếu nó không `null`, ngược lại sẽ phát ra [Mono.empty].
      *
-     * @param T        Kiểu dữ liệu của dữ liệu đầu vào
-     * @param instance Dữ liệu sẽ được phát ra
+     * @param T                 Kiểu dữ liệu của dữ liệu đầu vào
+     * @param instance          Dữ liệu sẽ được phát ra
      * @see Mono.justOrEmpty
      */
     public fun <T : Any> onlyOrEmpty(instance: T?): Mono<T> = Mono.justOrEmpty(instance)
@@ -48,7 +48,7 @@ public class ReactorHelper {
      * @param publisher Đối tượng [Mono] cần lấy giá trị được wrap tương ứng
      * @return Giá trị được wrap bên trong nếu tồn tại, nếu như [Mono.empty] thì trả về `null`.
      */
-    public fun <T : Any> awaitSingle(publisher: Mono<T>): T? = publisher.block()
+    public fun <T : Any> wait(publisher: Mono<T>): T? = publisher.block()
 
     /**
      * Lấy ra giá trị [List] được bọc trong một [Flux] được chỉ định.
@@ -57,11 +57,12 @@ public class ReactorHelper {
      * @param publisher Đối tượng [Flux] cần lấy giá trị được wrap tương ứng
      * @return Danh sách giá trị được wrap bên trong nếu tồn tại, nếu như [Flux.empty] thì trả về `null`.
      */
-    public fun <T : Any> awaitFluxToList(publisher: Flux<T>): List<T> = publisher.collectList().block() ?: listOf()
+    public fun <T : Any> transformToList(publisher: Flux<T>): List<T> = publisher.collectList().block() ?: listOf()
 
     /**
      * Đánh dấu một [Mono] sẽ được bỏ qua giá trị trả về, kết quả thực tế sẽ được thay bằng `Mono<Void>`.
      * @see Mono.then
      */
+    @Suppress("kotlin:S6508")
     public fun <T : Any> ignoreReturnValue(mono: Mono<T>): Mono<Void> = mono.then()
 }

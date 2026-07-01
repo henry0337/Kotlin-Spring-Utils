@@ -1,15 +1,11 @@
-@file:NullMarked
-
 package dev.myrlennia237.service
 
 import dev.myrlennia237.annotation.KotlinVariant
 import dev.myrlennia237.Function
 import dev.myrlennia237.Predicate
+import dev.myrlennia237.extension.await
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker
 import io.github.resilience4j.retry.annotation.Retry
-import kotlinx.coroutines.reactor.awaitSingleOrNull
-import org.jspecify.annotations.NullMarked
-import org.jspecify.annotations.Nullable
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Lazy
 import org.springframework.core.ParameterizedTypeReference
@@ -47,10 +43,10 @@ public class ReactiveHttpClient(private val webClient: WebClient) {
     public fun <T : Any> doGet(
         url: String,
         responseType: ParameterizedTypeReference<T>,
-        params: @Nullable Map<String, Array<Any>>? = null,
-        headers: @Nullable Map<String, @Nullable String?>? = null,
-        statusPredicate: @Nullable Predicate<HttpStatusCode>? = null,
-        responseHandler: @Nullable Function<ClientResponse, Mono<out Throwable>>? = null
+        params: Map<String, Array<Any>>? = null,
+        headers: Map<String, String?>? = null,
+        statusPredicate: Predicate<HttpStatusCode>? = null,
+        responseHandler: Function<ClientResponse, Mono<out Throwable>>? = null
     ): Mono<T> {
         if (responseHandler != null) {
             requireNotNull(statusPredicate) { "\"statusPredicate\" không được null khi \"responseHandler\" được cung cấp!" }
@@ -96,8 +92,8 @@ public class ReactiveHttpClient(private val webClient: WebClient) {
         url: String,
         body: B,
         responseType: ParameterizedTypeReference<T>,
-        params: @Nullable Map<String, Array<Any>>? = null,
-        headers: @Nullable Map<String, @Nullable String?>? = null,
+        params: Map<String, Array<Any>>? = null,
+        headers: Map<String, String?>? = null,
         statusPredicate: Predicate<HttpStatusCode>? = null,
         responseHandler: Function<ClientResponse, Mono<out Throwable>>? = null
     ): Mono<T> {
@@ -151,7 +147,7 @@ public class ReactiveHttpClient(private val webClient: WebClient) {
         headers,
         statusPredicate,
         responseHandler
-    ).awaitSingleOrNull()
+    ).await()
 
     /**
      * Gửi một HTTP POST request đến [url] rồi trả về phản hồi với kiểu [T] tương ứng.
@@ -185,11 +181,11 @@ public class ReactiveHttpClient(private val webClient: WebClient) {
         headers,
         statusPredicate,
         responseHandler
-    ).awaitSingleOrNull()
+    ).await()
 
-    @Suppress("unused")
+    @Suppress("unused", "kotlin:S1144")
     private fun <T : Any> retryFallback(ex: Throwable): Mono<T> = Mono.error(ex)
 
-    @Suppress("unused")
+    @Suppress("unused", "kotlin:S1144")
     private fun <T : Any> circuitBreakerFallback(ex: Throwable): Mono<T> = Mono.error(ex)
 }

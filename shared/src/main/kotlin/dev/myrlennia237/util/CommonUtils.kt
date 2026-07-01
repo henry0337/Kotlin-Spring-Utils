@@ -1,5 +1,7 @@
 package dev.myrlennia237.util
 
+import dev.myrlennia237.component.ImmutableList
+
 /**
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
@@ -42,8 +44,8 @@ public object CommonUtils {
     @IgnorableReturnValue
     public fun <T : Any> requireNonNull(
         instance: T?,
-        error: String = "`instance` không thể chứa giá trị `null`."
-    ): T = requireNotNull(instance) { error }
+        error: () -> String = { "`instance` không thể chứa giá trị `null`." }
+    ): T = requireNotNull(instance, error)
 
     /**
      * Đánh dấu một [List] sẽ không thể thực hiện các tác vụ liên quan tới chính sửa dữ liệu bên trong chúng
@@ -52,5 +54,5 @@ public object CommonUtils {
      * @return Một phiên bản bất biến sau chuyển đổi của [List].
      */
     @JvmStatic
-    public fun <T : Any> toImmutableList(list: MutableList<T>): List<T> = java.util.List.copyOf(list)
+    public fun <E : Any> toImmutableList(list: List<E>): ImmutableList<E> = ImmutableList.copyFrom(list)
 }

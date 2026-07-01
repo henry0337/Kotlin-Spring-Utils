@@ -24,7 +24,7 @@ public suspend fun <T : Any> Mono<T>.await(): T? = this.awaitSingleOrNull()
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 @JvmSynthetic
-public suspend fun <T : Any> Flux<T>.awaitAsList(): List<T> = this.asFlow().toList()
+public suspend fun <T : Any> Flux<T>.transformToList(): List<T> = this.asFlow().toList()
 
 /**
  * Bỏ qua giá trị được phát ra của [Mono] được chỉ định.
@@ -35,4 +35,5 @@ public suspend fun <T : Any> Flux<T>.awaitAsList(): List<T> = this.asFlow().toLi
  * @see Mono.then
  */
 @JvmSynthetic
+@Suppress("kotlin:S6508")
 public fun <T : Any> Mono<T>.discard(): Mono<Void> = this.then()

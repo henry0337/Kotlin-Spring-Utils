@@ -64,6 +64,7 @@ public class MailService(private val mailSender: JavaMailSender) {
      * @param replyTo Đối tượng nhận phản hồi
      */
     @JvmOverloads
+    @Suppress("kotlin:S6508")
     public fun sendMailAsync(
         from: String,
         recipient: Array<out String>,

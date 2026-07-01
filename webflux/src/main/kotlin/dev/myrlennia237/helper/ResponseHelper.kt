@@ -23,6 +23,7 @@ public class ResponseHelper {
      * @param source [Mono] hoàn thành mà không phát ra dữ liệu
      * @return [Mono] phát ra [ResponseEntity] rỗng với status 200 OK
      */
+    @Suppress("kotlin:S6508")
     public fun awaitOkEmpty(source: Mono<Void>): Mono<ResponseEntity<Void>> =
         source.then(Mono.just(ResponseEntity.ok().build()))
 
@@ -48,6 +49,7 @@ public class ResponseHelper {
      * @param source [Mono] hoàn thành mà không phát ra dữ liệu
      * @return [Mono] phát ra [ResponseEntity] rỗng với status 204 No Content
      */
+    @Suppress("kotlin:S6508")
     public fun awaitNoContent(source: Mono<Void>): Mono<ResponseEntity<Void>> =
         source.then(Mono.just(ResponseEntity.noContent().build()))
 
