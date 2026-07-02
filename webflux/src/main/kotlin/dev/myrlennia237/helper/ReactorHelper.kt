@@ -1,5 +1,6 @@
 package dev.myrlennia237.helper
 
+import dev.myrlennia237.component.ImmutableList
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
@@ -55,9 +56,10 @@ public class ReactorHelper {
      *
      * @param T         Kiểu dữ liệu được wrap trong [Flux]
      * @param publisher Đối tượng [Flux] cần lấy giá trị được wrap tương ứng
-     * @return Danh sách giá trị được wrap bên trong nếu tồn tại, nếu như [Flux.empty] thì trả về `null`.
+     * @return Danh sách bất biến các giá trị được wrap bên trong nếu tồn tại, nếu như [Flux.empty] thì trả về danh sách rỗng.
      */
-    public fun <T : Any> transformToList(publisher: Flux<T>): List<T> = publisher.collectList().block() ?: listOf()
+    public fun <T : Any> transformToList(publisher: Flux<T>): ImmutableList<T> =
+        ImmutableList.copyFrom(publisher.collectList().block() ?: emptyList())
 
     /**
      * Đánh dấu một [Mono] sẽ được bỏ qua giá trị trả về, kết quả thực tế sẽ được thay bằng `Mono<Void>`.

@@ -1,6 +1,7 @@
 package dev.myrlennia237.component.dto
 
 import dev.myrlennia237.annotation.KotlinVariant
+import dev.myrlennia237.component.ImmutableList
 import org.springframework.data.domain.Page
 
 /**
@@ -8,7 +9,7 @@ import org.springframework.data.domain.Page
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 public data class PagedResponse<T>(
-    val content: List<T>,
+    val content: ImmutableList<T>,
     val page: Int,
     val size: Int,
     val totalElements: Long,
@@ -23,7 +24,7 @@ public data class PagedResponse<T>(
          */
         @JvmStatic
         public fun <T : Any> from(source: Page<T>): PagedResponse<T> = PagedResponse(
-            content = source.content,
+            content = ImmutableList.copyFrom(source.content),
             page = source.number,
             size = source.size,
             totalElements = source.totalElements,
