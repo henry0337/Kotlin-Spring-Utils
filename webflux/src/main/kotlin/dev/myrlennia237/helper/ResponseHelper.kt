@@ -9,33 +9,30 @@ import reactor.core.publisher.Mono
  */
 public class ResponseHelper {
     /**
-     * Bọc kết quả của [source] trong một [ResponseEntity] với HTTP status 200 OK.
+     * Trả về mã phản hồi `200 OK` với item được phát ra bởi [source].
      *
-     * @param T      Kiểu dữ liệu của response body
      * @param source [Mono] chứa dữ liệu cần trả về
-     * @return [Mono] phát ra [ResponseEntity] với status 200 OK
+     * @param T      Kiểu dữ liệu của response body
      */
-    public fun <T : Any> awaitOk(source: Mono<T>): Mono<ResponseEntity<T>> = source.map { ResponseEntity.ok(it) }
+    public fun <T : Any> ok(source: Mono<T>): Mono<ResponseEntity<T>> = source.map { ResponseEntity.ok(it) }
 
     /**
-     * Bọc kết quả của [source] trong một [ResponseEntity] rỗng với HTTP status 200 OK.
+     * Trả về mã phản hồi `200 OK` không bao gồm với bất cứ item nào được phát ra cả.
      *
      * @param source [Mono] hoàn thành mà không phát ra dữ liệu
      * @return [Mono] phát ra [ResponseEntity] rỗng với status 200 OK
      */
     @Suppress("kotlin:S6508")
-    public fun awaitOkEmpty(source: Mono<Void>): Mono<ResponseEntity<Void>> =
+    public fun okEmpty(source: Mono<Void>): Mono<ResponseEntity<Void>> =
         source.then(Mono.just(ResponseEntity.ok().build()))
 
     /**
-     * Bọc kết quả của [source] trong một [ResponseEntity] với HTTP status 201 Created.
-     * URI của resource mới sẽ được lấy từ request context nếu có, ngược lại fallback về status 201 đơn giản.
+     * Trả về mã phản hồi `201 Created` với body trả về được lấy từ [source].
      *
-     * @param T      Kiểu dữ liệu của response body
      * @param source [Mono] chứa dữ liệu cần trả về
-     * @return [Mono] phát ra [ResponseEntity] với status 201 Created
+     * @param T      Kiểu dữ liệu của response body
      */
-    public fun <T : Any> awaitCreated(source: Mono<T>): Mono<ResponseEntity<T>> {
+    public fun <T : Any> created(source: Mono<T>): Mono<ResponseEntity<T>> {
         return ServerWebExchangeContextFilter.getExchange()
             .flatMap { exchange ->
                 source.map { body -> ResponseEntity.created(exchange.request.uri).body(body) }
@@ -44,26 +41,25 @@ public class ResponseHelper {
     }
 
     /**
-     * Bọc kết quả của [source] trong một [ResponseEntity] rỗng với HTTP status 204 No Content.
+     * Trả về mã phản hồi `204 No Content` không bao gồm với bất cứ item nào được phát ra cả.
      *
      * @param source [Mono] hoàn thành mà không phát ra dữ liệu
      * @return [Mono] phát ra [ResponseEntity] rỗng với status 204 No Content
      */
     @Suppress("kotlin:S6508")
-    public fun awaitNoContent(source: Mono<Void>): Mono<ResponseEntity<Void>> =
+    public fun noContent(source: Mono<Void>): Mono<ResponseEntity<Void>> =
         source.then(Mono.just(ResponseEntity.noContent().build()))
 
     /**
-     * Bọc kết quả của [source] trong một [ResponseEntity] với HTTP status 200 OK,
-     * hoặc 404 Not Found nếu [source] không phát ra dữ liệu.
+     * Trả về mã phản hồi `200 OK` nếu như [source] phát ra bất cứ giá trị hợp lệ ngoài [Mono.empty], không thì trả về
+     * mã phản hồi `404 Not Found`.
      *
      * @param T      Kiểu dữ liệu của response body
      * @param source [Mono] chứa dữ liệu cần trả về
      * @return [Mono] phát ra [ResponseEntity] với status 200 OK hoặc 404 Not Found
      */
-    public fun <T : Any> awaitOrNotFound(source: Mono<T>): Mono<ResponseEntity<T>> {
-        return source
+    public fun <T : Any> okOrNotFound(source: Mono<T>): Mono<ResponseEntity<T>> =
+        source
             .map { ResponseEntity.ok(it) }
-            .defaultIfEmpty(ResponseEntity.notFound().build())
-    }
+            .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()))
 }

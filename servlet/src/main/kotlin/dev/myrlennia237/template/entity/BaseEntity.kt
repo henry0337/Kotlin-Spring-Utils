@@ -26,7 +26,7 @@ import java.util.UUID
  */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
-public abstract class BaseEntity(
+public abstract class BaseEntity protected constructor(
     @Id
     public var id: UUID? = null,
 

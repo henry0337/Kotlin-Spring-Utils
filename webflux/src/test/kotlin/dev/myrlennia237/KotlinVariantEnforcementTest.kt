@@ -20,12 +20,24 @@ import org.junit.jupiter.api.Test
  * Hai rule:
  * 1. **Direct** — method có `@KotlinVariant` trực tiếp phải là synthetic.
  * 2. **Cascade** — method cụ thể (non-abstract, public) trong class/file có `@KotlinVariant` cũng phải là synthetic.
+ *
+ * **Ngoại lệ của rule cascade** — các thành phần buộc phải public để tương tác với framework/lớp con,
+ * không phải API Kotlin-only mà người dùng gọi trực tiếp, nên được loại khỏi kiểm tra:
+ * - **Property accessor** (`get*`/`set*`/`is*`, `component#`, `copy`) — hợp đồng property cho Spring Data/serialization.
+ * - **Entity class** (tên kết thúc `Entity`) — buộc expose accessor và domain helper cho framework và lớp kế thừa.
+ * - **Interface default method** — helper trên các internal marker interface (`KConflictable`, `KRestorable`...),
+ *   bản thân abstract method đã bị loại sẵn.
  */
 class KotlinVariantEnforcementTest {
 
     private val classes: JavaClasses = ClassFileImporter()
         .withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS)
         .importPackages("dev.myrlennia237")
+
+    private fun isPropertyAccessor(name: String): Boolean =
+        Regex("^(get|set|is)[A-Z_].*").matches(name) ||
+        Regex("^component\\d+$").matches(name) ||
+        name == "copy"
 
     @Test
     fun `@KotlinVariant concrete functions must be synthetic`() {
@@ -49,12 +61,15 @@ class KotlinVariantEnforcementTest {
     fun `concrete public functions in @KotlinVariant classes must be synthetic`() {
         val violations = classes
             .filter { it.isAnnotatedWith(KotlinVariant::class.java) }
+            .filter { !it.isInterface }                   // interface default method là helper, không phải API gọi trực tiếp
+            .filter { !it.simpleName.endsWith("Entity") }  // entity buộc expose accessor + domain helper cho framework
             .flatMap { it.methods }
             .filter { method ->
                 !method.modifiers.contains(JavaModifier.ABSTRACT) &&
                 method.modifiers.contains(JavaModifier.PUBLIC) &&
                 !method.name.contains("$") &&
-                !method.modifiers.contains(JavaModifier.SYNTHETIC)
+                !method.modifiers.contains(JavaModifier.SYNTHETIC) &&
+                !isPropertyAccessor(method.name)           // property accessor là hợp đồng framework, không phải API Kotlin-only
             }
 
         assertThat(violations)

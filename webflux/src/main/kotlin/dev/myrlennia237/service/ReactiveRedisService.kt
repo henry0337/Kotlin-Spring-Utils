@@ -1,10 +1,8 @@
 package dev.myrlennia237.service
 
 import dev.myrlennia237.JavaDuration
-import dev.myrlennia237.annotation.KotlinVariant
 import org.springframework.data.redis.core.ReactiveStringRedisTemplate
 import org.springframework.data.redis.core.ReactiveValueOperations
-import org.springframework.data.redis.core.getAndAwait
 import reactor.core.publisher.Mono
 import kotlin.time.Duration
 import kotlin.time.toJavaDuration
@@ -32,22 +30,4 @@ public class ReactiveRedisService(redisTemplate: ReactiveStringRedisTemplate) {
     } else {
         redisOps.set(key, value, duration)
     }
-
-    /**
-     * Đọc ra giá trị được gán vào [key] tương ứng.
-     * @param key Tên khóa cần đọc
-     * @return Giá trị được lưu trong [key] nếu tồn tại, không thì trả về [Mono.empty].
-     */
-    public fun get(key: String): Mono<String> = redisOps.get(key)
-
-    /**
-     * Đọc ra giá trị được gán vào [key] tương ứng.
-     *
-     * (**Ghi chú**: Hàm này chỉ khả dụng cho các **API Kotlin**.)
-     * @param key Tên khóa cần đọc
-     * @return Giá trị được lưu trong [key] nếu tồn tại, hoặc `null` nếu không có giá trị được lưu.
-     */
-    @KotlinVariant
-    @JvmSynthetic
-    public suspend fun awaitGet(key: String): String? = redisOps.getAndAwait(key)
 }

@@ -1,6 +1,6 @@
 package dev.myrlennia237.internal.service
 
-import org.springframework.data.domain.Page
+import dev.myrlennia237.component.dto.PagedResponse
 import org.springframework.data.domain.Pageable
 import java.util.Optional
 import java.util.UUID
@@ -14,7 +14,7 @@ internal fun interface Readable<T : Any> {
      * Thực hiện phân trang toàn bộ dữ liệu có trong cơ sở dữ liệu hiện tại.
      * @param pageable Cấu hình phân trang
      */
-    fun findAll(pageable: Pageable): Page<T>
+    fun findAll(pageable: Pageable): PagedResponse<T>
 }
 
 /**

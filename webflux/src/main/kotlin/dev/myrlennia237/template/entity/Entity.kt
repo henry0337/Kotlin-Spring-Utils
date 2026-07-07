@@ -25,7 +25,7 @@ import java.util.UUID
  *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-public abstract class Entity(
+public abstract class Entity protected constructor(
 
     /**
      * Identifier duy nhất cho bản ghi hiện tại.

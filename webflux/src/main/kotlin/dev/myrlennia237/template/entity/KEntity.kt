@@ -31,7 +31,7 @@ import kotlin.uuid.Uuid
  */
 @Serializable
 @KotlinVariant
-public abstract class KEntity(
+public abstract class KEntity protected constructor(
     @Id
     public var id: Uuid? = null,
 

@@ -53,7 +53,7 @@ public final class ImmutableList<E> extends AbstractList<E> {
      */
     @SafeVarargs
     @SuppressWarnings("java:S923")
-    public static <T> ImmutableList<T> of(T @NonNull ... elements) {
+    public static <E> ImmutableList<E> of(E @NonNull ... elements) {
         if (elements.length == 0) {
             return empty();
         }
@@ -68,9 +68,9 @@ public final class ImmutableList<E> extends AbstractList<E> {
      * @param source Nguồn dữ liệu để sao chép.
      * @return Một {@link ImmutableList} chứa tất cả phần tử từ {@code source}.
      */
-    public static <T> @NonNull ImmutableList<T> copyFrom(Iterable<T> source) {
-        if (source instanceof ImmutableList) return (ImmutableList<T>) source;
-        var buffer = new ArrayList<T>();
+    public static <E> @NonNull ImmutableList<E> copyFrom(Iterable<E> source) {
+        if (source instanceof ImmutableList) return (ImmutableList<E>) source;
+        var buffer = new ArrayList<E>();
         source.forEach(buffer::add);
         return new ImmutableList<>(buffer.toArray());
     }
@@ -80,7 +80,7 @@ public final class ImmutableList<E> extends AbstractList<E> {
      */
     @Contract(pure = true)
     @SuppressWarnings({"unchecked", "java:S2384"}) // EMPTY là bất biến nên có thể chia sẻ trực tiếp
-    public static <T> ImmutableList<T> empty() {
+    public static <E> ImmutableList<E> empty() {
         return EMPTY;
     }
 
