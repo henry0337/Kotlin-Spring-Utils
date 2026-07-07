@@ -1,7 +1,6 @@
 package dev.myrlennia237.component;
 
 import org.jetbrains.annotations.Contract;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.AbstractList;
@@ -53,7 +52,7 @@ public final class ImmutableList<E> extends AbstractList<E> {
      */
     @SafeVarargs
     @SuppressWarnings("java:S923")
-    public static <E> ImmutableList<E> of(E @NonNull ... elements) {
+    public static <E> ImmutableList<E> of(E... elements) {
         if (elements.length == 0) {
             return empty();
         }
@@ -68,7 +67,7 @@ public final class ImmutableList<E> extends AbstractList<E> {
      * @param source Nguồn dữ liệu để sao chép.
      * @return Một {@link ImmutableList} chứa tất cả phần tử từ {@code source}.
      */
-    public static <E> @NonNull ImmutableList<E> copyFrom(Iterable<E> source) {
+    public static <E> ImmutableList<E> copyFrom(Iterable<E> source) {
         if (source instanceof ImmutableList) return (ImmutableList<E>) source;
         var buffer = new ArrayList<E>();
         source.forEach(buffer::add);
@@ -227,7 +226,7 @@ public final class ImmutableList<E> extends AbstractList<E> {
      * Áp dụng {@code mapper} lên từng phần tử, trả về {@link ImmutableList} mới chứa kết quả.
      */
     @Contract("_ -> new")
-    public <R> @NonNull ImmutableList<R> map(Function<E, R> mapper) {
+    public <R> ImmutableList<R> map(Function<E, R> mapper) {
         var result = new Object[elements.length];
         for (var i = 0; i < elements.length; i++) {
             result[i] = mapper.apply(get(i));
@@ -243,7 +242,7 @@ public final class ImmutableList<E> extends AbstractList<E> {
      * @return Danh sách bất biến mới chứa kết quả sau chuyển đổi.
      */
     @Contract("_ -> new")
-    public <R> @NonNull ImmutableList<R> mapIndexed(BiFunction<Integer, E, R> transformer) {
+    public <R> ImmutableList<R> mapIndexed(BiFunction<Integer, E, R> transformer) {
         var result = new Object[elements.length];
         for (var i = 0; i < elements.length; i++) {
             result[i] = transformer.apply(i, get(i));
@@ -258,7 +257,7 @@ public final class ImmutableList<E> extends AbstractList<E> {
      * @return Danh sách chứa các phần tử thỏa mãn.
      */
     @Contract("_ -> new")
-    public @NonNull ImmutableList<E> filter(Predicate<E> predicate) {
+    public ImmutableList<E> filter(Predicate<E> predicate) {
         var buffer = new ArrayList<E>();
         for (E e : this) {
             if (predicate.test(e)) {
@@ -276,7 +275,7 @@ public final class ImmutableList<E> extends AbstractList<E> {
      * @return Danh sách bất biến mới chứa kết quả sau chuyển đổi.
      */
     @Contract("_ -> new")
-    public <R> @NonNull ImmutableList<R> flatMap(Function<E, Iterable<R>> transformer) {
+    public <R> ImmutableList<R> flatMap(Function<E, Iterable<R>> transformer) {
         var buffer = new ArrayList<R>();
         for (E e : this) {
             transformer.apply(e).forEach(buffer::add);
@@ -312,7 +311,7 @@ public final class ImmutableList<E> extends AbstractList<E> {
      */
     @Override
     @Contract(" -> new")
-    public @NonNull ImmutableList<E> reversed() {
+    public ImmutableList<E> reversed() {
         var result = Arrays.copyOf(elements, elements.length);
         for (int i = 0, j = result.length - 1; i < j; i++, j--) {
             var tmp = result[i];
@@ -331,7 +330,7 @@ public final class ImmutableList<E> extends AbstractList<E> {
      * @see kotlin.collections.CollectionsKt#distinct(Iterable)
      */
     @Contract(" -> new")
-    public @NonNull ImmutableList<E> distinct() {
+    public ImmutableList<E> distinct() {
         var seen = new LinkedHashSet<>(this);
         return new ImmutableList<>(seen.toArray());
     }
@@ -343,7 +342,7 @@ public final class ImmutableList<E> extends AbstractList<E> {
      */
     @Contract(" -> new")
     @SuppressWarnings("unchecked")
-    public @NonNull ImmutableList<E> sorted() {
+    public ImmutableList<E> sorted() {
         var result = Arrays.copyOf(elements, elements.length);
         Arrays.sort(result, (a, b) -> ((Comparable<Object>) a).compareTo(b));
         return new ImmutableList<>(result);
@@ -356,7 +355,7 @@ public final class ImmutableList<E> extends AbstractList<E> {
      */
     @Contract("_ -> new")
     @SuppressWarnings("unchecked")
-    public @NonNull ImmutableList<E> sortedWith(Comparator<E> comparator) {
+    public ImmutableList<E> sortedWith(Comparator<E> comparator) {
         var result = (E[]) Arrays.copyOf(elements, elements.length);
         Arrays.sort(result, comparator);
         return new ImmutableList<>(result);
@@ -377,7 +376,7 @@ public final class ImmutableList<E> extends AbstractList<E> {
      * @return {@link ArrayList} mới chứa các phần tử từ danh sách này — có thể chỉnh sửa.
      */
     @Contract(value = " -> new", pure = true)
-    public @NonNull List<E> toList() {
+    public List<E> toList() {
         return new ArrayList<>(this);
     }
 }
