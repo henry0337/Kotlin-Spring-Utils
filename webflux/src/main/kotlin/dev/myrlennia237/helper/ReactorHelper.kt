@@ -1,6 +1,5 @@
 package dev.myrlennia237.helper
 
-import dev.myrlennia237.component.ImmutableList
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
@@ -48,55 +47,18 @@ public class ReactorHelper {
     public fun <T : Any> emptyFlux(): Flux<T> = Flux.empty()
 
     /**
-     * Ném một [exception] chỉ định với [message] mong muốn và khởi tạo [Mono] lập tức chấm dứt tiến trình hiện tại.
-     */
-    public fun <T : Any> errorMono(
-        message: String,
-        exception: Class<out Throwable> = RuntimeException::class.java
-    ): Mono<T> {
-        val throwable = runCatching { exception.getDeclaredConstructor(String::class.java).newInstance(message) }
-            .getOrDefault(RuntimeException(message))
-        return Mono.error(throwable)
-    }
-
-    /**
-     * Ném một [exception] chỉ định với [message] mong muốn và khởi tạo [Flux] lập tức chấm dứt tiến trình hiện tại.
-     *
-     * @param message
-     * @param exception
-     */
-    public fun <T : Any> errorFlux(
-        message: String,
-        exception: Class<out Throwable> = RuntimeException::class.java
-    ): Flux<T> {
-        val throwable = runCatching { exception.getDeclaredConstructor(String::class.java).newInstance(message) }
-            .getOrDefault(RuntimeException(message))
-        return Flux.error(throwable)
-    }
-
-    /**
      * Lấy ra giá trị được bọc trong một [Mono] được chỉ định.
      *
      * @param T         Kiểu dữ liệu được wrap trong [Mono]
      * @param publisher Đối tượng [Mono] cần lấy giá trị được wrap tương ứng
      * @return Giá trị được wrap bên trong nếu tồn tại, nếu như [Mono.empty] thì trả về `null`.
      */
-    public fun <T : Any> wait(publisher: Mono<T>): T? = publisher.block()
-
-    /**
-     * Lấy ra giá trị [List] được bọc trong một [Flux] được chỉ định.
-     *
-     * @param T         Kiểu dữ liệu được wrap trong [Flux]
-     * @param publisher Đối tượng [Flux] cần lấy giá trị được wrap tương ứng
-     * @return Danh sách bất biến các giá trị được wrap bên trong nếu tồn tại, nếu như [Flux.empty] thì trả về danh sách rỗng.
-     */
-    public fun <T : Any> transformToList(publisher: Flux<T>): ImmutableList<T> =
-        ImmutableList.copyFrom(publisher.collectList().block() ?: ImmutableList.empty())
+    public fun <T : Any> waitUntilCompleted(publisher: Mono<T>): T? = publisher.block()
 
     /**
      * Đánh dấu một [Mono] sẽ được bỏ qua giá trị trả về, kết quả thực tế sẽ được thay bằng `Mono<Void>`.
      * @see Mono.then
      */
     @Suppress("kotlin:S6508")
-    public fun <T : Any> ignoreReturnValue(mono: Mono<T>): Mono<Void> = mono.then()
+    public fun <T : Any> ignoreReturnValueOf(mono: Mono<T>): Mono<Void> = mono.then()
 }

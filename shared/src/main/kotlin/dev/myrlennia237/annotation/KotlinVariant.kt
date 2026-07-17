@@ -6,4 +6,5 @@ package dev.myrlennia237.annotation
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 @Target(AnnotationTarget.FILE, AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
+@Retention(AnnotationRetention.RUNTIME)
 public annotation class KotlinVariant

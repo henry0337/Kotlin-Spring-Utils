@@ -6,21 +6,16 @@ import org.jspecify.annotations.Nullable;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Map;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 
 /**
- * Cặp hai giá trị bất biến, port từ {@link kotlin.Pair} của Kotlin.
- * <p>
- * Hai thành phần được truy cập qua {@link #first()} và {@link #second()}. Cả hai đều có thể mang giá trị {@code null},
- * đúng như {@code Pair} bên Kotlin.
- * </p>
+ * Đại diện cho một cặp giá trị bất biến chỉ bao gồm duy nhất 2 phần tử có thể nullable.
  *
- * <p><b>Đây là phiên bản được port một phần từ ngôn ngữ Kotlin.</b></p>
+ * <p><b>Đây là phiên bản được port hoàn chỉnh từ ngôn ngữ Kotlin.</b></p>
  *
- * @param <A> Kiểu của thành phần thứ nhất.
- * @param <B> Kiểu của thành phần thứ hai.
+ * @param <A> Thành phần thứ nhất.
+ * @param <B> Thành phần thứ hai.
  * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/AdorableDandelion25">Himekawa</a>
  */
 @SuppressWarnings("unused")
 public record Pair<A extends @Nullable Object, B extends @Nullable Object>(A first, B second)
@@ -30,11 +25,10 @@ public record Pair<A extends @Nullable Object, B extends @Nullable Object>(A fir
     private static final long serialVersionUID = 1L;
 
     /**
-     * Tạo một {@link Pair} từ hai giá trị cho trước — tương đương phép {@code first to second} bên Kotlin.
+     * Khởi tạo một {@link Pair} chứa giá trị của 2 phần tử {@code first} và {@code second}.
      *
-     * @param first  Thành phần thứ nhất.
-     * @param second Thành phần thứ hai.
-     * @return Một {@link Pair} mới chứa hai giá trị đã cung cấp.
+     * @param first  Giá trị được gán vào cho generic {@code A}
+     * @param second Giá trị được gán vào cho generic {@code B}
      */
     @Contract("_, _ -> new")
     public static <A extends @Nullable Object, B extends @Nullable Object> Pair<A, B> of(A first, B second) {
@@ -42,53 +36,12 @@ public record Pair<A extends @Nullable Object, B extends @Nullable Object>(A fir
     }
 
     /**
-     * Trả về một {@link Pair} mới với vị trí của hai thành phần được hoán đổi cho nhau.
-     */
-    @Contract(" -> new")
-    public Pair<B, A> swap() {
-        return new Pair<>(second, first);
-    }
-
-    /**
-     * Trả về một {@link Pair} mới, giữ nguyên {@link #second()} và thay {@link #first()} bằng kết quả của {@code mapper}.
-     *
-     * @param mapper Logic chuyển đổi thành phần thứ nhất.
-     * @return {@link Pair} mới sau chuyển đổi.
-     */
-    @Contract("_ -> new")
-    public <A2 extends @Nullable Object> Pair<A2, B> mapFirst(Function<? super A, ? extends A2> mapper) {
-        return new Pair<>(mapper.apply(first), second);
-    }
-
-    /**
-     * Trả về một {@link Pair} mới, giữ nguyên {@link #first()} và thay {@link #second()} bằng kết quả của {@code mapper}.
-     *
-     * @param mapper Logic chuyển đổi thành phần thứ hai.
-     * @return {@link Pair} mới sau chuyển đổi.
-     */
-    @Contract("_ -> new")
-    public <B2 extends @Nullable Object> Pair<A, B2> mapSecond(Function<? super B, ? extends B2> mapper) {
-        return new Pair<>(first, mapper.apply(second));
-    }
-
-    /**
-     * Áp dụng {@code transformer} lên cả hai thành phần và trả về kết quả — tiện để rút gọn việc gọi
-     * {@link #first()}/{@link #second()} thủ công.
-     *
-     * @param transformer Hàm nhận {@code (first, second)}.
-     * @return Kết quả do {@code transformer} trả về.
-     */
-    public <R extends @Nullable Object> R map(BiFunction<? super A, ? super B, ? extends R> transformer) {
-        return transformer.apply(first, second);
-    }
-
-    /**
      * {@inheritDoc}
      *
-     * @deprecated Method của {@link Map.Entry} với tên không hợp ngữ nghĩa {@code Pair}. Dùng {@link #first()} thay thế.
+     * @deprecated In favor of {@link Pair}'s {@link Pair#first} property.
      */
-    @Deprecated(since = "0.1.0")
     @Contract(pure = true)
+    @Deprecated
     public A getKey() {
         return first;
     }
@@ -96,25 +49,24 @@ public record Pair<A extends @Nullable Object, B extends @Nullable Object>(A fir
     /**
      * {@inheritDoc}
      *
-     * @deprecated Method của {@link Map.Entry} với tên không hợp ngữ nghĩa {@code Pair}. Dùng {@link #second()} thay thế.
+     * @deprecated In favor of {@link Pair}'s {@link Pair#second} property.
      */
-    @Deprecated(since = "0.1.0")
     @Contract(pure = true)
+    @Deprecated
     public B getValue() {
         return second;
     }
 
     /**
-     * Không được hỗ trợ — {@code Pair} là bất biến. Để "thay" giá trị thứ hai, tạo một {@link Pair} mới qua
-     * {@link #mapSecond(Function)} hoặc {@link #of(Object, Object)}.
+     * {@inheritDoc}
      *
-     * @throws UnsupportedOperationException luôn luôn.
-     * @deprecated {@code Pair} bất biến nên không hỗ trợ mutate. Dùng {@link #mapSecond(Function)} để tạo bản mới.
+     * @deprecated Any instance of this {@link Pair} class and its values would be immutable when created, so please
+     * don't use this method, it would be confused and breaks the contract we made.
      */
-    @Deprecated(since = "0.1.0")
     @Contract("_ -> fail")
+    @Deprecated
     public B setValue(B value) {
-        throw new UnsupportedOperationException("Pair là bất biến; dùng mapSecond(...) để tạo một Pair mới.");
+        throw new UnsupportedOperationException();
     }
 
     @Override

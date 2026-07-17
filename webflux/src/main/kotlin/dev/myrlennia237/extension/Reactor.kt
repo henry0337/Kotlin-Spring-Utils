@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 /**
- * Lấy giá trị được bọc trong [Mono] bằng cách suspend coroutine cho đến khi [Mono] này phát ra tín hiệu hoàn thành.
+ * Lấy giá trị được bọc trong [Mono] bằng cách hoãn coroutine cho đến khi [Mono] này phát ra tín hiệu hoàn thành.
  *
  * @return Giá trị bên trong nếu [Mono] phát ra dữ liệu, hoặc `null` nếu là [Mono.empty].
  * @author <a href="https://github.com/henry0337">Muharux</a>
@@ -27,7 +27,7 @@ public suspend fun <T : Any> Mono<T>.await(): T? = this.awaitSingleOrNull()
 public suspend fun <T : Any> Flux<T>.transformToList(): List<T> = this.asFlow().toList()
 
 /**
- * Bỏ qua giá trị được phát ra của [Mono] được chỉ định.
+ * Bỏ qua giá trị được phát ra của [Mono] được chỉ định và phát ra tín hiệu hoàn thành ngay sau đó.
  *
  * Kết quả trả về cuối cùng được thay bằng `Mono<Void>`.
  *

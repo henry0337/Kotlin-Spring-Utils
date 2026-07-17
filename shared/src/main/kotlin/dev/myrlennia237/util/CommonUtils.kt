@@ -17,7 +17,6 @@ public object CommonUtils {
      * @throws IllegalArgumentException nếu [instance] là `null`.
      */
     @JvmStatic
-    @IgnorableReturnValue
     public fun <T : Any> requireNonNull(instance: T?): T = requireNotNull(instance)
 
     /**
@@ -41,7 +40,7 @@ public object CommonUtils {
      * @throws IllegalArgumentException nếu [instance] là `null`.
      */
     @JvmStatic
-    @IgnorableReturnValue
+    @JvmOverloads
     public fun <T : Any> requireNonNull(
         instance: T?,
         error: () -> String = { "`instance` không thể chứa giá trị `null`." }

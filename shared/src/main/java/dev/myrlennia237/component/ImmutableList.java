@@ -31,6 +31,7 @@ import java.util.function.Predicate;
  * <p><b>Đây là phiên bản được port một phần từ ngôn ngữ Kotlin.</b></p>
  * @param <E> Kiểu phần tử trong danh sách.
  * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/AdorableDandelion25">Himekawa</a>
  */
 @SuppressWarnings("unused")
 public final class ImmutableList<E> extends AbstractList<E> {
@@ -98,7 +99,7 @@ public final class ImmutableList<E> extends AbstractList<E> {
     }
 
     @Override
-    @Contract(value = "null -> false", pure = true)
+    @Contract(pure = true)
     public boolean equals(Object o) {
         if (!(o instanceof ImmutableList<?> that)) return false;
         if (!super.equals(o)) return false;

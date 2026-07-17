@@ -134,7 +134,7 @@ public class ReactiveHttpClient(private val webClient: WebClient) {
      */
     @KotlinVariant
     @JvmSynthetic
-    public suspend inline fun <reified T : Any> awaitGet(
+    public suspend inline fun <reified T : Any> doGetAndAwait(
         url: String,
         params: Map<String, Array<Any>>? = null,
         headers: Map<String, String?>? = null,
@@ -166,7 +166,7 @@ public class ReactiveHttpClient(private val webClient: WebClient) {
      */
     @KotlinVariant
     @JvmSynthetic
-    public suspend inline fun <reified T : Any, reified B : Any> awaitPost(
+    public suspend inline fun <reified T : Any, reified B : Any> doPostAndAwait(
         url: String,
         body: B,
         params: Map<String, Array<Any>>? = null,

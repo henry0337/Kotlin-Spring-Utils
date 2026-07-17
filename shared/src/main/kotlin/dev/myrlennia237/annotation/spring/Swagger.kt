@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping
 @Tag(name = "")
 @Target(AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
 public annotation class ApiController(
     /**
@@ -51,6 +52,7 @@ public annotation class ApiController(
 @Operation
 @RequestMapping
 @Target(AnnotationTarget.FUNCTION)
+@Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
 public annotation class ApiMethod(
     /**
@@ -105,6 +107,7 @@ public annotation class ApiMethod(
  */
 @Parameter
 @Target(AnnotationTarget.VALUE_PARAMETER)
+@Retention(AnnotationRetention.RUNTIME)
 @Repeatable
 public annotation class ApiParameter(
     /**
@@ -178,6 +181,7 @@ public annotation class ApiParameter(
  */
 @RequestBody
 @Target(AnnotationTarget.VALUE_PARAMETER)
+@Retention(AnnotationRetention.RUNTIME)
 public annotation class ApiRequestBody(
     /**
      * Mô tả về mục đích sử dụng của request body.
@@ -202,6 +206,7 @@ public annotation class ApiRequestBody(
  */
 @Schema
 @Target(AnnotationTarget.CLASS, AnnotationTarget.PROPERTY)
+@Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
 public annotation class ApiSchema(
     /**

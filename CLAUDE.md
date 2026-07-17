@@ -23,7 +23,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ./gradlew clean
 ```
 
-Root project name là `kotlin-spring-util`, group `dev.myrlennia237`, version `0.1.0-SNAPSHOT`. Toàn bộ code nằm dưới package gốc `dev.myrlennia237`.
+Root project name là `kotlin-spring-util`, groupId publish là `io.github.henry0337`, version `0.1.0-SNAPSHOT`. Toàn bộ code nằm dưới package gốc `dev.myrlennia237` (package không bắt buộc trùng groupId).
+
+## Publishing
+
+Publish qua plugin `com.vanniktech.maven.publish` (khai báo ở root `build.gradle.kts`, apply cho mọi subproject). Nó tự tạo publication kèm sources/javadoc jar và POM metadata.
+
+- **Maven Central** (Central Portal, sonatype.com): `./gradlew publishAndReleaseToMavenCentral` (release + auto-release) hoặc `./gradlew publishToMavenCentral` (đẩy rồi release thủ công qua Portal). Cần credentials + khóa GPG (xem bên dưới). Ký GPG chỉ bật khi có property `signingInMemoryKey`.
+- **Maven Local**: `./gradlew publishToMavenLocal` (không cần khóa/credentials).
+- **Jitpack**: cấu hình trong `jitpack.yml` (chạy Gradle trên JDK 17, JDK 25 được foojay-resolver tự tải). Consumer dùng `com.github.henry0337.Kotlin-Spring-Utils:<module>:<tag>`.
+
+Credentials/khóa cấp qua `~/.gradle/gradle.properties` hoặc biến môi trường:
+`mavenCentralUsername`, `mavenCentralPassword` (user token từ Central Portal), `signingInMemoryKey` (ASCII-armored GPG private key), `signingInMemoryKeyId`, `signingInMemoryKeyPassword`. Với biến môi trường dùng tiền tố `ORG_GRADLE_PROJECT_`.
 
 ## Architecture Overview
 
@@ -86,19 +97,6 @@ Cả hai có:
 - Circuit breaker + retry (Resilience4j) — instances `unwrapGet`/`unwrapPost` khai báo trong `application.yml` của consumer (hoặc dùng defaults của Resilience4j). Fallback method throw lại exception.
 - Reified extensions cho Kotlin: `get<T>()`/`post<T>()` (servlet), `awaitGet<T>()`/`awaitPost<T>()` (webflux, suspend) — inject `self` (`@Lazy`) để giữ proxy Resilience4j.
 - `HttpClient` (servlet) dùng JSpecify `@NullMarked`.
-
-### HTTP Client / WebClient Config
-
-Cấu hình default headers qua `application.yml`:
-```yaml
-spring-utils:
-  web-client:      # webflux — WebClientProperties
-    accept-languages: ["en-US"]           # default
-    accept-encodings: ["gzip, deflate"]   # default
-    default-content-type: "application/json"
-  rest-client:     # servlet — RestClientProperties (cùng cấu trúc)
-    accept-languages: ["en-US"]
-```
 
 ## Tech Stack
 

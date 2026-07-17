@@ -10,12 +10,6 @@ import reactor.util.context.Context
  * [WebFilter] lưu [ServerWebExchange] hiện tại vào Reactor [reactor.util.context.Context],
  * cho phép truy xuất exchange từ bất kỳ đâu trong chuỗi reactive mà không cần truyền tường minh.
  *
- * Được auto-configure bởi thư viện. Để lấy exchange trong một [Mono] bất kỳ:
- * ```kotlin
- * ServerWebExchangeContextFilter.getExchange()
- *     .flatMap { exchange -> Mono.just(exchange.request.uri) }
- * ```
- *
  * @see getExchange
  */
 public class ServerWebExchangeContextFilter : WebFilter {

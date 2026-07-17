@@ -12,5 +12,6 @@ import org.springframework.security.config.web.server.ServerHttpSecurity
 @Configuration
 @EnableWebFluxSecurity
 @Target(AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
 public annotation class EnableReactiveSecurityCustomization
