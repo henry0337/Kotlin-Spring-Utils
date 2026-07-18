@@ -36,6 +36,13 @@ kotlin {
     explicitApi() // Kích hoạt chế độ Explicit API
     jvmToolchain(25)
 
+    // ABI validation tích hợp của Kotlin Gradle plugin (dùng cho thư viện Java 25).
+    // Task: `updateLegacyAbi` sinh/ghi baseline; `checkLegacyAbi` (chạy trong `check`) so sánh.
+    @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
+    abiValidation {
+        enabled.set(true)
+    }
+
     compilerOptions {
         jvmDefault = JvmDefaultMode.NO_COMPATIBILITY
         freeCompilerArgs.addAll(
