@@ -4,6 +4,7 @@ package dev.myrlennia237.service
 
 import dev.myrlennia237.annotation.KotlinVariant
 import dev.myrlennia237.Predicate
+import dev.myrlennia237.exception.HttpClientException
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker
 import io.github.resilience4j.retry.annotation.Retry
 import org.jspecify.annotations.NullMarked
@@ -32,9 +33,12 @@ public class HttpClient(private val restClient: RestClient) {
      * @param params Tham số URL cần truyền vào
      * @param headers Các header HTTP cần thêm vào request
      * @param statusPredicate Điều kiện để lọc status code lỗi cần xử lý
-     * @param errorHandler Hàm xử lý khi [statusPredicate] khớp
+     * @param errorHandler Hàm xử lý khi [statusPredicate] khớp; chạy đồng bộ trên chính luồng gọi (blocking).
      * @param T Kiểu phản hồi mong đợi
      * @return Dữ liệu phản hồi mong muốn nếu thành công, hoặc `null` nếu thất bại.
+     * @throws IllegalArgumentException nếu [errorHandler] được cung cấp nhưng [statusPredicate] là `null`.
+     * @throws dev.myrlennia237.exception.HttpClientException nếu lời gọi thất bại sau khi retry, hoặc khi circuit
+     *   breaker đang mở; nguyên nhân gốc (exception của Spring/Resilience4j) được giữ qua `cause`.
      * @author <a href="https://github.com/henry0337">Muharux</a>
      * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
      */
@@ -75,10 +79,13 @@ public class HttpClient(private val restClient: RestClient) {
      * @param params Tham số URL cần truyền vào
      * @param headers Các header HTTP cần thêm vào request
      * @param statusPredicate Điều kiện để lọc status code lỗi cần xử lý
-     * @param errorHandler Hàm xử lý khi [statusPredicate] khớp
+     * @param errorHandler Hàm xử lý khi [statusPredicate] khớp; chạy đồng bộ trên chính luồng gọi (blocking).
      * @param T Kiểu phản hồi mong đợi
      * @param B Kiểu dữ liệu đầu vào của request body
      * @return Dữ liệu phản hồi mong muốn nếu thành công, hoặc `null` nếu thất bại.
+     * @throws IllegalArgumentException nếu [errorHandler] được cung cấp nhưng [statusPredicate] là `null`.
+     * @throws dev.myrlennia237.exception.HttpClientException nếu lời gọi thất bại sau khi retry, hoặc khi circuit
+     *   breaker đang mở; nguyên nhân gốc (exception của Spring/Resilience4j) được giữ qua `cause`.
      * @author <a href="https://github.com/henry0337">Muharux</a>
      * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
      */
@@ -185,8 +192,10 @@ public class HttpClient(private val restClient: RestClient) {
     )
 
     @Suppress("unused")
-    public fun <T : Any> retryFallback(ex: Throwable): Nothing = throw ex
+    private fun <T : Any> retryFallback(ex: Throwable): T? =
+        throw (ex as? HttpClientException ?: HttpClientException("Gọi HTTP thất bại sau khi đã thử lại (retry).", ex))
 
     @Suppress("unused")
-    public fun <T : Any> circuitBreakerFallback(ex: Throwable): Nothing = throw ex
+    private fun <T : Any> circuitBreakerFallback(ex: Throwable): T? =
+        throw (ex as? HttpClientException ?: HttpClientException("Circuit breaker đang mở, tạm dừng gọi HTTP.", ex))
 }

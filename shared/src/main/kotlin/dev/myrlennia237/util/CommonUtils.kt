@@ -17,7 +17,7 @@ public object CommonUtils {
      * @throws IllegalArgumentException nếu [instance] là `null`.
      */
     @JvmStatic
-    public fun <T : Any> requireNonNull(instance: T?): T = requireNotNull(instance)
+    public fun <T> requireNonNull(instance: T?): T & Any = requireNotNull(instance)
 
     /**
      * Trả về chính `instance` được cung cấp nếu nó không `null`, ngược lại trả về giá trị mặc định được cung cấp.
@@ -28,7 +28,7 @@ public object CommonUtils {
      * @return Chính instance đó nếu nó không `null` hoặc giá trị mặc định nếu [instance] là `null`.
      */
     @JvmStatic
-    public fun <T : Any> requireNonNull(instance: T?, defaultValue: T): T = instance ?: defaultValue
+    public fun <T> requireNonNull(instance: T?, defaultValue: T): T = instance ?: defaultValue
 
     /**
      * Trả về chính `instance` được cung cấp nếu nó không `null`, ngược lại hiển thị ra thông báo lỗi.
@@ -40,11 +40,10 @@ public object CommonUtils {
      * @throws IllegalArgumentException nếu [instance] là `null`.
      */
     @JvmStatic
-    @JvmOverloads
-    public fun <T : Any> requireNonNull(
+    public fun <T> requireNonNull(
         instance: T?,
         error: () -> String = { "`instance` không thể chứa giá trị `null`." }
-    ): T = requireNotNull(instance, error)
+    ): T & Any = requireNotNull(instance, error)
 
     /**
      * Đánh dấu một [List] sẽ không thể thực hiện các tác vụ liên quan tới chính sửa dữ liệu bên trong chúng

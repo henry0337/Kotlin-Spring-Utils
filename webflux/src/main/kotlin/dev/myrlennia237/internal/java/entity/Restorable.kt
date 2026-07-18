@@ -17,11 +17,11 @@ internal interface Restorable {
     fun getDisabledState(): Boolean
 
     /**
-     * Cập nhật trạng thái xóa logic của entity.
+     * Cập nhật trạng thái vô hiệu hóa (xóa mềm) của entity.
      *
-     * @param removed Giá trị trạng thái mới
+     * @param disabled Giá trị trạng thái mới
      */
-    fun setDisabledState(removed: Boolean)
+    fun setDisabledState(disabled: Boolean)
 
     /**
      * Trả về thời điểm entity bị đánh dấu đã xóa.
@@ -31,11 +31,11 @@ internal interface Restorable {
     fun getDisabledTimestamp(): JavaInstant?
 
     /**
-     * Cập nhật thời điểm entity bị đánh dấu đã xóa.
+     * Cập nhật thời điểm entity bị đánh dấu vô hiệu hóa.
      *
-     * @param deletedAt Thời điểm xóa, hoặc `null` nếu muốn xóa dấu thời gian
+     * @param disabledAt Thời điểm vô hiệu hóa, hoặc `null` nếu muốn xóa dấu thời gian
      */
-    fun setDisabledTimestamp(deletedAt: JavaInstant?)
+    fun setDisabledTimestamp(disabledAt: JavaInstant?)
 
     /**
      * Trả về đối tượng gần đây nhất thực hiện vô hiệu hóa entity này.
@@ -61,14 +61,16 @@ internal interface Restorable {
     /**
      * Đánh dấu entity hiện tại là đã xóa logic.
      *
-     * Hàm này sẽ đặt trạng thái xóa về `true`, gán thời điểm xóa là thời gian hiện tại (UTC),
-     * và ghi nhận đối tượng thực hiện thao tác.
+     * Hàm này sẽ đặt trạng thái vô hiệu hóa về `true`, gán thời điểm vô hiệu hóa, và ghi nhận đối tượng thực hiện
+     * thao tác.
      *
      * @param by UUID của đối tượng thực hiện vô hiệu hóa, hoặc `null` nếu không xác định
+     * @param at Thời điểm vô hiệu hóa; mặc định là thời gian hiện tại. Cho phép truyền giá trị cố định để test
+     *   xác định (deterministic).
      */
-    fun markAsDeleted(by: UUID? = null) {
+    fun markAsDisabled(by: UUID? = null, at: JavaInstant = JavaInstant.now()) {
         setDisabledState(true)
-        setDisabledTimestamp(JavaInstant.now())
+        setDisabledTimestamp(at)
         setDisabledBy(by)
     }
 

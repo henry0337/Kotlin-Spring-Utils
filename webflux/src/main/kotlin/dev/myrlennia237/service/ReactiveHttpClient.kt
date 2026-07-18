@@ -3,6 +3,7 @@ package dev.myrlennia237.service
 import dev.myrlennia237.annotation.KotlinVariant
 import dev.myrlennia237.Function
 import dev.myrlennia237.Predicate
+import dev.myrlennia237.exception.HttpClientException
 import dev.myrlennia237.extension.await
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker
 import io.github.resilience4j.retry.annotation.Retry
@@ -32,9 +33,12 @@ public class ReactiveHttpClient(private val webClient: WebClient) {
      * @param params Tham số URL cần truyền vào
      * @param headers Các header HTTP cần thêm vào request
      * @param statusPredicate Điều kiện để lọc status code lỗi cần xử lý
-     * @param responseHandler Hàm xử lý khi [statusPredicate] khớp
+     * @param responseHandler Hàm xử lý khi [statusPredicate] khớp; chạy trên luồng của Reactor, **không được**
+     *   thực hiện thao tác blocking bên trong.
      * @param T Kiểu phản hồi mong đợi
-     * @return Dữ liệu phản hồi mong muốn nếu thành công, hoặc empty nếu thất bại (được bọc bởi một [Mono]).
+     * @return [Mono] phát dữ liệu phản hồi nếu thành công, hoặc empty nếu không có nội dung. Mọi lỗi — kể cả lỗi
+     *   tham số ([responseHandler] có mặt nhưng [statusPredicate] là `null`) — đều phát qua tín hiệu `onError`,
+     *   không ném đồng bộ. Lỗi HTTP được bọc thành [dev.myrlennia237.exception.HttpClientException] (giữ `cause`).
      * @author <a href="https://github.com/henry0337">Muharux</a>
      * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
      */
@@ -48,8 +52,10 @@ public class ReactiveHttpClient(private val webClient: WebClient) {
         statusPredicate: Predicate<HttpStatusCode>? = null,
         responseHandler: Function<ClientResponse, Mono<out Throwable>>? = null
     ): Mono<T> {
-        if (responseHandler != null) {
-            requireNotNull(statusPredicate) { "\"statusPredicate\" không được null khi \"responseHandler\" được cung cấp!" }
+        if (responseHandler != null && statusPredicate == null) {
+            return Mono.error(
+                IllegalArgumentException("\"statusPredicate\" không được null khi \"responseHandler\" được cung cấp!")
+            )
         }
 
         val request = webClient.get()
@@ -79,10 +85,13 @@ public class ReactiveHttpClient(private val webClient: WebClient) {
      * @param params Tham số URL cần truyền vào
      * @param headers Các header HTTP cần thêm vào request
      * @param statusPredicate Điều kiện để lọc status code lỗi cần xử lý
-     * @param responseHandler Hàm xử lý khi [statusPredicate] khớp
+     * @param responseHandler Hàm xử lý khi [statusPredicate] khớp; chạy trên luồng của Reactor, **không được**
+     *   thực hiện thao tác blocking bên trong.
      * @param T Kiểu phản hồi mong đợi
      * @param B Kiểu dữ liệu đầu vào của request body
-     * @return Dữ liệu phản hồi mong muốn nếu thành công, hoặc empty nếu thất bại (được bọc bởi một [Mono]).
+     * @return [Mono] phát dữ liệu phản hồi nếu thành công, hoặc empty nếu không có nội dung. Mọi lỗi — kể cả lỗi
+     *   tham số ([responseHandler] có mặt nhưng [statusPredicate] là `null`) — đều phát qua tín hiệu `onError`,
+     *   không ném đồng bộ. Lỗi HTTP được bọc thành [dev.myrlennia237.exception.HttpClientException] (giữ `cause`).
      * @author <a href="https://github.com/henry0337">Muharux</a>
      * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
      */
@@ -97,8 +106,10 @@ public class ReactiveHttpClient(private val webClient: WebClient) {
         statusPredicate: Predicate<HttpStatusCode>? = null,
         responseHandler: Function<ClientResponse, Mono<out Throwable>>? = null
     ): Mono<T> {
-        if (responseHandler != null) {
-            requireNotNull(statusPredicate) { "\"statusPredicate\" không được null khi \"responseHandler\" được cung cấp!" }
+        if (responseHandler != null && statusPredicate == null) {
+            return Mono.error(
+                IllegalArgumentException("\"statusPredicate\" không được null khi \"responseHandler\" được cung cấp!")
+            )
         }
 
         val request = webClient.post()
@@ -134,7 +145,7 @@ public class ReactiveHttpClient(private val webClient: WebClient) {
      */
     @KotlinVariant
     @JvmSynthetic
-    public suspend inline fun <reified T : Any> doGetAndAwait(
+    public suspend inline fun <reified T : Any> awaitGet(
         url: String,
         params: Map<String, Array<Any>>? = null,
         headers: Map<String, String?>? = null,
@@ -166,7 +177,7 @@ public class ReactiveHttpClient(private val webClient: WebClient) {
      */
     @KotlinVariant
     @JvmSynthetic
-    public suspend inline fun <reified T : Any, reified B : Any> doPostAndAwait(
+    public suspend inline fun <reified T : Any, reified B : Any> awaitPost(
         url: String,
         body: B,
         params: Map<String, Array<Any>>? = null,
@@ -184,8 +195,10 @@ public class ReactiveHttpClient(private val webClient: WebClient) {
     ).await()
 
     @Suppress("unused", "kotlin:S1144")
-    private fun <T : Any> retryFallback(ex: Throwable): Mono<T> = Mono.error(ex)
+    private fun <T : Any> retryFallback(ex: Throwable): Mono<T> =
+        Mono.error(ex as? HttpClientException ?: HttpClientException("Gọi HTTP thất bại sau khi đã thử lại (retry).", ex))
 
     @Suppress("unused", "kotlin:S1144")
-    private fun <T : Any> circuitBreakerFallback(ex: Throwable): Mono<T> = Mono.error(ex)
+    private fun <T : Any> circuitBreakerFallback(ex: Throwable): Mono<T> =
+        Mono.error(ex as? HttpClientException ?: HttpClientException("Circuit breaker đang mở, tạm dừng gọi HTTP.", ex))
 }

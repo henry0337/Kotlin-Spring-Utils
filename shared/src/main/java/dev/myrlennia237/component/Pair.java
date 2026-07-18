@@ -41,7 +41,7 @@ public record Pair<A extends @Nullable Object, B extends @Nullable Object>(A fir
      * @deprecated In favor of {@link Pair}'s {@link Pair#first} property.
      */
     @Contract(pure = true)
-    @Deprecated
+    @Deprecated(since = "0.1.0", forRemoval = false)
     public A getKey() {
         return first;
     }
@@ -52,7 +52,7 @@ public record Pair<A extends @Nullable Object, B extends @Nullable Object>(A fir
      * @deprecated In favor of {@link Pair}'s {@link Pair#second} property.
      */
     @Contract(pure = true)
-    @Deprecated
+    @Deprecated(since = "0.1.0", forRemoval = false)
     public B getValue() {
         return second;
     }
@@ -64,7 +64,7 @@ public record Pair<A extends @Nullable Object, B extends @Nullable Object>(A fir
      * don't use this method, it would be confused and breaks the contract we made.
      */
     @Contract("_ -> fail")
-    @Deprecated
+    @Deprecated(since = "0.1.0", forRemoval = false)
     public B setValue(B value) {
         throw new UnsupportedOperationException();
     }

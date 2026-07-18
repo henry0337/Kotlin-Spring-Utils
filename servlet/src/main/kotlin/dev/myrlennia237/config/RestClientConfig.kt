@@ -6,9 +6,21 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpHeaders
 import org.springframework.web.client.RestClient
 
+/**
+ * Cấu hình [RestClient] mặc định của thư viện, áp các header mặc định lấy từ [RestClientProperties]
+ * (`Accept`, `Content-Type`, `Accept-Language`, `Accept-Encoding`).
+ *
+ * @author <a href="https://github.com/henry0337">Muharux</a>
+ */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(RestClientProperties::class)
 public class RestClientConfig(private val properties: RestClientProperties) {
+    /**
+     * Tạo bean [RestClient] với các header mặc định đã cấu hình.
+     *
+     * @param builder [RestClient.Builder] do Spring Boot cung cấp
+     * @return [RestClient] đã áp header mặc định
+     */
     @Bean
     public fun restClient(builder: RestClient.Builder): RestClient = builder
         .defaultHeaders {

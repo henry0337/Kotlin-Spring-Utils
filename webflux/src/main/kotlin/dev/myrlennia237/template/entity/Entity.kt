@@ -111,19 +111,22 @@ public abstract class Entity protected constructor(
     }
 
     override fun getDisabledState(): Boolean = disabled
-    override fun setDisabledState(removed: Boolean) {
-        disabled = removed
+    override fun setDisabledState(disabled: Boolean) {
+        this.disabled = disabled
     }
 
     override fun getDisabledTimestamp(): JavaInstant? = lastDisabledAt
-    override fun setDisabledTimestamp(deletedAt: JavaInstant?) {
-        this.lastDisabledAt = deletedAt
+    override fun setDisabledTimestamp(disabledAt: JavaInstant?) {
+        this.lastDisabledAt = disabledAt
     }
 
     override fun getDisabledBy(): UUID? = lastDisabledBy
     override fun setDisabledBy(by: UUID?) {
         this.lastDisabledBy = by
     }
+
+    override fun toString(): String =
+        "${this::class.simpleName}(id=$id, version=$version, disabled=$disabled)"
 
     public companion object {
         @java.io.Serial

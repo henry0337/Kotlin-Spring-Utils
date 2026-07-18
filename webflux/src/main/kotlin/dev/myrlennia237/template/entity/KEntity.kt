@@ -1,5 +1,6 @@
 package dev.myrlennia237.template.entity
 
+import dev.myrlennia237.annotation.ExperimentalKotlinVariantApi
 import dev.myrlennia237.annotation.KotlinVariant
 import dev.myrlennia237.internal.kotlin.entity.KAuditable
 import dev.myrlennia237.internal.kotlin.entity.KConflictable
@@ -31,6 +32,7 @@ import kotlin.uuid.Uuid
  */
 @Serializable
 @KotlinVariant
+@ExperimentalKotlinVariantApi
 public abstract class KEntity protected constructor(
     @Id
     public var id: Uuid? = null,
@@ -55,4 +57,7 @@ public abstract class KEntity protected constructor(
 
     @Version
     public override var version: Long = 0
-) : KAuditable, KConflictable, KRestorable
+) : KAuditable, KConflictable, KRestorable {
+    override fun toString(): String =
+        "${this::class.simpleName}(id=$id, version=$version, disabled=$disabled)"
+}

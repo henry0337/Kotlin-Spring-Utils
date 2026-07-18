@@ -23,18 +23,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ./gradlew clean
 ```
 
-Root project name là `kotlin-spring-util`, groupId publish là `io.github.henry0337`, version `0.1.0-SNAPSHOT`. Toàn bộ code nằm dưới package gốc `dev.myrlennia237` (package không bắt buộc trùng groupId).
+Root project name là `kotlin-spring-util`, group (Maven) là `dev.myrlennia237`, version `0.1.0-SNAPSHOT`. Toàn bộ code cũng nằm dưới package gốc `dev.myrlennia237`.
 
 ## Publishing
 
-Publish qua plugin `com.vanniktech.maven.publish` (khai báo ở root `build.gradle.kts`, apply cho mọi subproject). Nó tự tạo publication kèm sources/javadoc jar và POM metadata.
+Publish qua plugin `maven-publish` (apply cho mọi subproject ở root `build.gradle.kts`). Mỗi subproject tạo một publication tên `maven` từ `components["java"]`, kèm sources jar (`withSourcesJar()`). Tài liệu API sinh bằng plugin `org.jetbrains.dokka` (áp ở root).
 
-- **Maven Central** (Central Portal, sonatype.com): `./gradlew publishAndReleaseToMavenCentral` (release + auto-release) hoặc `./gradlew publishToMavenCentral` (đẩy rồi release thủ công qua Portal). Cần credentials + khóa GPG (xem bên dưới). Ký GPG chỉ bật khi có property `signingInMemoryKey`.
-- **Maven Local**: `./gradlew publishToMavenLocal` (không cần khóa/credentials).
+- **Maven Local**: `./gradlew publishToMavenLocal` — cài artifact vào `~/.m2` để test consumer cục bộ (không cần khóa/credentials).
 - **Jitpack**: cấu hình trong `jitpack.yml` (chạy Gradle trên JDK 17, JDK 25 được foojay-resolver tự tải). Consumer dùng `com.github.henry0337.Kotlin-Spring-Utils:<module>:<tag>`.
 
-Credentials/khóa cấp qua `~/.gradle/gradle.properties` hoặc biến môi trường:
-`mavenCentralUsername`, `mavenCentralPassword` (user token từ Central Portal), `signingInMemoryKey` (ASCII-armored GPG private key), `signingInMemoryKeyId`, `signingInMemoryKeyPassword`. Với biến môi trường dùng tiền tố `ORG_GRADLE_PROJECT_`.
+> **Chưa** cấu hình publish lên Maven Central: không còn plugin `com.vanniktech.maven.publish`, không ký GPG. Nếu cần đẩy Maven Central, phải thêm lại plugin publish + signing (GPG) và dùng một namespace/groupId hợp lệ mà bạn sở hữu (namespace `dev.myrlennia237` cần được đăng ký trên Central Portal).
 
 ## Architecture Overview
 
@@ -70,7 +68,7 @@ Cấu trúc package nội bộ của `webflux`:
 ### Template Layer
 
 **`servlet` (`dev.myrlennia237.template.*`)**:
-- `entity/BaseEntity` — `@MappedSuperclass` JPA: audit (`createdBy/By`, `createdDate/lastModifiedDate`), soft delete (`deleted: Short`, `deletedAt`), optimistic locking (`version`).
+- `entity/BaseEntity` — `@MappedSuperclass` JPA: audit (`createdBy/By`, `createdDate/lastModifiedDate`), soft delete (`disabled: Boolean`, `lastDisabledAt`, `lastDisabledBy`), optimistic locking (`version`). Mô hình soft-delete đồng bộ với webflux `Entity`/`KEntity`.
 - `repository/ModifiedJpaRepository<T>` — kết hợp `ListCrudRepository` + `ListPagingAndSortingRepository` + `ListQuerydslPredicateExecutor` (QueryDSL thay cho Specification).
 - `service/BaseService` → `service/CrudService<T, I1, I2>` — base CRUD service (inject sẵn `JPAQueryFactory`).
 - `controller/BaseController` → `controller/CrudController` — controller base để extend.
@@ -94,7 +92,7 @@ Cả hai được khai báo qua `META-INF/spring/org.springframework.boot.autoco
 - `webflux`: `dev.myrlennia237.service.ReactiveHttpClient` bọc `WebClient`, trả về `Mono<T>`.
 
 Cả hai có:
-- Circuit breaker + retry (Resilience4j) — instances `unwrapGet`/`unwrapPost` khai báo trong `application.yml` của consumer (hoặc dùng defaults của Resilience4j). Fallback method throw lại exception.
+- Circuit breaker + retry (Resilience4j) — instances `unwrapGet`/`unwrapPost` khai báo trong `application.yml` của consumer (hoặc dùng defaults của Resilience4j). Fallback method (`private`) bọc exception gốc thành `dev.myrlennia237.exception.HttpClientException` (giữ `cause`), không để lộ exception thô của Spring/Resilience4j.
 - Reified extensions cho Kotlin: `get<T>()`/`post<T>()` (servlet), `awaitGet<T>()`/`awaitPost<T>()` (webflux, suspend) — inject `self` (`@Lazy`) để giữ proxy Resilience4j.
 - `HttpClient` (servlet) dùng JSpecify `@NullMarked`.
 
@@ -119,6 +117,7 @@ Cả hai có:
 - **Explicit API mode** (`explicitApi()`) được bật cho cả ba module — mọi khai báo public/protected phải ghi rõ visibility và kiểu trả về.
 - Compiler flags chung: `-Xjsr305=strict`, `-Xannotation-default-target=param-property`, `-Xreturn-value-checker=full`. `webflux` thêm `-opt-in=kotlin.uuid.ExperimentalUuidApi` và `-opt-in=kotlin.time.ExperimentalTime` (dùng `kotlin.uuid.Uuid`, `kotlin.time.Instant`).
 - `@KotlinVariant` API phải là synthetic — có test **ArchUnit** (`KotlinVariantEnforcementTest`) ở cả `servlet` và `webflux` enforce việc này. Khi thêm Kotlin variant, luôn kèm `@JvmSynthetic` (hoặc `@file:JvmSynthetic`/`@file:KotlinVariant`).
+- API Kotlin lộ `kotlin.uuid.Uuid`/`kotlin.time.Instant` (experimental) phải đánh dấu `@ExperimentalKotlinVariantApi` (một `@RequiresOptIn` marker của thư viện, định nghĩa ở `shared`) để cảnh báo consumer opt-in; module `webflux` đã opt-in ở mức compiler flag để nội bộ compile sạch. Áp cho `KEntity`, `CoroutineRepository`, `CoroutineRestController`, `CoroutineCrudService`.
 - Mỗi module tạo JAR thường (`jar.enabled = true`), không tạo fat JAR (`bootJar.enabled = false`). Có `withSourcesJar()` và `maven-publish`.
 - Repository được khai báo tập trung trong `settings.gradle.kts` (`FAIL_ON_PROJECT_REPOS`, gồm `mavenCentral` + `jitpack`); không thêm repo trong `build.gradle.kts` của submodule.
 - `TYPESAFE_PROJECT_ACCESSORS` được bật — dùng `projects.shared` thay vì `project(":shared")`.

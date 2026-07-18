@@ -1,5 +1,6 @@
 package dev.myrlennia237.template.service.kotlin
 
+import dev.myrlennia237.annotation.ExperimentalKotlinVariantApi
 import dev.myrlennia237.annotation.KotlinVariant
 import dev.myrlennia237.config.KAsyncAuditorAware
 import dev.myrlennia237.internal.kotlin.service.KDeletable
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 @KotlinVariant
+@ExperimentalKotlinVariantApi
 public abstract class CoroutineCrudService<T : Any, in I1, in I2> : BaseReactiveService(),
     KReadableWithID<T>,
     KInsertable<T, I1>,

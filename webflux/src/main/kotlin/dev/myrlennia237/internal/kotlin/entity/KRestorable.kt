@@ -35,14 +35,16 @@ internal interface KRestorable {
     /**
      * Đánh dấu entity hiện tại là đã xóa logic.
      *
-     * Hàm này sẽ đặt trạng thái xóa về `true`, gán thời điểm xóa là thời gian hiện tại (UTC),
-     * và ghi nhận đối tượng thực hiện thao tác.
+     * Hàm này sẽ đặt trạng thái vô hiệu hóa về `true`, gán thời điểm vô hiệu hóa, và ghi nhận đối tượng thực hiện
+     * thao tác.
      *
      * @param by UUID của đối tượng thực hiện vô hiệu hóa, hoặc `null` nếu không xác định
+     * @param at Thời điểm vô hiệu hóa; mặc định là thời gian hiện tại. Cho phép truyền giá trị cố định để test
+     *   xác định (deterministic).
      */
-    fun markAsDeleted(by: Uuid? = null) {
+    fun markAsDisabled(by: Uuid? = null, at: Instant = Clock.System.now()) {
         disabled = true
-        lastDisabledAt = Clock.System.now()
+        lastDisabledAt = at
         lastDisabledBy = by
     }
 

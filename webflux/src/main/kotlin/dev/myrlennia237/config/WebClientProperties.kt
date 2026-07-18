@@ -19,8 +19,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties
  * @param defaultContentType Giá trị header `Content-Type` cho các request không chỉ định rõ
  */
 @ConfigurationProperties(prefix = "spring-utils.web-client")
-public data class WebClientProperties(
-    val acceptLanguages: List<String> = listOf("en-US"),
-    val acceptEncodings: List<String> = listOf("gzip, deflate"),
-    val defaultContentType: String = "application/json"
-)
+public class WebClientProperties(
+    public val acceptLanguages: List<String> = listOf("en-US"),
+    public val acceptEncodings: List<String> = listOf("gzip, deflate"),
+    public val defaultContentType: String = "application/json"
+) {
+    override fun toString(): String =
+        "WebClientProperties(acceptLanguages=$acceptLanguages, acceptEncodings=$acceptEncodings, " +
+            "defaultContentType=$defaultContentType)"
+}

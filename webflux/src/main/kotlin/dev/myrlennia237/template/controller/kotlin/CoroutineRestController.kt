@@ -1,5 +1,6 @@
 package dev.myrlennia237.template.controller.kotlin
 
+import dev.myrlennia237.annotation.ExperimentalKotlinVariantApi
 import dev.myrlennia237.annotation.KotlinVariant
 import dev.myrlennia237.dto.KPagedResponse
 import dev.myrlennia237.template.controller.ReactiveRestController
@@ -16,6 +17,7 @@ import kotlin.uuid.Uuid
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 @KotlinVariant
+@ExperimentalKotlinVariantApi
 public abstract class CoroutineRestController<T : Any, in I1, in I2> : ReactiveRestController() {
 
     /**

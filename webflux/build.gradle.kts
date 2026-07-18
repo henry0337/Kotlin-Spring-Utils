@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmDefaultMode
+
 plugins {
     kotlin("jvm")
     kotlin("plugin.spring")
@@ -5,6 +7,7 @@ plugins {
     kotlin("plugin.serialization")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
+    id("org.jetbrains.dokka")
 }
 
 dependencies {
@@ -34,11 +37,15 @@ kotlin {
     jvmToolchain(25)
 
     compilerOptions {
+        jvmDefault = JvmDefaultMode.NO_COMPATIBILITY
         freeCompilerArgs.addAll(
             "-Xjsr305=strict",
             "-Xannotation-default-target=param-property",
             "-opt-in=kotlin.uuid.ExperimentalUuidApi",
             "-opt-in=kotlin.time.ExperimentalTime",
+            // Nhánh Kotlin của thư viện phụ thuộc Uuid/Instant experimental; opt-in ở mức module để nội bộ
+            // compile sạch, consumer bên ngoài vẫn nhận cảnh báo qua @ExperimentalKotlinVariantApi.
+            "-opt-in=dev.myrlennia237.annotation.ExperimentalKotlinVariantApi",
             // Experimental: Return value checker, available only in Kotlin 2.3.x or later.
             // After upgraded to Kotlin 2.3.x, uncomment to use if needed.
              "-Xreturn-value-checker=full"

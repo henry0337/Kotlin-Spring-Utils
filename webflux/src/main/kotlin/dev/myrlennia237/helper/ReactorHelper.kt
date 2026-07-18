@@ -47,13 +47,14 @@ public class ReactorHelper {
     public fun <T : Any> emptyFlux(): Flux<T> = Flux.empty()
 
     /**
-     * Lấy ra giá trị được bọc trong một [Mono] được chỉ định.
+     * Lấy ra giá trị được bọc trong một [Mono] được chỉ định bằng cách **chặn luồng vô thời hạn** cho đến khi nhận được
+     * tín hiệu kế tiếp.
      *
-     * @param T         Kiểu dữ liệu được wrap trong [Mono]
-     * @param publisher Đối tượng [Mono] cần lấy giá trị được wrap tương ứng
+     * @param T     Kiểu dữ liệu được wrap trong [Mono]
+     * @param mono  Đối tượng [Mono] cần lấy giá trị được wrap tương ứng
      * @return Giá trị được wrap bên trong nếu tồn tại, nếu như [Mono.empty] thì trả về `null`.
      */
-    public fun <T : Any> waitUntilCompleted(publisher: Mono<T>): T? = publisher.block()
+    public fun <T : Any> waitUntilCompleted(mono: Mono<T>): T? = mono.block()
 
     /**
      * Đánh dấu một [Mono] sẽ được bỏ qua giá trị trả về, kết quả thực tế sẽ được thay bằng `Mono<Void>`.

@@ -6,7 +6,14 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import org.springframework.data.domain.Page
 
-public data class KPagedResponse<T>(
+/**
+ * Phiên bản tối giản của [Page][org.springframework.data.domain.Page] cho nhánh Kotlin của thư viện.
+ *
+ * **Ghi chú**: Chỉ dành cho **Kotlin**. Dùng [Page.toPagedResponse] để khởi tạo nhanh từ một `Page`.
+ *
+ * @author <a href="https://github.com/henry0337">Muharux</a>
+ */
+public data class KPagedResponse<T : Any>(
     val content: ImmutableList<T>,
     val page: Int,
     val size: Int,

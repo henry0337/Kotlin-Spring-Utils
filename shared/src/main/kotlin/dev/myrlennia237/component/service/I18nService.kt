@@ -1,6 +1,6 @@
 package dev.myrlennia237.component.service
 
-import org.slf4j.LoggerFactory
+import dev.myrlennia237.util.slf4j
 import org.springframework.context.MessageSource
 import org.springframework.context.NoSuchMessageException
 import org.springframework.context.i18n.LocaleContextHolder
@@ -12,8 +12,7 @@ import java.util.Locale
  * @see org.springframework.context.i18n.LocaleContextHolder
  */
 public class I18nService(private val messageSource: MessageSource) {
-
-    private val logger = LoggerFactory.getLogger(I18nService::class.java)
+    private val logger by slf4j()
 
     /**
      * Dịch một message theo [code] từ [MessageSource] hiện có.

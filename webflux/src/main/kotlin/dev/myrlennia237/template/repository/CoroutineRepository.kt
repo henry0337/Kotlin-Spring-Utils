@@ -1,5 +1,6 @@
 package dev.myrlennia237.template.repository
 
+import dev.myrlennia237.annotation.ExperimentalKotlinVariantApi
 import dev.myrlennia237.annotation.KotlinVariant
 import dev.myrlennia237.template.entity.KEntity
 import kotlinx.coroutines.flow.Flow
@@ -21,6 +22,7 @@ import kotlin.uuid.Uuid
  * @see <a href="https://docs.spring.io/spring-data/relational/reference/kotlin/coroutines.html">Coroutine-specific Repository</a>
  */
 @KotlinVariant
+@ExperimentalKotlinVariantApi
 @NoRepositoryBean
 public interface CoroutineRepository<T : KEntity> : CoroutineCrudRepository<T, Uuid>, CoroutineSortingRepository<T, Uuid> {
 

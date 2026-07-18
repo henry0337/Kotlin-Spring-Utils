@@ -1,33 +1,26 @@
 package dev.myrlennia237
 
-import java.io.Serializable
-import java.time.Duration
-import java.time.Instant
-
 /**
- * Alias cho [Instant] — tường minh hóa nguồn gốc Java của kiểu thời gian UTC.
+ * Alias cho [java.time.Instant].
  */
-public typealias JavaInstant = Instant
+public typealias JavaInstant = java.time.Instant
 
 /**
- * Alias cho [Serializable] — dùng để khai báo entity có thể serialize mà không cần
- * import trực tiếp `java.io.Serializable`.
+ * Alias cho [java.io.Serializable].
  */
-public typealias JavaSerializable = Serializable
+public typealias JavaSerializable = java.io.Serializable
 
 /**
- * Alias cho [Duration] — tường minh hóa nguồn gốc Java của kiểu thời lượng.
- *
- * Dùng khi cần phân biệt với [kotlin.time.Duration] trong cùng một file.
+ * Alias cho [java.time.Duration].
  */
-public typealias JavaDuration = Duration
+public typealias JavaDuration = java.time.Duration
 
 /**
- * Alias cho kiểu hàm một tham số trả về [Boolean] — tương đương [java.util.function.Predicate].
+ * Alias cho kiểu hàm một tham số trả về [Boolean] — tương đương [Predicate][java.util.function.Predicate].
  */
 public typealias Predicate<T> = (T) -> Boolean
 
 /**
- * Alias cho kiểu hàm biến đổi [T] thành [R] — tương đương [java.util.function.Function].
+ * Alias cho kiểu hàm biến đổi [T] thành [R] — tương đương [Function][java.util.function.Function].
  */
 public typealias Function<T, R> = (T) -> R

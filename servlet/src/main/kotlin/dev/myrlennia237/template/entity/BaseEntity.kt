@@ -37,9 +37,11 @@ public abstract class BaseEntity protected constructor(
     @LastModifiedBy
     public var lastModifiedBy: UUID? = null,
 
-    public var deleted: Short = 0,
+    public var disabled: Boolean = false,
 
-    public var deletedAt: JavaInstant? = null,
+    public var lastDisabledAt: JavaInstant? = null,
+
+    public var lastDisabledBy: UUID? = null,
 
     @CreatedDate
     @Column(updatable = false)
@@ -82,15 +84,23 @@ public abstract class BaseEntity protected constructor(
         this.version = version
     }
 
-    override fun getRemovedState(): Short = deleted
-    override fun setRemovedState(removed: Short) {
-        deleted = removed
+    override fun getDisabledState(): Boolean = disabled
+    override fun setDisabledState(disabled: Boolean) {
+        this.disabled = disabled
     }
 
-    override fun getDeletedTimestamp(): JavaInstant? = deletedAt
-    override fun setRemovedTimestamp(deletedAt: JavaInstant?) {
-        this.deletedAt = deletedAt
+    override fun getDisabledTimestamp(): JavaInstant? = lastDisabledAt
+    override fun setDisabledTimestamp(disabledAt: JavaInstant?) {
+        this.lastDisabledAt = disabledAt
     }
+
+    override fun getDisabledBy(): UUID? = lastDisabledBy
+    override fun setDisabledBy(by: UUID?) {
+        this.lastDisabledBy = by
+    }
+
+    override fun toString(): String =
+        "${this::class.simpleName}(id=$id, version=$version, disabled=$disabled)"
 
     public companion object {
         @Serial

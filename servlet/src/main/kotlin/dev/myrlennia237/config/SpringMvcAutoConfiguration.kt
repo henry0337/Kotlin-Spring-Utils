@@ -18,34 +18,48 @@ import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.web.client.RestClient
 
+/**
+ * Auto-configuration cho ứng dụng Spring MVC (blocking, JPA): bật JPA auditing và đăng ký sẵn các bean nền tảng
+ * của thư viện. Mọi bean đều `@ConditionalOnMissingBean` nên ứng dụng có thể ghi đè bằng bean của riêng mình.
+ *
+ * Bean cung cấp: [AuditorAwareImpl], [I18nService], [HttpClient], [RedisService], [JPAQueryFactory], [MailService].
+ *
+ * @author <a href="https://github.com/henry0337">Muharux</a>
+ */
 @AutoConfiguration
 @EnableJpaAuditing
 @Import(RestClientConfig::class)
 public class SpringMvcAutoConfiguration {
 
+    /** Cung cấp thông tin người dùng hiện tại cho JPA auditing (`createdBy`/`lastModifiedBy`). */
     @Bean
     @ConditionalOnMissingBean
     public fun auditorAware(): AuditorAwareImpl = AuditorAwareImpl()
 
+    /** Dịch message qua [MessageSource]; chỉ đăng ký khi có bean [MessageSource]. */
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnBean(MessageSource::class)
     public fun i18nHelper(messageSource: MessageSource): I18nService = I18nService(messageSource)
 
+    /** HTTP client blocking (bọc [RestClient]) kèm circuit breaker + retry. */
     @Bean
     @ConditionalOnMissingBean
     public fun httpClient(restClient: RestClient): HttpClient = HttpClient(restClient)
 
+    /** Redis helper blocking; chỉ đăng ký khi [StringRedisTemplate] có mặt trên classpath và trong context. */
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnClass(StringRedisTemplate::class)
     @ConditionalOnBean(StringRedisTemplate::class)
     public fun redisService(redisTemplate: StringRedisTemplate): RedisService = RedisService(redisTemplate)
 
+    /** [JPAQueryFactory] của QueryDSL, dựng từ [EntityManager]. */
     @Bean
     @ConditionalOnMissingBean
     public fun jpaQueryFactory(entityManager: EntityManager): JPAQueryFactory = JPAQueryFactory(entityManager)
 
+    /** Dịch vụ gửi mail; chỉ đăng ký khi có bean [JavaMailSender]. */
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnBean(JavaMailSender::class)

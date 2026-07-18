@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page
  * Phiên bản tối giản hơn của [Page].
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-public data class PagedResponse<T>(
+public data class PagedResponse<T : Any>(
     val content: ImmutableList<T>,
     val page: Int,
     val size: Int,

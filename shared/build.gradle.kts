@@ -1,7 +1,10 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmDefaultMode
+
 plugins {
     kotlin("jvm")
     kotlin("plugin.spring")
     id("org.springframework.boot")
+    id("org.jetbrains.dokka")
 }
 
 dependencies {
@@ -23,6 +26,7 @@ kotlin {
     jvmToolchain(25)
 
     compilerOptions {
+        jvmDefault = JvmDefaultMode.NO_COMPATIBILITY
         freeCompilerArgs.addAll(
             "-Xjsr305=strict",
             "-Xannotation-default-target=param-property",

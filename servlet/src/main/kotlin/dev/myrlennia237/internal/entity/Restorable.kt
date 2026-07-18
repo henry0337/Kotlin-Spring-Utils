@@ -1,6 +1,7 @@
 package dev.myrlennia237.internal.entity
 
 import dev.myrlennia237.JavaInstant
+import java.util.UUID
 
 /**
  * Đánh dấu một Entity sẽ áp dụng cơ chế xóa mềm lên data của chúng thay vì xóa hoàn toàn, đồng thời áp dụng cơ chế
@@ -9,57 +10,77 @@ import dev.myrlennia237.JavaInstant
  */
 internal interface Restorable {
     /**
-     * Trả về trạng thái xóa logic hiện tại của entity.
+     * Trả về trạng thái vô hiệu hóa (xóa mềm) hiện tại của entity.
      *
-     * @return Giá trị trạng thái đã lưu
+     * @return `true` nếu entity đang bị vô hiệu hóa, ngược lại `false`
      */
-    fun getRemovedState(): Short
+    fun getDisabledState(): Boolean
 
     /**
-     * Cập nhật trạng thái xóa logic của entity.
+     * Cập nhật trạng thái vô hiệu hóa (xóa mềm) của entity.
      *
-     * @param removed Giá trị trạng thái mới
+     * @param disabled Giá trị trạng thái mới
      */
-    fun setRemovedState(removed: Short)
+    fun setDisabledState(disabled: Boolean)
 
     /**
-     * Trả về thời điểm entity bị đánh dấu đã xóa.
+     * Trả về thời điểm entity bị đánh dấu vô hiệu hóa.
      *
-     * @return Thời điểm xóa, hoặc `null` nếu entity chưa bị xóa
+     * @return Thời điểm vô hiệu hóa, hoặc `null` nếu entity chưa bị vô hiệu hóa
      */
-    fun getDeletedTimestamp(): JavaInstant?
+    fun getDisabledTimestamp(): JavaInstant?
 
     /**
-     * Cập nhật thời điểm entity bị đánh dấu đã xóa.
+     * Cập nhật thời điểm entity bị đánh dấu vô hiệu hóa.
      *
-     * @param deletedAt Thời điểm xóa, hoặc `null` nếu muốn xóa dấu thời gian
+     * @param disabledAt Thời điểm vô hiệu hóa, hoặc `null` nếu muốn xóa dấu thời gian
      */
-    fun setRemovedTimestamp(deletedAt: JavaInstant?)
+    fun setDisabledTimestamp(disabledAt: JavaInstant?)
 
     /**
-     * Kiểm tra entity hiện tại có đang bị xóa logic hay không.
+     * Trả về đối tượng gần đây nhất thực hiện vô hiệu hóa entity này.
      *
-     * @return `true` nếu trạng thái xóa là `1`, ngược lại `false`
+     * @return UUID của đối tượng đó, hoặc `null` nếu entity chưa bị vô hiệu hóa
      */
-    fun isDeleted(): Boolean = getRemovedState().toInt() == 1
+    fun getDisabledBy(): UUID?
 
     /**
-     * Đánh dấu entity hiện tại là đã xóa logic.
+     * Cập nhật đối tượng thực hiện vô hiệu hóa entity này.
      *
-     * Hàm này sẽ đặt trạng thái xóa về `1` và gán thời điểm xóa là thời gian hiện tại (UTC).
+     * @param by UUID của đối tượng đó, hoặc `null` nếu muốn xóa giá trị
      */
-    fun markAsDeleted() {
-        setRemovedState(1.toShort())
-        setRemovedTimestamp(JavaInstant.now())
+    fun setDisabledBy(by: UUID?)
+
+    /**
+     * Kiểm tra entity hiện tại có đang bị vô hiệu hóa (xóa mềm) hay không.
+     *
+     * @return `true`/`false` tương ứng.
+     */
+    fun isDisabled(): Boolean = getDisabledState()
+
+    /**
+     * Đánh dấu entity hiện tại là đã bị vô hiệu hóa (xóa mềm).
+     *
+     * Hàm này sẽ đặt trạng thái vô hiệu hóa về `true`, gán thời điểm vô hiệu hóa, và ghi nhận đối tượng thực hiện
+     * thao tác.
+     *
+     * @param by UUID của đối tượng thực hiện vô hiệu hóa, hoặc `null` nếu không xác định
+     * @param at Thời điểm vô hiệu hóa; mặc định là thời gian hiện tại. Cho phép truyền giá trị cố định để test
+     *   xác định (deterministic).
+     */
+    fun markAsDisabled(by: UUID? = null, at: JavaInstant = JavaInstant.now()) {
+        setDisabledState(true)
+        setDisabledTimestamp(at)
+        setDisabledBy(by)
     }
 
     /**
-     * Khôi phục entity về trạng thái chưa xóa.
+     * Khôi phục entity về trạng thái chưa vô hiệu hóa.
      *
-     * Hàm này sẽ đặt trạng thái xóa về `0` và xóa thời điểm xóa.
+     * Hàm này chỉ đặt lại flag [getDisabledState] về `false`.
+     * [getDisabledTimestamp] và [getDisabledBy] được giữ nguyên để lưu vết lần vô hiệu hóa gần nhất.
      */
     fun restore() {
-        setRemovedState(0.toShort())
-        setRemovedTimestamp(null)
+        setDisabledState(false)
     }
 }

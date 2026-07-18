@@ -19,8 +19,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties
  * @param defaultContentType Giá trị header `Content-Type` cho các request không chỉ định rõ
  */
 @ConfigurationProperties(prefix = "spring-utils.rest-client")
-public data class RestClientProperties(
-    val acceptLanguages: List<String> = listOf("en-US"),
-    val acceptEncodings: List<String> = listOf("gzip, deflate"),
-    val defaultContentType: String = "application/json"
-)
+public class RestClientProperties(
+    public val acceptLanguages: List<String> = listOf("en-US"),
+    public val acceptEncodings: List<String> = listOf("gzip, deflate"),
+    public val defaultContentType: String = "application/json"
+) {
+    override fun toString(): String =
+        "RestClientProperties(acceptLanguages=$acceptLanguages, acceptEncodings=$acceptEncodings, " +
+            "defaultContentType=$defaultContentType)"
+}
