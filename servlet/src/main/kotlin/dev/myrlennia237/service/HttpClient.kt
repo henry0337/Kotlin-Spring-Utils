@@ -19,7 +19,7 @@ import org.springframework.web.client.RestClient
  * Một HTTP Client dùng để gọi tới các API bên thứ 3.
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-public class HttpClient(private val restClient: RestClient) {
+public open class HttpClient(private val restClient: RestClient) {
     @Autowired
     @Lazy
     @PublishedApi
@@ -44,7 +44,7 @@ public class HttpClient(private val restClient: RestClient) {
      */
     @Retry(name = "unwrapGet", fallbackMethod = "retryFallback")
     @CircuitBreaker(name = "unwrapGet", fallbackMethod = "circuitBreakerFallback")
-    public fun <T : Any> doGet(
+    public open fun <T : Any> doGet(
         url: String,
         responseType: ParameterizedTypeReference<T>,
         params: @Nullable Map<String, Array<Any>>? = null,
@@ -71,6 +71,27 @@ public class HttpClient(private val restClient: RestClient) {
     }
 
     /**
+     * Phiên bản rút gọn của [doGet] cho lệnh gọi từ **Java** không cần `params`/`headers`/xử lý lỗi tuỳ biến —
+     * tránh phải truyền `null` thủ công cho từng tham số còn lại. Đi qua [self] (không gọi trực tiếp [doGet])
+     * để lệnh gọi vẫn xuyên qua AOP proxy, giữ nguyên `@Retry`/`@CircuitBreaker`.
+     * @author <a href="https://github.com/henry0337">Muharux</a>
+     */
+    public fun <T : Any> doGet(url: String, responseType: ParameterizedTypeReference<T>): T? =
+        self.doGet(url, responseType, null, null, null, null)
+
+    /**
+     * Phiên bản rút gọn của [doGet] cho lệnh gọi từ **Java** kèm `params`/`headers` nhưng không cần xử lý lỗi
+     * tuỳ biến. Đi qua [self] để giữ nguyên `@Retry`/`@CircuitBreaker` như [doGet] gốc.
+     * @author <a href="https://github.com/henry0337">Muharux</a>
+     */
+    public fun <T : Any> doGet(
+        url: String,
+        responseType: ParameterizedTypeReference<T>,
+        params: @Nullable Map<String, Array<Any>>?,
+        headers: @Nullable Map<String, @Nullable String?>?
+    ): T? = self.doGet(url, responseType, params, headers, null, null)
+
+    /**
      * Gửi một HTTP POST request đến [url] rồi trả về phản hồi với kiểu [T] tương ứng.
      *
      * @param url URL của endpoint cần gọi
@@ -91,7 +112,7 @@ public class HttpClient(private val restClient: RestClient) {
      */
     @Retry(name = "unwrapPost", fallbackMethod = "retryFallback")
     @CircuitBreaker(name = "unwrapPost", fallbackMethod = "circuitBreakerFallback")
-    public fun <T : Any, B : Any> doPost(
+    public open fun <T : Any, B : Any> doPost(
         url: String,
         body: B,
         responseType: ParameterizedTypeReference<T>,
@@ -118,6 +139,27 @@ public class HttpClient(private val restClient: RestClient) {
 
         return spec.body(responseType)
     }
+
+    /**
+     * Phiên bản rút gọn của [doPost] cho lệnh gọi từ **Java** không cần `params`/`headers`/xử lý lỗi tuỳ biến.
+     * Đi qua [self] để giữ nguyên `@Retry`/`@CircuitBreaker` như [doPost] gốc.
+     * @author <a href="https://github.com/henry0337">Muharux</a>
+     */
+    public fun <T : Any, B : Any> doPost(url: String, body: B, responseType: ParameterizedTypeReference<T>): T? =
+        self.doPost(url, body, responseType, null, null, null, null)
+
+    /**
+     * Phiên bản rút gọn của [doPost] cho lệnh gọi từ **Java** kèm `params`/`headers` nhưng không cần xử lý lỗi
+     * tuỳ biến. Đi qua [self] để giữ nguyên `@Retry`/`@CircuitBreaker` như [doPost] gốc.
+     * @author <a href="https://github.com/henry0337">Muharux</a>
+     */
+    public fun <T : Any, B : Any> doPost(
+        url: String,
+        body: B,
+        responseType: ParameterizedTypeReference<T>,
+        params: @Nullable Map<String, Array<Any>>?,
+        headers: @Nullable Map<String, @Nullable String?>?
+    ): T? = self.doPost(url, body, responseType, params, headers, null, null)
 
     /**
      * **[[Kotlin Variant]]**
