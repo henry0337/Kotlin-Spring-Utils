@@ -30,7 +30,7 @@ dependencies {
 kotlin {
     // https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
     explicitApi() // Kích hoạt chế độ Explicit API
-    jvmToolchain(25)
+    jvmToolchain(21)
 
     // ABI validation tích hợp của Kotlin Gradle plugin (dùng cho thư viện Java 25).
     // Task: `updateLegacyAbi` sinh/ghi baseline; `checkLegacyAbi` (chạy trong `check`) so sánh.
