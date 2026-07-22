@@ -1,23 +1,35 @@
 package dev.myrlennia237.annotation
 
 /**
- * Đánh dấu các API của thư viện phụ thuộc vào những thành phần **experimental** của thư viện chuẩn Kotlin —
- * cụ thể là [kotlin.uuid.Uuid] và [kotlin.time.Instant].
+ * Đánh dấu các API thuộc biến thể "K" trong thư viện này là experimental, nghĩa là chức năng mà chúng cung cấp không ổn định về
+ * mặt hành vi/cú pháp và sẽ có thể bị thay đổi/xóa bất cứ lúc nào bởi thư viện Kotlin chuẩn mà không có thông báo trước.
  *
- * Các API mang annotation này có thể thay đổi (chữ ký, hành vi) khi những type experimental nói trên được
- * ổn định hóa trong các phiên bản Kotlin sau. Để sử dụng, hãy opt-in một cách tường minh bằng
- * `@OptIn(ExperimentalKotlinVariantApi::class)`, hoặc lan truyền (propagate) annotation này lên khai báo của bạn.
+ * Hiện tại, đối tượng có thể đánh dấu bằng annotation này bao gồm:
+ * - Lớp, giao diện, lớp object hoặc annotation
+ * - Phương thức/hàm
+ * - Thuộc tính
  *
- * Đây là biến thể Kotlin của thư viện (song hành với [KotlinVariant]); phía Java không chịu ảnh hưởng vì
- * không truy cập được các API này ở mức bytecode.
- *
+ * Để sử dụng các API được đánh dấu bằng annotation này thì bắt buộc đối tượng sử dụng phải opt-in, thông qua ví dụ khai báo sau:
+ * ```kt
+ * // Lớp
+ * @OptIn(ExperimentalKotlinVariantApi::class)
+ * class Foo
+ * // hoặc phương thức/hàm
+ * @OptIn(ExperimentalKotlinVariantApi::class)
+ * fun foo() {}
+ * ```
+ * 
  * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @see KotlinVariant
  */
 @RequiresOptIn(
-    message = "API này phụ thuộc vào kotlin.uuid.Uuid và kotlin.time.Instant còn ở trạng thái experimental, " +
-        "có thể thay đổi trong các phiên bản Kotlin tương lai.",
+    message = """
+        Đối tượng được đánh dấu này sử dụng các API được đánh dấu là experimental từ các thư viện chuẩn Kotlin, 
+        hành vi của chúng có thể bị thay đổi bất cứ lúc nào mà không báo trước.
+    """,
     level = RequiresOptIn.Level.WARNING
 )
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY)
+@MustBeDocumented
 public annotation class ExperimentalKotlinVariantApi

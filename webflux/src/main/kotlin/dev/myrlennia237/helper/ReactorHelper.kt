@@ -61,5 +61,5 @@ public class ReactorHelper {
      * @see Mono.then
      */
     @Suppress("kotlin:S6508")
-    public fun <T : Any> ignoreReturnValueOf(mono: Mono<T>): Mono<Void> = mono.then()
+    public fun <T : Any> disposeOf(mono: Mono<T>): Mono<Void> = mono.then()
 }
