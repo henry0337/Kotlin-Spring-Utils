@@ -6,8 +6,8 @@ package dev.myrlennia237.annotation
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
 @RequiresOptIn(
-    message = "API này phụ thuộc vào kotlin.uuid.Uuid và kotlin.time.Instant còn ở trạng thái experimental, " +
-        "có thể thay đổi trong các phiên bản Kotlin tương lai.",
+    message = "Đây là API thử nghiệm dành cho phong cách lập trình thuần Kotlin (coroutines), " +
+        "có thể thay đổi trong các phiên bản tương lai của thư viện.",
     level = RequiresOptIn.Level.WARNING
 )
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY)

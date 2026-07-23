@@ -1,37 +1,38 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmDefaultMode
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.spring")
-    id("org.springframework.boot")
-    id("org.jetbrains.dokka")
-    id("org.jetbrains.kotlinx.binary-compatibility-validator")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.plugin.spring)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.binary.compatibility.validator)
 }
 
 dependencies {
-    api("org.springframework:spring-context")
-    api("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.0")
-    implementation("org.springframework.boot:spring-boot-starter-mail")
-    implementation("org.springframework.data:spring-data-commons")
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("org.springframework.security:spring-security-config")
-    implementation("org.springframework:spring-tx")
-    implementation("io.swagger.core.v3:swagger-annotations:2.2.41")
-    implementation("org.slf4j:slf4j-api")
-    compileOnly("org.jetbrains:annotations:26.1.0")
-    compileOnly("org.jspecify:jspecify:1.0.0")
+    api(libs.spring.context)
+    api(libs.kotlinx.collections.immutable)
+    implementation(libs.spring.boot.starter.mail)
+    implementation(libs.spring.data.commons)
+    implementation(libs.spring.boot.starter.webflux)
+    implementation(libs.spring.security.config)
+    implementation(libs.spring.tx)
+    implementation(libs.swagger.annotations)
+    implementation(libs.slf4j.api)
+    compileOnly(libs.jetbrains.annotations)
+    compileOnly(libs.jspecify)
 }
 
 kotlin {
     // https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
     explicitApi()
     jvmToolchain(17)
+}
 
-    compilerOptions {
-        jvmDefault.set(JvmDefaultMode.NO_COMPATIBILITY)
-        freeCompilerArgs.addAll(
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-Xjvm-default=all",
             "-Xjsr305=strict",
-            "-Xannotation-default-target=param-property",
 //            "-Xreturn-value-checker=full"
         )
     }

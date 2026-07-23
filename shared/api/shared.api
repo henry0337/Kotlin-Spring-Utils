@@ -142,7 +142,6 @@ public final class dev/myrlennia237/component/service/I18nService {
 public final class dev/myrlennia237/component/service/MailBodyType : java/lang/Enum {
 	public static final field HTML Ldev/myrlennia237/component/service/MailBodyType;
 	public static final field PLAIN Ldev/myrlennia237/component/service/MailBodyType;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Ldev/myrlennia237/component/service/MailBodyType;
 	public static fun values ()[Ldev/myrlennia237/component/service/MailBodyType;
 }

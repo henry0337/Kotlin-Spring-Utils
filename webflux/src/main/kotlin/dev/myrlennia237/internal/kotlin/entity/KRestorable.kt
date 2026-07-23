@@ -1,9 +1,9 @@
 package dev.myrlennia237.internal.kotlin.entity
 
 import dev.myrlennia237.annotation.KotlinVariant
-import kotlin.time.Clock
-import kotlin.time.Instant
-import kotlin.uuid.Uuid
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import java.util.UUID
 
 /**
  * Đánh dấu một Entity sẽ áp dụng cơ chế xóa mềm lên data của chúng thay vì xóa hoàn toàn, đồng thời áp dụng cơ chế
@@ -25,7 +25,7 @@ internal interface KRestorable {
     /**
      * Đối tượng gần đây nhất thực hiện vô hiệu hóa entity này, hoặc `null` nếu chưa bị vô hiệu hóa.
      */
-    var lastDisabledBy: Uuid?
+    var lastDisabledBy: UUID?
 
     /**
      * Kiểm tra entity hiện tại có đang bị xóa logic hay không.
@@ -42,7 +42,7 @@ internal interface KRestorable {
      * @param at Thời điểm vô hiệu hóa; mặc định là thời gian hiện tại. Cho phép truyền giá trị cố định để test
      *   xác định (deterministic).
      */
-    fun markAsDisabled(by: Uuid? = null, at: Instant = Clock.System.now()) {
+    fun markAsDisabled(by: UUID? = null, at: Instant = Clock.System.now()) {
         disabled = true
         lastDisabledAt = at
         lastDisabledBy = by

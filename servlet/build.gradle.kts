@@ -1,43 +1,44 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmDefaultMode
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.spring")
-    kotlin("kapt")
-    id("org.springframework.boot")
-    id("io.spring.dependency-management")
-    id("org.jetbrains.dokka")
-    id("org.jetbrains.kotlinx.binary-compatibility-validator")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.plugin.spring)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.dependency.management)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.binary.compatibility.validator)
 }
 
 dependencies {
     api(projects.shared)
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("io.github.resilience4j:resilience4j-spring-boot3:2.4.0")
-    kapt("org.springframework.boot:spring-boot-configuration-processor")
-    implementation("io.github.openfeign.querydsl:querydsl-jpa:6.2.1")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("com.tngtech.archunit:archunit:1.4.2")
-    kapt("io.github.openfeign.querydsl:querydsl-apt:6.2.1:jpa")
-    kapt("jakarta.persistence:jakarta.persistence-api")
-    compileOnly("org.jspecify:jspecify:1.0.0")
+    implementation(libs.spring.boot.starter.web)
+    implementation(libs.spring.boot.starter.data.jpa)
+    implementation(libs.spring.boot.starter.data.redis)
+    implementation(libs.spring.boot.starter.security)
+    implementation(libs.kotlin.reflect)
+    implementation(libs.jackson.module.kotlin)
+    implementation(libs.resilience4j.spring.boot3)
+    kapt(libs.spring.boot.configuration.processor)
+    implementation(libs.querydsl.jpa)
+    testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.archunit)
+    kapt(variantOf(libs.querydsl.apt) { classifier("jpa") })
+    kapt(libs.jakarta.persistence.api)
+    compileOnly(libs.jspecify)
 }
 
 kotlin {
     // https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
     explicitApi()
     jvmToolchain(17)
+}
 
-    compilerOptions {
-        jvmDefault.set(JvmDefaultMode.NO_COMPATIBILITY)
-        freeCompilerArgs.addAll(
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-Xjvm-default=all",
             "-Xjsr305=strict",
-            "-Xannotation-default-target=param-property",
 //             "-Xreturn-value-checker=full"
         )
     }

@@ -1,47 +1,46 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmDefaultMode
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.spring")
-    kotlin("kapt")
-    kotlin("plugin.serialization")
-    id("org.springframework.boot")
-    id("io.spring.dependency-management")
-    id("org.jetbrains.dokka")
-    id("org.jetbrains.kotlinx.binary-compatibility-validator")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.plugin.spring)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.plugin.serialization)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.dependency.management)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.binary.compatibility.validator)
 }
 
 dependencies {
     api(projects.shared)
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.7.1")
-    implementation("io.github.resilience4j:resilience4j-spring-boot3:2.4.0")
-    implementation("io.github.openfeign.querydsl:querydsl-r2dbc:6.2.1")
-    kapt("org.springframework.boot:spring-boot-configuration-processor")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("com.tngtech.archunit:archunit:1.4.2")
+    implementation(libs.spring.boot.starter.webflux)
+    implementation(libs.spring.boot.starter.data.r2dbc)
+    implementation(libs.spring.boot.starter.data.redis.reactive)
+    implementation(libs.spring.boot.starter.security)
+    implementation(libs.reactor.kotlin.extensions)
+    implementation(libs.kotlin.reflect)
+    implementation(libs.kotlinx.coroutines.reactor)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.jackson.module.kotlin)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.resilience4j.spring.boot3)
+    implementation(libs.querydsl.r2dbc)
+    kapt(libs.spring.boot.configuration.processor)
+    testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.archunit)
 }
 
 kotlin {
     // https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
     explicitApi()
     jvmToolchain(17)
+}
 
-    compilerOptions {
-        jvmDefault.set(JvmDefaultMode.NO_COMPATIBILITY)
-        freeCompilerArgs.addAll(
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-Xjvm-default=all",
             "-Xjsr305=strict",
-            "-Xannotation-default-target=param-property",
-            "-opt-in=kotlin.uuid.ExperimentalUuidApi",
-            "-opt-in=kotlin.time.ExperimentalTime",
             "-opt-in=dev.myrlennia237.annotation.ExperimentalKotlinVariantApi",
 //             "-Xreturn-value-checker=full"
         )

@@ -14,9 +14,9 @@ import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.annotation.Version
 import org.springframework.data.relational.core.mapping.InsertOnlyProperty
-import kotlin.time.Clock
-import kotlin.time.Instant
-import kotlin.uuid.Uuid
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import java.util.UUID
 
 /**
  * Khai báo một lớp mà bản thân nó không phải là một **Entity**, nhưng các cấu hình ánh xạ của nó sẽ được kế thừa bởi
@@ -36,27 +36,26 @@ import kotlin.uuid.Uuid
 @ExperimentalKotlinVariantApi
 public abstract class KEntity protected constructor(
     @Id @Contextual
-    public var id: Uuid? = null,
+    public var id: UUID? = null,
 
     @CreatedBy @InsertOnlyProperty @Contextual
-    public override var createdBy: Uuid? = null,
+    public override var createdBy: UUID? = null,
 
-    @CreatedDate @InsertOnlyProperty @Contextual
+    @CreatedDate @InsertOnlyProperty
     public override var createdDate: Instant = Clock.System.now(),
 
     @LastModifiedBy @Contextual
-    public override var lastModifiedBy: Uuid? = null,
+    public override var lastModifiedBy: UUID? = null,
 
-    @LastModifiedDate @Contextual
+    @LastModifiedDate
     public override var lastModifiedDate: Instant? = null,
 
     public override var disabled: Boolean = false,
 
-    @Contextual
     public override var lastDisabledAt: Instant? = null,
 
     @Contextual
-    public override var lastDisabledBy: Uuid? = null,
+    public override var lastDisabledBy: UUID? = null,
 
     @Version
     public override var version: Long = 0

@@ -4,8 +4,6 @@ import dev.myrlennia237.component.service.I18nService
 import dev.myrlennia237.component.service.MailService
 import dev.myrlennia237.internal.converter.KotlinInstantReadingConverter
 import dev.myrlennia237.internal.converter.KotlinInstantWritingConverter
-import dev.myrlennia237.internal.converter.KotlinUuidReadingConverter
-import dev.myrlennia237.internal.converter.KotlinUuidWritingConverter
 import dev.myrlennia237.service.ReactiveRedisService
 import dev.myrlennia237.service.ReactiveHttpClient
 import dev.myrlennia237.helper.ReactorHelper
@@ -32,7 +30,7 @@ import org.springframework.web.reactive.function.client.WebClient
  * [R2dbcDataAutoConfiguration] và đăng ký sẵn các bean nền tảng. Mọi bean đều `@ConditionalOnMissingBean` nên
  * ứng dụng có thể ghi đè bằng bean của riêng mình.
  *
- * Bean cung cấp: [R2dbcCustomConversions] (kèm converter Kotlin `Uuid`/`Instant` ↔ Java), [AsyncAuditorAware],
+ * Bean cung cấp: [R2dbcCustomConversions] (kèm converter Kotlin `Instant` ↔ Java), [AsyncAuditorAware],
  * [I18nService], [ReactiveHttpClient], [ReactiveRedisService], [ReactorHelper], [ResponseHelper], [MailService].
  *
  * @author <a href="https://github.com/henry0337">Muharux</a>
@@ -42,15 +40,13 @@ import org.springframework.web.reactive.function.client.WebClient
 @Import(WebClientConfig::class)
 public class SpringReactiveAutoConfiguration {
 
-    /** [R2dbcCustomConversions] kèm các converter chuyển đổi `kotlin.uuid.Uuid`/`kotlin.time.Instant` ↔ kiểu Java. */
+    /** [R2dbcCustomConversions] kèm converter chuyển đổi `kotlinx.datetime.Instant` ↔ `java.time.Instant`. */
     @Bean
     @ConditionalOnMissingBean
     public fun r2dbcCustomConversions(connectionFactory: ConnectionFactory): R2dbcCustomConversions =
         R2dbcCustomConversions.of(
             DialectResolver.getDialect(connectionFactory),
             listOf(
-                KotlinUuidWritingConverter(),
-                KotlinUuidReadingConverter(),
                 KotlinInstantWritingConverter(),
                 KotlinInstantReadingConverter()
             )
