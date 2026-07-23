@@ -5,6 +5,7 @@ import dev.myrlennia237.annotation.KotlinVariant
 import dev.myrlennia237.internal.kotlin.entity.KAuditable
 import dev.myrlennia237.internal.kotlin.entity.KConflictable
 import dev.myrlennia237.internal.kotlin.entity.KRestorable
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
@@ -34,25 +35,27 @@ import kotlin.uuid.Uuid
 @KotlinVariant
 @ExperimentalKotlinVariantApi
 public abstract class KEntity protected constructor(
-    @Id
+    @Id @Contextual
     public var id: Uuid? = null,
 
-    @CreatedBy @InsertOnlyProperty
+    @CreatedBy @InsertOnlyProperty @Contextual
     public override var createdBy: Uuid? = null,
 
-    @CreatedDate @InsertOnlyProperty
+    @CreatedDate @InsertOnlyProperty @Contextual
     public override var createdDate: Instant = Clock.System.now(),
 
-    @LastModifiedBy
+    @LastModifiedBy @Contextual
     public override var lastModifiedBy: Uuid? = null,
 
-    @LastModifiedDate
+    @LastModifiedDate @Contextual
     public override var lastModifiedDate: Instant? = null,
 
     public override var disabled: Boolean = false,
 
+    @Contextual
     public override var lastDisabledAt: Instant? = null,
 
+    @Contextual
     public override var lastDisabledBy: Uuid? = null,
 
     @Version

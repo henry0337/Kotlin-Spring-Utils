@@ -78,8 +78,6 @@ public final class dev/myrlennia237/component/ImmutableList : java/util/Abstract
 	public fun none (Ljava/util/function/Predicate;)Z
 	public static fun of ([Ljava/lang/Object;)Ldev/myrlennia237/component/ImmutableList;
 	public fun reversed ()Ldev/myrlennia237/component/ImmutableList;
-	public synthetic fun reversed ()Ljava/util/List;
-	public synthetic fun reversed ()Ljava/util/SequencedCollection;
 	public fun size ()I
 	public fun sorted ()Ldev/myrlennia237/component/ImmutableList;
 	public fun sortedWith (Ljava/util/Comparator;)Ldev/myrlennia237/component/ImmutableList;

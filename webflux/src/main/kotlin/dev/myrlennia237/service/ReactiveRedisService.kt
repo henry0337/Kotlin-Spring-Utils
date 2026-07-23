@@ -105,7 +105,6 @@ public class ReactiveRedisService(redisTemplate: ReactiveStringRedisTemplate) {
      */
     @KotlinVariant
     @JvmSynthetic
-    @IgnorableReturnValue
     public suspend fun setAndAwait(
         key: String,
         value: String,
@@ -123,7 +122,6 @@ public class ReactiveRedisService(redisTemplate: ReactiveStringRedisTemplate) {
      */
     @KotlinVariant
     @JvmSynthetic
-    @IgnorableReturnValue
     public suspend fun deleteAndAwait(key: String): Boolean = redisOps.deleteAndAwait(key)
 
     /**
@@ -139,7 +137,6 @@ public class ReactiveRedisService(redisTemplate: ReactiveStringRedisTemplate) {
      */
     @KotlinVariant
     @JvmSynthetic
-    @IgnorableReturnValue
     public suspend fun expireAndAwait(
         key: String,
         duration: JavaDuration = Duration.INFINITE.toJavaDuration()

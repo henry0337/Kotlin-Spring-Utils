@@ -8,6 +8,7 @@ plugins {
     id("org.springframework.boot")
     id("io.spring.dependency-management")
     id("org.jetbrains.dokka")
+    id("org.jetbrains.kotlinx.binary-compatibility-validator")
 }
 
 dependencies {
@@ -16,16 +17,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
     implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-webclient")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-    implementation("org.springframework.boot:spring-boot-starter-kotlinx-serialization-json")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
-    implementation("tools.jackson.module:jackson-module-kotlin")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.7.1")
-    implementation("io.github.resilience4j:resilience4j-spring-boot4:2.4.0")
-    implementation("io.github.openfeign.querydsl:querydsl-r2dbc:7.4.0")
+    implementation("io.github.resilience4j:resilience4j-spring-boot3:2.4.0")
+    implementation("io.github.openfeign.querydsl:querydsl-r2dbc:6.2.1")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("com.tngtech.archunit:archunit:1.4.2")
@@ -33,29 +32,18 @@ dependencies {
 
 kotlin {
     // https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
-    explicitApi() // Kích hoạt chế độ Explicit API
-    jvmToolchain(25)
-
-    // ABI validation tích hợp của Kotlin Gradle plugin (dùng cho thư viện Java 25).
-    // Task: `updateLegacyAbi` sinh/ghi baseline; `checkLegacyAbi` (chạy trong `check`) so sánh.
-    @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
-    abiValidation {
-        enabled.set(true)
-    }
+    explicitApi()
+    jvmToolchain(17)
 
     compilerOptions {
-        jvmDefault = JvmDefaultMode.NO_COMPATIBILITY
+        jvmDefault.set(JvmDefaultMode.NO_COMPATIBILITY)
         freeCompilerArgs.addAll(
             "-Xjsr305=strict",
             "-Xannotation-default-target=param-property",
             "-opt-in=kotlin.uuid.ExperimentalUuidApi",
             "-opt-in=kotlin.time.ExperimentalTime",
-            // Nhánh Kotlin của thư viện phụ thuộc Uuid/Instant experimental; opt-in ở mức module để nội bộ
-            // compile sạch, consumer bên ngoài vẫn nhận cảnh báo qua @ExperimentalKotlinVariantApi.
             "-opt-in=dev.myrlennia237.annotation.ExperimentalKotlinVariantApi",
-            // Experimental: Return value checker, available only in Kotlin 2.3.x or later.
-            // After upgraded to Kotlin 2.3.x, uncomment to use if needed.
-             "-Xreturn-value-checker=full"
+//             "-Xreturn-value-checker=full"
         )
     }
 }

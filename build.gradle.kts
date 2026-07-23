@@ -1,12 +1,13 @@
 plugins {
-	kotlin("jvm") version "2.3.21" apply false
-	kotlin("kapt") version "2.3.21" apply false
-	kotlin("plugin.spring") version "2.3.21" apply false
-	kotlin("plugin.jpa") version "2.3.21" apply false
-	kotlin("plugin.serialization") version "2.3.21" apply false
-	id("org.springframework.boot") version "4.0.7" apply false
+	kotlin("jvm") version "2.2.21" apply false
+	kotlin("kapt") version "2.2.21" apply false
+	kotlin("plugin.spring") version "2.2.21" apply false
+	kotlin("plugin.jpa") version "2.2.21" apply false
+	kotlin("plugin.serialization") version "2.2.21" apply false
+	id("org.springframework.boot") version "3.5.16" apply false
 	id("io.spring.dependency-management") version "1.1.7" apply false
-	id("org.jetbrains.dokka") version "2.2.0"
+	id("org.jetbrains.dokka") version "2.2.0" apply false
+	id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.18.1" apply false
 }
 
 allprojects {
@@ -22,7 +23,7 @@ subprojects {
 
 	configure<JavaPluginExtension> {
 		toolchain {
-			languageVersion = JavaLanguageVersion.of(25)
+			languageVersion.set(JavaLanguageVersion.of(17))
 		}
 		withSourcesJar()
 	}

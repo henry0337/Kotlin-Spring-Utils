@@ -15,7 +15,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
-import org.springframework.boot.data.r2dbc.autoconfigure.DataR2dbcAutoConfiguration
+import org.springframework.boot.autoconfigure.data.r2dbc.R2dbcDataAutoConfiguration
 import org.springframework.context.MessageSource
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
@@ -29,7 +29,7 @@ import org.springframework.web.reactive.function.client.WebClient
 
 /**
  * Auto-configuration cho ứng dụng reactive (WebFlux, R2DBC): bật R2DBC auditing, chạy trước
- * [DataR2dbcAutoConfiguration] và đăng ký sẵn các bean nền tảng. Mọi bean đều `@ConditionalOnMissingBean` nên
+ * [R2dbcDataAutoConfiguration] và đăng ký sẵn các bean nền tảng. Mọi bean đều `@ConditionalOnMissingBean` nên
  * ứng dụng có thể ghi đè bằng bean của riêng mình.
  *
  * Bean cung cấp: [R2dbcCustomConversions] (kèm converter Kotlin `Uuid`/`Instant` ↔ Java), [AsyncAuditorAware],
@@ -37,7 +37,7 @@ import org.springframework.web.reactive.function.client.WebClient
  *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-@AutoConfiguration(before = [DataR2dbcAutoConfiguration::class])
+@AutoConfiguration(before = [R2dbcDataAutoConfiguration::class])
 @EnableR2dbcAuditing
 @Import(WebClientConfig::class)
 public class SpringReactiveAutoConfiguration {
