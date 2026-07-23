@@ -87,12 +87,16 @@ public final class dev/myrlennia237/helper/ResponseHelper {
 	public final fun okOrNotFound (Lreactor/core/publisher/Mono;)Lreactor/core/publisher/Mono;
 }
 
-public final class dev/myrlennia237/service/ReactiveHttpClient {
+public class dev/myrlennia237/service/ReactiveHttpClient {
 	public field self Ldev/myrlennia237/service/ReactiveHttpClient;
 	public fun <init> (Lorg/springframework/web/reactive/function/client/WebClient;)V
-	public final fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lreactor/core/publisher/Mono;
+	public final fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;)Lreactor/core/publisher/Mono;
+	public final fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;)Lreactor/core/publisher/Mono;
+	public fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lreactor/core/publisher/Mono;
 	public static synthetic fun doGet$default (Ldev/myrlennia237/service/ReactiveHttpClient;Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lreactor/core/publisher/Mono;
-	public final fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lreactor/core/publisher/Mono;
+	public final fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;)Lreactor/core/publisher/Mono;
+	public final fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;)Lreactor/core/publisher/Mono;
+	public fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lreactor/core/publisher/Mono;
 	public static synthetic fun doPost$default (Ldev/myrlennia237/service/ReactiveHttpClient;Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lreactor/core/publisher/Mono;
 	public final fun getSelf ()Ldev/myrlennia237/service/ReactiveHttpClient;
 	public final fun setSelf (Ldev/myrlennia237/service/ReactiveHttpClient;)V
