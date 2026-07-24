@@ -1,61 +1,47 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmDefaultMode
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.spring")
-    kotlin("kapt")
-    kotlin("plugin.serialization")
-    id("org.springframework.boot")
-    id("io.spring.dependency-management")
-    id("org.jetbrains.dokka")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.plugin.spring)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.plugin.serialization)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.dependency.management)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.binary.compatibility.validator)
 }
 
 dependencies {
     api(projects.shared)
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-webclient")
-    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-    implementation("org.springframework.boot:spring-boot-starter-kotlinx-serialization-json")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
-    implementation("tools.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.7.1")
-    implementation("io.github.resilience4j:resilience4j-spring-boot4:2.4.0")
-    implementation("io.github.openfeign.querydsl:querydsl-r2dbc:7.4.0")
-    kapt("org.springframework.boot:spring-boot-configuration-processor")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("com.tngtech.archunit:archunit:1.4.2")
+    implementation(libs.spring.boot.starter.webflux)
+    implementation(libs.spring.boot.starter.data.r2dbc)
+    implementation(libs.spring.boot.starter.data.redis.reactive)
+    implementation(libs.spring.boot.starter.security)
+    implementation(libs.reactor.kotlin.extensions)
+    implementation(libs.kotlin.reflect)
+    implementation(libs.kotlinx.coroutines.reactor)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.jackson.module.kotlin)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.resilience4j.spring.boot3)
+    implementation(libs.querydsl.r2dbc)
+    kapt(libs.spring.boot.configuration.processor)
+    testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.archunit)
 }
 
 kotlin {
     // https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
-    explicitApi() // Kích hoạt chế độ Explicit API
-    jvmToolchain(21)
+    explicitApi()
+    jvmToolchain(17)
+}
 
-    // ABI validation tích hợp của Kotlin Gradle plugin (dùng cho thư viện Java 25).
-    // Task: `updateLegacyAbi` sinh/ghi baseline; `checkLegacyAbi` (chạy trong `check`) so sánh.
-    @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
-    abiValidation {
-        enabled.set(true)
-    }
-
-    compilerOptions {
-        jvmDefault = JvmDefaultMode.NO_COMPATIBILITY
-        freeCompilerArgs.addAll(
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-Xjvm-default=all",
             "-Xjsr305=strict",
-            "-Xannotation-default-target=param-property",
-            "-opt-in=kotlin.uuid.ExperimentalUuidApi",
-            "-opt-in=kotlin.time.ExperimentalTime",
-            // Nhánh Kotlin của thư viện phụ thuộc Uuid/Instant experimental; opt-in ở mức module để nội bộ
-            // compile sạch, consumer bên ngoài vẫn nhận cảnh báo qua @ExperimentalKotlinVariantApi.
-            "-opt-in=dev.myrlennia237.annotation.ExperimentalKotlinVariantApi",
-            // Experimental: Return value checker, available only in Kotlin 2.3.x or later.
-            // After upgraded to Kotlin 2.3.x, uncomment to use if needed.
-             "-Xreturn-value-checker=full"
+            "-opt-in=dev.myrlennia237.annotation.ExperimentalKotlinVariantApi"
         )
     }
 }

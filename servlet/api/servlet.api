@@ -28,12 +28,16 @@ public class dev/myrlennia237/config/SpringMvcAutoConfiguration {
 	public fun redisService (Lorg/springframework/data/redis/core/StringRedisTemplate;)Ldev/myrlennia237/service/RedisService;
 }
 
-public final class dev/myrlennia237/service/HttpClient {
+public class dev/myrlennia237/service/HttpClient {
 	public field self Ldev/myrlennia237/service/HttpClient;
 	public fun <init> (Lorg/springframework/web/client/RestClient;)V
-	public final fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lorg/springframework/web/client/RestClient$ResponseSpec$ErrorHandler;)Ljava/lang/Object;
+	public final fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;)Ljava/lang/Object;
+	public final fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;)Ljava/lang/Object;
+	public fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lorg/springframework/web/client/RestClient$ResponseSpec$ErrorHandler;)Ljava/lang/Object;
 	public static synthetic fun doGet$default (Ldev/myrlennia237/service/HttpClient;Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lorg/springframework/web/client/RestClient$ResponseSpec$ErrorHandler;ILjava/lang/Object;)Ljava/lang/Object;
-	public final fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lorg/springframework/web/client/RestClient$ResponseSpec$ErrorHandler;)Ljava/lang/Object;
+	public final fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;)Ljava/lang/Object;
+	public final fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;)Ljava/lang/Object;
+	public fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lorg/springframework/web/client/RestClient$ResponseSpec$ErrorHandler;)Ljava/lang/Object;
 	public static synthetic fun doPost$default (Ldev/myrlennia237/service/HttpClient;Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lorg/springframework/web/client/RestClient$ResponseSpec$ErrorHandler;ILjava/lang/Object;)Ljava/lang/Object;
 	public final fun getSelf ()Ldev/myrlennia237/service/HttpClient;
 	public final fun setSelf (Ldev/myrlennia237/service/HttpClient;)V

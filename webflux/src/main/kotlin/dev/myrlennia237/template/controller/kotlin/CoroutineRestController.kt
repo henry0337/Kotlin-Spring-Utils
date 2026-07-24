@@ -6,7 +6,7 @@ import dev.myrlennia237.dto.KPagedResponse
 import dev.myrlennia237.template.controller.ReactiveRestController
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.RestController
-import kotlin.uuid.Uuid
+import java.util.UUID
 
 /**
  * Chỉ định một lớp được đánh dấu là [RestController] là một lớp chuyên xử lý các tác vụ liên quan tới CRUD.
@@ -35,7 +35,7 @@ public abstract class CoroutineRestController<T : Any, in I1, in I2> : ReactiveR
      * @param id Định danh của bản ghi cần tìm
      * @return Bản ghi tương ứng
      */
-    public abstract suspend fun findById(id: Uuid): T
+    public abstract suspend fun findById(id: UUID): T
 
     /**
      * Tạo mới một bản ghi.
@@ -52,26 +52,26 @@ public abstract class CoroutineRestController<T : Any, in I1, in I2> : ReactiveR
      * @param body DTO chứa thông tin muốn thay đổi
      * @return Bản ghi sau khi cập nhật
      */
-    public abstract suspend fun update(id: Uuid, body: I2): T
+    public abstract suspend fun update(id: UUID, body: I2): T
 
     /**
      * Xóa vĩnh viễn một bản ghi theo ID.
      *
      * @param id Định danh của bản ghi cần xóa
      */
-    public abstract suspend fun delete(id: Uuid)
+    public abstract suspend fun delete(id: UUID)
 
     /**
      * Vô hiệu hóa một bản ghi theo ID (xóa mềm).
      *
      * @param id Định danh của bản ghi cần vô hiệu hóa
      */
-    public abstract suspend fun disable(id: Uuid)
+    public abstract suspend fun disable(id: UUID)
 
     /**
      * Kích hoạt lại một bản ghi đã bị vô hiệu hóa theo ID.
      *
      * @param id Định danh của bản ghi cần kích hoạt lại
      */
-    public abstract suspend fun enable(id: Uuid)
+    public abstract suspend fun enable(id: UUID)
 }
