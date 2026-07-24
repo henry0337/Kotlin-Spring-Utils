@@ -29,7 +29,7 @@ package dev.myrlennia237.annotation
     """,
     level = RequiresOptIn.Level.WARNING
 )
-@Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY)
 @MustBeDocumented
+@Retention(AnnotationRetention.BINARY)
 public annotation class ExperimentalKotlinVariantApi

@@ -8,13 +8,12 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import org.springframework.data.repository.kotlin.CoroutineSortingRepository
-import kotlin.uuid.Uuid
+import java.util.UUID
 
 /**
  * Repository đặc thù cho phía Kotlin, sử dụng chính các API của Kotlin để thực hiện các tác vụ CRUD.
  *
- * Sử dụng [kotlin.uuid.Uuid] làm kiểu ID — việc chuyển đổi qua lại với [java.util.UUID] được thư viện
- * xử lý tự động thông qua các R2DBC converter đã đăng ký sẵn.
+ * Sử dụng [java.util.UUID] làm kiểu ID, thống nhất với entity [KEntity].
  *
  * @param T  Kiểu domain mà repository này sẽ quản lý, vì ưu tiên convention của thư viện nên lớp đại diện cho generic
  * đó phải là một **entity** (tức kế thừa [KEntity]).
@@ -24,7 +23,7 @@ import kotlin.uuid.Uuid
 @KotlinVariant
 @ExperimentalKotlinVariantApi
 @NoRepositoryBean
-public interface CoroutineRepository<T : KEntity> : CoroutineCrudRepository<T, Uuid>, CoroutineSortingRepository<T, Uuid> {
+public interface CoroutineRepository<T : KEntity> : CoroutineCrudRepository<T, UUID>, CoroutineSortingRepository<T, UUID> {
 
     /**
      * Tìm kiếm tất cả bản ghi có trong cơ sở dữ liệu, áp dụng tính năng **phân trang dữ liệu**.

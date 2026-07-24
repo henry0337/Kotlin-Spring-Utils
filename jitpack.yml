@@ -1,7 +1,0 @@
-# Cấu hình build cho Jitpack (https://jitpack.io).
-# Jitpack chưa cung cấp sẵn JDK 25 nên ta chạy Gradle trên JDK 17 (đủ để chạy Gradle 9.6),
-# còn JDK 25 dùng để biên dịch sẽ được Gradle tự tải về qua foojay-resolver (khai báo trong settings.gradle.kts).
-jdk:
-  - openjdk17
-install:
-  - ./gradlew publishToMavenLocal -x test --no-daemon

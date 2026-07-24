@@ -310,7 +310,6 @@ public final class ImmutableList<E> extends AbstractList<E> {
     /**
      * Trả về một danh sách với các phần tử với thứ tự xuất hiện đảo ngược.
      */
-    @Override
     @Contract(" -> new")
     public ImmutableList<E> reversed() {
         var result = Arrays.copyOf(elements, elements.length);

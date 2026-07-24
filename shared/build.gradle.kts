@@ -1,45 +1,38 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmDefaultMode
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.spring")
-    id("org.springframework.boot")
-    id("org.jetbrains.dokka")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.plugin.spring)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.binary.compatibility.validator)
 }
 
 dependencies {
-    api("org.springframework:spring-context")
-    api("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.0")
-    implementation("org.springframework.boot:spring-boot-starter-mail")
-    implementation("org.springframework.data:spring-data-commons")
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("org.springframework.security:spring-security-config")
-    implementation("org.springframework:spring-tx")
-    implementation("io.swagger.core.v3:swagger-annotations:2.2.41")
-    implementation("org.slf4j:slf4j-api")
-    compileOnly("org.jetbrains:annotations:26.1.0")
+    api(libs.spring.context)
+    api(libs.kotlinx.collections.immutable)
+    implementation(libs.spring.boot.starter.mail)
+    implementation(libs.spring.data.commons)
+    implementation(libs.spring.boot.starter.webflux)
+    implementation(libs.spring.security.config)
+    implementation(libs.spring.tx)
+    implementation(libs.swagger.annotations)
+    implementation(libs.slf4j.api)
+    compileOnly(libs.jetbrains.annotations)
+    compileOnly(libs.jspecify)
 }
 
 kotlin {
     // https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
-    explicitApi() // Kích hoạt chế độ Explicit API
-    jvmToolchain(21)
+    explicitApi()
+    jvmToolchain(17)
+}
 
-    // ABI validation tích hợp của Kotlin Gradle plugin (dùng cho thư viện Java 25).
-    // Task: `updateLegacyAbi` sinh/ghi baseline; `checkLegacyAbi` (chạy trong `check`) so sánh.
-    @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
-    abiValidation {
-        enabled.set(true)
-    }
-
-    compilerOptions {
-        jvmDefault = JvmDefaultMode.NO_COMPATIBILITY
-        freeCompilerArgs.addAll(
-            "-Xjsr305=strict",
-            "-Xannotation-default-target=param-property",
-            // Experimental: Return value checker, available only in Kotlin 2.3.x or later.
-            // After upgraded to Kotlin 2.3.x, uncomment to use if needed.
-             "-Xreturn-value-checker=full"
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-Xjvm-default=all",
+            "-Xjsr305=strict"
         )
     }
 }

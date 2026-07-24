@@ -1,52 +1,44 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmDefaultMode
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.spring")
-    kotlin("kapt")
-    id("org.springframework.boot")
-    id("io.spring.dependency-management")
-    id("org.jetbrains.dokka")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.plugin.spring)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.dependency.management)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.binary.compatibility.validator)
 }
 
 dependencies {
     api(projects.shared)
-    implementation("org.springframework.boot:spring-boot-starter-webmvc")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    implementation("org.springframework.boot:spring-boot-starter-restclient")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("tools.jackson.module:jackson-module-kotlin")
-    implementation("io.github.resilience4j:resilience4j-spring-boot4:2.4.0")
-    kapt("org.springframework.boot:spring-boot-configuration-processor")
-    implementation("io.github.openfeign.querydsl:querydsl-jpa:7.4.0")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("com.tngtech.archunit:archunit:1.4.2")
-    kapt("io.github.openfeign.querydsl:querydsl-apt:7.4.0:jpa")
-    kapt("jakarta.persistence:jakarta.persistence-api")
+    implementation(libs.spring.boot.starter.web)
+    implementation(libs.spring.boot.starter.data.jpa)
+    implementation(libs.spring.boot.starter.data.redis)
+    implementation(libs.spring.boot.starter.security)
+    implementation(libs.kotlin.reflect)
+    implementation(libs.jackson.module.kotlin)
+    implementation(libs.resilience4j.spring.boot3)
+    kapt(libs.spring.boot.configuration.processor)
+    implementation(libs.querydsl.jpa)
+    testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.archunit)
+    kapt(variantOf(libs.querydsl.apt) { classifier("jpa") })
+    kapt(libs.jakarta.persistence.api)
+    compileOnly(libs.jspecify)
 }
 
 kotlin {
     // https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
-    explicitApi() // Kích hoạt chế độ Explicit API
-    jvmToolchain(21)
+    explicitApi()
+    jvmToolchain(17)
+}
 
-    // ABI validation tích hợp của Kotlin Gradle plugin (dùng cho thư viện Java 25).
-    // Task: `updateLegacyAbi` sinh/ghi baseline; `checkLegacyAbi` (chạy trong `check`) so sánh.
-    @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
-    abiValidation {
-        enabled.set(true)
-    }
-
-    compilerOptions {
-        jvmDefault = JvmDefaultMode.NO_COMPATIBILITY
-        freeCompilerArgs.addAll(
-            "-Xjsr305=strict",
-            "-Xannotation-default-target=param-property",
-            // Experimental: Return value checker, available only in Kotlin 2.3.x or later.
-            // After upgraded to Kotlin 2.3.x, uncomment to use if needed.
-             "-Xreturn-value-checker=full"
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-Xjvm-default=all",
+            "-Xjsr305=strict"
         )
     }
 }
