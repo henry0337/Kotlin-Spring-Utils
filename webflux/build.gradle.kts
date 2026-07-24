@@ -41,8 +41,7 @@ tasks.withType<KotlinCompile> {
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-Xjvm-default=all",
             "-Xjsr305=strict",
-            "-opt-in=dev.myrlennia237.annotation.ExperimentalKotlinVariantApi",
-//             "-Xreturn-value-checker=full"
+            "-opt-in=dev.myrlennia237.annotation.ExperimentalKotlinVariantApi"
         )
     }
 }

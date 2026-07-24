@@ -32,8 +32,7 @@ tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-Xjvm-default=all",
-            "-Xjsr305=strict",
-//            "-Xreturn-value-checker=full"
+            "-Xjsr305=strict"
         )
     }
 }
