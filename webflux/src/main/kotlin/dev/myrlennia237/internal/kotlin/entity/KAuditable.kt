@@ -1,8 +1,8 @@
 package dev.myrlennia237.internal.kotlin.entity
 
 import dev.myrlennia237.annotation.KotlinVariant
-import kotlinx.datetime.Instant
-import java.util.UUID
+import kotlin.time.Instant
+import kotlin.uuid.Uuid
 
 /**
  * Chứa thông tin truy vết tới đối tượng thực hiện tinh chỉnh dữ liệu trên cơ sở dữ liệu.
@@ -13,7 +13,7 @@ internal interface KAuditable {
     /**
      * Đối tượng thực hiện tạo mới bản ghi.
      */
-    var createdBy: UUID?
+    var createdBy: Uuid?
 
     /**
      * Thời gian bản ghi này được tạo ra.
@@ -23,7 +23,7 @@ internal interface KAuditable {
     /**
      * Đối tượng cuối cùng thực hiện chỉnh sửa bản ghi này.
      */
-    var lastModifiedBy: UUID?
+    var lastModifiedBy: Uuid?
 
     /**
      * Thời gian lần cuối bản ghi này được chỉnh sửa.

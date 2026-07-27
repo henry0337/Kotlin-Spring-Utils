@@ -1,4 +1,4 @@
-package dev.myrlennia237.internal.java.service.java
+package dev.myrlennia237.internal.java.service
 
 import reactor.core.publisher.Mono
 import java.util.UUID

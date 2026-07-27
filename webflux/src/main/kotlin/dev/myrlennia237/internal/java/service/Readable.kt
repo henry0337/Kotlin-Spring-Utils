@@ -1,4 +1,4 @@
-package dev.myrlennia237.internal.java.service.java
+package dev.myrlennia237.internal.java.service
 
 import dev.myrlennia237.component.dto.PagedResponse
 import org.springframework.data.domain.Pageable

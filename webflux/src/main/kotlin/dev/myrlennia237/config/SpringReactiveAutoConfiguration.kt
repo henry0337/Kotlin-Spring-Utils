@@ -4,6 +4,8 @@ import dev.myrlennia237.component.service.I18nService
 import dev.myrlennia237.component.service.MailService
 import dev.myrlennia237.internal.converter.KotlinInstantReadingConverter
 import dev.myrlennia237.internal.converter.KotlinInstantWritingConverter
+import dev.myrlennia237.internal.converter.KotlinUuidReadingConverter
+import dev.myrlennia237.internal.converter.KotlinUuidWritingConverter
 import dev.myrlennia237.service.ReactiveRedisService
 import dev.myrlennia237.service.ReactiveHttpClient
 import dev.myrlennia237.helper.ReactorHelper
@@ -13,7 +15,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
-import org.springframework.boot.autoconfigure.data.r2dbc.R2dbcDataAutoConfiguration
+import org.springframework.boot.data.r2dbc.autoconfigure.DataR2dbcAutoConfiguration
 import org.springframework.context.MessageSource
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
@@ -27,7 +29,7 @@ import org.springframework.web.reactive.function.client.WebClient
 
 /**
  * Auto-configuration cho ứng dụng reactive (WebFlux, R2DBC): bật R2DBC auditing, chạy trước
- * [R2dbcDataAutoConfiguration] và đăng ký sẵn các bean nền tảng. Mọi bean đều `@ConditionalOnMissingBean` nên
+ * [DataR2dbcAutoConfiguration] và đăng ký sẵn các bean nền tảng. Mọi bean đều `@ConditionalOnMissingBean` nên
  * ứng dụng có thể ghi đè bằng bean của riêng mình.
  *
  * Bean cung cấp: [R2dbcCustomConversions] (kèm converter Kotlin `Instant` ↔ Java), [AsyncAuditorAware],
@@ -35,12 +37,15 @@ import org.springframework.web.reactive.function.client.WebClient
  *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-@AutoConfiguration(before = [R2dbcDataAutoConfiguration::class])
+@AutoConfiguration(before = [DataR2dbcAutoConfiguration::class])
 @EnableR2dbcAuditing
 @Import(WebClientConfig::class)
 public class SpringReactiveAutoConfiguration {
 
-    /** [R2dbcCustomConversions] kèm converter chuyển đổi `kotlinx.datetime.Instant` ↔ `java.time.Instant`. */
+    /**
+     * [R2dbcCustomConversions] kèm converter chuyển đổi `kotlin.time.Instant` ↔ `java.time.Instant` và
+     * `kotlin.uuid.Uuid` ↔ `java.util.UUID`.
+     */
     @Bean
     @ConditionalOnMissingBean
     public fun r2dbcCustomConversions(connectionFactory: ConnectionFactory): R2dbcCustomConversions =
@@ -48,7 +53,9 @@ public class SpringReactiveAutoConfiguration {
             DialectResolver.getDialect(connectionFactory),
             listOf(
                 KotlinInstantWritingConverter(),
-                KotlinInstantReadingConverter()
+                KotlinInstantReadingConverter(),
+                KotlinUuidWritingConverter(),
+                KotlinUuidReadingConverter()
             )
         )
 

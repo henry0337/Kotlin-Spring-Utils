@@ -1,11 +1,10 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.plugin.spring)
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.dokka)
-    alias(libs.plugins.binary.compatibility.validator)
 }
 
 dependencies {
@@ -25,15 +24,12 @@ dependencies {
 kotlin {
     // https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
     explicitApi()
+    @OptIn(ExperimentalAbiValidation::class) abiValidation()
     jvmToolchain(17)
-}
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-Xjvm-default=all",
-            "-Xjsr305=strict"
-        )
+    compilerOptions {
+        val vmargs = listOf("-Xjsr305=strict")
+        freeCompilerArgs.addAll(vmargs)
     }
 }
 

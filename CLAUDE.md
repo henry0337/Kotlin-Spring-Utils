@@ -100,7 +100,7 @@ Cả hai có:
 
 | Component               | Version           |
 |-------------------------|-------------------|
-| Kotlin                  | 2.3.21            |
+| Kotlin                  | 2.4.0             |
 | Java Toolchain          | 25                |
 | Spring Boot             | 4.0.7             |
 | Spring WebFlux / R2DBC  | (theo Boot BOM)   |
@@ -115,11 +115,11 @@ Cả hai có:
 ## Key Conventions
 
 - **Explicit API mode** (`explicitApi()`) được bật cho cả ba module — mọi khai báo public/protected phải ghi rõ visibility và kiểu trả về.
-- Compiler flags chung: `-Xjsr305=strict`, `-Xannotation-default-target=param-property`, `-Xreturn-value-checker=full`. `webflux` thêm `-opt-in=kotlin.uuid.ExperimentalUuidApi` và `-opt-in=kotlin.time.ExperimentalTime` (dùng `kotlin.uuid.Uuid`, `kotlin.time.Instant`).
+- Compiler flags chung: `-Xjsr305=strict`.
 - `@KotlinVariant` API phải là synthetic — có test **ArchUnit** (`KotlinVariantEnforcementTest`) ở cả `servlet` và `webflux` enforce việc này. Khi thêm Kotlin variant, luôn kèm `@JvmSynthetic` (hoặc `@file:JvmSynthetic`/`@file:KotlinVariant`).
-- API Kotlin lộ `kotlin.uuid.Uuid`/`kotlin.time.Instant` (experimental) phải đánh dấu `@ExperimentalKotlinVariantApi` (một `@RequiresOptIn` marker của thư viện, định nghĩa ở `shared`) để cảnh báo consumer opt-in; module `webflux` đã opt-in ở mức compiler flag để nội bộ compile sạch. Áp cho `KEntity`, `CoroutineRepository`, `CoroutineRestController`, `CoroutineCrudService`.
+- API Kotlin variant dùng `kotlin.uuid.Uuid`/`kotlin.time.Instant` trực tiếp (đã stable từ Kotlin 2.4, không cần opt-in) — `@ExperimentalKotlinVariantApi` đã bị loại bỏ khỏi thư viện vì lý do tồn tại duy nhất của nó (cảnh báo consumer về hai API stdlib từng experimental này) không còn nữa.
 - Mỗi module tạo JAR thường (`jar.enabled = true`), không tạo fat JAR (`bootJar.enabled = false`). Có `withSourcesJar()` và `maven-publish`.
-- **ABI validation**: bật qua `abiValidation { enabled.set(true) }` (built-in của Kotlin Gradle plugin, opt-in `@ExperimentalAbiValidation`) ở cả ba module — dùng bản built-in thay cho plugin BCV standalone vì standalone chưa đọc được bytecode Java 25. Baseline lưu ở `<module>/api/<module>.api` (commit vào VCS). Task: `./gradlew updateKotlinAbi` để cập nhật baseline khi API đổi có chủ đích; `./gradlew checkKotlinAbi` (chạy sẵn trong `check`/`build`) để chặn thay đổi ABI ngoài ý muốn. Các hàm `@JvmSynthetic` (Kotlin variant) tự động bị loại khỏi dump.
+- **ABI validation**: bật qua `abiValidation()` (built-in của Kotlin Gradle plugin, opt-in `@OptIn(ExperimentalAbiValidation::class)`) ở cả ba module — dùng bản built-in thay cho plugin BCV standalone vì standalone chưa đọc được bytecode Java 25. Baseline lưu ở `<module>/api/<module>.api` (commit vào VCS). Task: `./gradlew updateKotlinAbi` để cập nhật baseline khi API đổi có chủ đích; `./gradlew checkKotlinAbi` (chạy sẵn trong `check`/`build`) để chặn thay đổi ABI ngoài ý muốn. Các hàm `@JvmSynthetic` (Kotlin variant) tự động bị loại khỏi dump.
 - Repository được khai báo tập trung trong `settings.gradle.kts` (`FAIL_ON_PROJECT_REPOS`, gồm `mavenCentral` + `jitpack`); không thêm repo trong `build.gradle.kts` của submodule.
 - `TYPESAFE_PROJECT_ACCESSORS` được bật — dùng `projects.shared` thay vì `project(":shared")`.
 - `servlet` và `webflux` dùng `kapt` cho `spring-boot-configuration-processor` (và QueryDSL APT ở `servlet`).

@@ -1,6 +1,5 @@
 package dev.myrlennia237.template.repository
 
-import dev.myrlennia237.annotation.ExperimentalKotlinVariantApi
 import dev.myrlennia237.annotation.KotlinVariant
 import dev.myrlennia237.template.entity.KEntity
 import kotlinx.coroutines.flow.Flow
@@ -8,12 +7,12 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import org.springframework.data.repository.kotlin.CoroutineSortingRepository
-import java.util.UUID
+import kotlin.uuid.Uuid
 
 /**
  * Repository đặc thù cho phía Kotlin, sử dụng chính các API của Kotlin để thực hiện các tác vụ CRUD.
  *
- * Sử dụng [java.util.UUID] làm kiểu ID, thống nhất với entity [KEntity].
+ * Sử dụng [kotlin.uuid.Uuid] làm kiểu ID, thống nhất với entity [KEntity].
  *
  * @param T  Kiểu domain mà repository này sẽ quản lý, vì ưu tiên convention của thư viện nên lớp đại diện cho generic
  * đó phải là một **entity** (tức kế thừa [KEntity]).
@@ -21,9 +20,8 @@ import java.util.UUID
  * @see <a href="https://docs.spring.io/spring-data/relational/reference/kotlin/coroutines.html">Coroutine-specific Repository</a>
  */
 @KotlinVariant
-@ExperimentalKotlinVariantApi
 @NoRepositoryBean
-public interface CoroutineRepository<T : KEntity> : CoroutineCrudRepository<T, UUID>, CoroutineSortingRepository<T, UUID> {
+public interface CoroutineRepository<T : KEntity> : CoroutineCrudRepository<T, Uuid>, CoroutineSortingRepository<T, Uuid> {
 
     /**
      * Tìm kiếm tất cả bản ghi có trong cơ sở dữ liệu, áp dụng tính năng **phân trang dữ liệu**.

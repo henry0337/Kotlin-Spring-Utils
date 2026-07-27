@@ -70,9 +70,9 @@ public final class dev/myrlennia237/extension/ReactorKt {
 
 public final class dev/myrlennia237/helper/ReactorHelper {
 	public fun <init> ()V
+	public final fun discardReturnValue (Lreactor/core/publisher/Mono;)Lreactor/core/publisher/Mono;
 	public final fun emptyFlux ()Lreactor/core/publisher/Flux;
 	public final fun emptyMono ()Lreactor/core/publisher/Mono;
-	public final fun ignoreReturnValueOf (Lreactor/core/publisher/Mono;)Lreactor/core/publisher/Mono;
 	public final fun only (Ljava/lang/Object;)Lreactor/core/publisher/Mono;
 	public final fun onlyOrEmpty (Ljava/lang/Object;)Lreactor/core/publisher/Mono;
 	public final fun waitUntilCompleted (Lreactor/core/publisher/Mono;)Ljava/lang/Object;
@@ -144,12 +144,12 @@ public abstract class dev/myrlennia237/template/controller/java/AbstractCrudCont
 public abstract class dev/myrlennia237/template/controller/kotlin/CoroutineRestController : dev/myrlennia237/template/controller/ReactiveRestController {
 	public fun <init> ()V
 	public abstract fun create (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun delete (Ljava/util/UUID;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun disable (Ljava/util/UUID;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun enable (Ljava/util/UUID;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun delete (Lkotlin/uuid/Uuid;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun disable (Lkotlin/uuid/Uuid;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun enable (Lkotlin/uuid/Uuid;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun findAll (Lorg/springframework/data/domain/Pageable;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun findById (Ljava/util/UUID;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun update (Ljava/util/UUID;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun findById (Lkotlin/uuid/Uuid;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun update (Lkotlin/uuid/Uuid;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public abstract class dev/myrlennia237/template/entity/Entity : dev/myrlennia237/internal/java/entity/Auditable, dev/myrlennia237/internal/java/entity/Conflictable, dev/myrlennia237/internal/java/entity/Restorable, java/io/Serializable {
@@ -174,6 +174,10 @@ public abstract class dev/myrlennia237/template/entity/Entity : dev/myrlennia237
 	public fun getLastModifiedDate ()Ljava/time/Instant;
 	public final fun getLastModifiedDateValue ()Ljava/time/Instant;
 	public fun getVersion ()J
+	public fun increaseVersion ()V
+	public fun isDisabled ()Z
+	public fun markAsDisabled (Ljava/util/UUID;Ljava/time/Instant;)V
+	public fun restore ()V
 	public fun setCreatedAuditor (Ljava/util/UUID;)V
 	public final fun setCreatedBy (Ljava/util/UUID;)V
 	public fun setCreatedDate (Ljava/time/Instant;)V
@@ -200,29 +204,33 @@ public final class dev/myrlennia237/template/entity/Entity$Companion {
 public abstract class dev/myrlennia237/template/entity/KEntity : dev/myrlennia237/internal/kotlin/entity/KAuditable, dev/myrlennia237/internal/kotlin/entity/KConflictable, dev/myrlennia237/internal/kotlin/entity/KRestorable {
 	public static final field Companion Ldev/myrlennia237/template/entity/KEntity$Companion;
 	protected fun <init> ()V
-	public synthetic fun <init> (ILjava/util/UUID;Ljava/util/UUID;Lkotlinx/datetime/Instant;Ljava/util/UUID;Lkotlinx/datetime/Instant;ZLkotlinx/datetime/Instant;Ljava/util/UUID;JLkotlinx/serialization/internal/SerializationConstructorMarker;)V
-	protected fun <init> (Ljava/util/UUID;Ljava/util/UUID;Lkotlinx/datetime/Instant;Ljava/util/UUID;Lkotlinx/datetime/Instant;ZLkotlinx/datetime/Instant;Ljava/util/UUID;J)V
-	public synthetic fun <init> (Ljava/util/UUID;Ljava/util/UUID;Lkotlinx/datetime/Instant;Ljava/util/UUID;Lkotlinx/datetime/Instant;ZLkotlinx/datetime/Instant;Ljava/util/UUID;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun getCreatedBy ()Ljava/util/UUID;
-	public fun getCreatedDate ()Lkotlinx/datetime/Instant;
+	public synthetic fun <init> (ILkotlin/uuid/Uuid;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;ZLkotlin/time/Instant;Lkotlin/uuid/Uuid;JLkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	protected fun <init> (Lkotlin/uuid/Uuid;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;ZLkotlin/time/Instant;Lkotlin/uuid/Uuid;J)V
+	public synthetic fun <init> (Lkotlin/uuid/Uuid;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;ZLkotlin/time/Instant;Lkotlin/uuid/Uuid;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getCreatedBy ()Lkotlin/uuid/Uuid;
+	public fun getCreatedDate ()Lkotlin/time/Instant;
 	public fun getDisabled ()Z
-	public final fun getId ()Ljava/util/UUID;
-	public fun getLastDisabledAt ()Lkotlinx/datetime/Instant;
-	public fun getLastDisabledBy ()Ljava/util/UUID;
-	public fun getLastModifiedBy ()Ljava/util/UUID;
-	public fun getLastModifiedDate ()Lkotlinx/datetime/Instant;
+	public final fun getId ()Lkotlin/uuid/Uuid;
+	public fun getLastDisabledAt ()Lkotlin/time/Instant;
+	public fun getLastDisabledBy ()Lkotlin/uuid/Uuid;
+	public fun getLastModifiedBy ()Lkotlin/uuid/Uuid;
+	public fun getLastModifiedDate ()Lkotlin/time/Instant;
 	public fun getVersion ()J
-	public fun setCreatedBy (Ljava/util/UUID;)V
-	public fun setCreatedDate (Lkotlinx/datetime/Instant;)V
+	public fun increaseVersion ()V
+	public fun isDisabled ()Z
+	public fun markAsDisabled (Lkotlin/uuid/Uuid;Lkotlin/time/Instant;)V
+	public fun restore ()V
+	public fun setCreatedBy (Lkotlin/uuid/Uuid;)V
+	public fun setCreatedDate (Lkotlin/time/Instant;)V
 	public fun setDisabled (Z)V
-	public final fun setId (Ljava/util/UUID;)V
-	public fun setLastDisabledAt (Lkotlinx/datetime/Instant;)V
-	public fun setLastDisabledBy (Ljava/util/UUID;)V
-	public fun setLastModifiedBy (Ljava/util/UUID;)V
-	public fun setLastModifiedDate (Lkotlinx/datetime/Instant;)V
+	public final fun setId (Lkotlin/uuid/Uuid;)V
+	public fun setLastDisabledAt (Lkotlin/time/Instant;)V
+	public fun setLastDisabledBy (Lkotlin/uuid/Uuid;)V
+	public fun setLastModifiedBy (Lkotlin/uuid/Uuid;)V
+	public fun setLastModifiedDate (Lkotlin/time/Instant;)V
 	public fun setVersion (J)V
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Ldev/myrlennia237/template/entity/KEntity;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+	public static final synthetic fun write$Self (Ldev/myrlennia237/template/entity/KEntity;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class dev/myrlennia237/template/entity/KEntity$Companion {
@@ -244,7 +252,7 @@ public abstract class dev/myrlennia237/template/service/BaseReactiveService {
 	protected final fun setI18nService (Ldev/myrlennia237/component/service/I18nService;)V
 }
 
-public abstract class dev/myrlennia237/template/service/java/AbstractCrudService : dev/myrlennia237/template/service/BaseReactiveService, dev/myrlennia237/internal/java/service/java/Deletable, dev/myrlennia237/internal/java/service/java/Insertable, dev/myrlennia237/internal/java/service/java/Modifiable, dev/myrlennia237/internal/java/service/java/ReadableWithID, dev/myrlennia237/internal/java/service/java/Reversible {
+public abstract class dev/myrlennia237/template/service/java/AbstractCrudService : dev/myrlennia237/template/service/BaseReactiveService, dev/myrlennia237/internal/java/service/Deletable, dev/myrlennia237/internal/java/service/Insertable, dev/myrlennia237/internal/java/service/Modifiable, dev/myrlennia237/internal/java/service/ReadableWithID, dev/myrlennia237/internal/java/service/Reversible {
 	protected field auditorAware Ldev/myrlennia237/config/AsyncAuditorAware;
 	protected field reactorHelper Ldev/myrlennia237/helper/ReactorHelper;
 	public fun <init> ()V

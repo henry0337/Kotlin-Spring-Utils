@@ -234,10 +234,10 @@ public open class HttpClient(private val restClient: RestClient) {
     )
 
     @Suppress("unused")
-    private fun <T : Any> retryFallback(ex: Throwable): T? =
+    private fun <T : Any> retryFallback(ex: Throwable): T =
         throw (ex as? HttpClientException ?: HttpClientException("Gọi HTTP thất bại sau khi đã thử lại (retry).", ex))
 
     @Suppress("unused")
-    private fun <T : Any> circuitBreakerFallback(ex: Throwable): T? =
+    private fun <T : Any> circuitBreakerFallback(ex: Throwable): T =
         throw (ex as? HttpClientException ?: HttpClientException("Circuit breaker đang mở, tạm dừng gọi HTTP.", ex))
 }

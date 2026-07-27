@@ -88,6 +88,9 @@ public abstract class dev/myrlennia237/template/entity/BaseEntity : dev/myrlenni
 	public fun getLastModifiedDate ()Ljava/time/Instant;
 	public final fun getLastModifiedDateValue ()Ljava/time/Instant;
 	public fun getVersion ()J
+	public fun isDisabled ()Z
+	public fun markAsDisabled (Ljava/util/UUID;Ljava/time/Instant;)V
+	public fun restore ()V
 	public fun setCreatedAuditor (Ljava/util/UUID;)V
 	public final fun setCreatedBy (Ljava/util/UUID;)V
 	public fun setCreatedDate (Ljava/time/Instant;)V

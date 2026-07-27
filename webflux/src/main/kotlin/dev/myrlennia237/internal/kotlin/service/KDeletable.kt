@@ -1,7 +1,7 @@
 package dev.myrlennia237.internal.kotlin.service
 
 import dev.myrlennia237.annotation.KotlinVariant
-import java.util.UUID
+import kotlin.uuid.Uuid
 
 /**
  * Contract xóa vĩnh viễn entity khỏi cơ sở dữ liệu theo ID (Kotlin coroutine variant).
@@ -14,5 +14,5 @@ internal fun interface KDeletable {
      * Thực hiện xóa dữ liệu dựa trên ID của chúng.
      * @param id ID của entity cần xóa
      */
-    suspend fun deleteById(id: UUID)
+    suspend fun deleteById(id: Uuid)
 }

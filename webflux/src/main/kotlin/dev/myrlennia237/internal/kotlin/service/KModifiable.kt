@@ -1,7 +1,7 @@
 package dev.myrlennia237.internal.kotlin.service
 
 import dev.myrlennia237.annotation.KotlinVariant
-import java.util.UUID
+import kotlin.uuid.Uuid
 
 /**
  * @param T Dữ liệu đầu ra, thường là Aggregate Root.
@@ -15,5 +15,5 @@ internal fun interface KModifiable<out T, in I> {
      * @param id ID của entity cần cập nhật
      * @param body Dữ liệu mới để thay thế
      */
-    suspend fun update(id: UUID, body: I): T
+    suspend fun update(id: Uuid, body: I): T
 }

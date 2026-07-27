@@ -2,8 +2,8 @@ package dev.myrlennia237.internal.kotlin.service
 
 import dev.myrlennia237.annotation.KotlinVariant
 import dev.myrlennia237.dto.KPagedResponse
-import java.util.UUID
 import org.springframework.data.domain.Pageable
+import kotlin.uuid.Uuid
 
 /**
  * @param T Dữ liệu đầu ra, thường là Aggregate Root.
@@ -28,5 +28,5 @@ internal interface KReadableWithID<T : Any> : KReadable<T> {
      * Tìm dữ liệu bản ghi theo ID.
      * @param id Định danh của entity cần tìm
      */
-    suspend fun findById(id: UUID): T?
+    suspend fun findById(id: Uuid): T?
 }

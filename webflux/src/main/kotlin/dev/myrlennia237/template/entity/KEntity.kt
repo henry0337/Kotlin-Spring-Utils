@@ -1,11 +1,9 @@
 package dev.myrlennia237.template.entity
 
-import dev.myrlennia237.annotation.ExperimentalKotlinVariantApi
 import dev.myrlennia237.annotation.KotlinVariant
 import dev.myrlennia237.internal.kotlin.entity.KAuditable
 import dev.myrlennia237.internal.kotlin.entity.KConflictable
 import dev.myrlennia237.internal.kotlin.entity.KRestorable
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
@@ -14,9 +12,9 @@ import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.annotation.Version
 import org.springframework.data.relational.core.mapping.InsertOnlyProperty
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
-import java.util.UUID
+import kotlin.time.Clock
+import kotlin.time.Instant
+import kotlin.uuid.Uuid
 
 /**
  * Khai báo một lớp mà bản thân nó không phải là một **Entity**, nhưng các cấu hình ánh xạ của nó sẽ được kế thừa bởi
@@ -33,19 +31,18 @@ import java.util.UUID
  */
 @Serializable
 @KotlinVariant
-@ExperimentalKotlinVariantApi
 public abstract class KEntity protected constructor(
-    @Id @Contextual
-    public var id: UUID? = null,
+    @Id
+    public var id: Uuid? = null,
 
-    @CreatedBy @InsertOnlyProperty @Contextual
-    public override var createdBy: UUID? = null,
+    @CreatedBy @InsertOnlyProperty
+    public override var createdBy: Uuid? = null,
 
     @CreatedDate @InsertOnlyProperty
     public override var createdDate: Instant = Clock.System.now(),
 
-    @LastModifiedBy @Contextual
-    public override var lastModifiedBy: UUID? = null,
+    @LastModifiedBy
+    public override var lastModifiedBy: Uuid? = null,
 
     @LastModifiedDate
     public override var lastModifiedDate: Instant? = null,
@@ -54,8 +51,7 @@ public abstract class KEntity protected constructor(
 
     public override var lastDisabledAt: Instant? = null,
 
-    @Contextual
-    public override var lastDisabledBy: UUID? = null,
+    public override var lastDisabledBy: Uuid? = null,
 
     @Version
     public override var version: Long = 0

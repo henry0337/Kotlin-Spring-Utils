@@ -1,11 +1,11 @@
 package dev.myrlennia237.template.service.java
 
 import dev.myrlennia237.config.AsyncAuditorAware
-import dev.myrlennia237.internal.java.service.java.Deletable
-import dev.myrlennia237.internal.java.service.java.Insertable
-import dev.myrlennia237.internal.java.service.java.Modifiable
-import dev.myrlennia237.internal.java.service.java.ReadableWithID
-import dev.myrlennia237.internal.java.service.java.Reversible
+import dev.myrlennia237.internal.java.service.Deletable
+import dev.myrlennia237.internal.java.service.Insertable
+import dev.myrlennia237.internal.java.service.Modifiable
+import dev.myrlennia237.internal.java.service.ReadableWithID
+import dev.myrlennia237.internal.java.service.Reversible
 import dev.myrlennia237.template.service.BaseReactiveService
 import dev.myrlennia237.helper.ReactorHelper
 import org.springframework.beans.factory.annotation.Autowired

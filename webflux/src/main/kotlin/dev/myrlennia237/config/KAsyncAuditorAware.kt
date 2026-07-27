@@ -5,10 +5,11 @@ import dev.myrlennia237.contract.UserPrincipal
 import org.springframework.data.domain.ReactiveAuditorAware
 import org.springframework.security.core.context.ReactiveSecurityContextHolder
 import reactor.core.publisher.Mono
-import java.util.UUID
+import kotlin.uuid.Uuid
+import kotlin.uuid.toKotlinUuid
 
 /**
- * Implementation mặc định của [ReactiveAuditorAware] trả về [UUID] thực của người dùng hiện tại.
+ * Implementation mặc định của [ReactiveAuditorAware] trả về [Uuid] thực của người dùng hiện tại.
  *
  * Đây là bản Kotlin variant của [AsyncAuditorAware], dành cho các entity kế thừa từ
  * [dev.myrlennia237.template.entity.KEntity].
@@ -17,13 +18,13 @@ import java.util.UUID
  * @see AsyncAuditorAware
  */
 @KotlinVariant
-public class KAsyncAuditorAware : ReactiveAuditorAware<UUID> {
-    override fun getCurrentAuditor(): Mono<UUID> =
+public class KAsyncAuditorAware : ReactiveAuditorAware<Uuid> {
+    override fun getCurrentAuditor(): Mono<Uuid> =
         ReactiveSecurityContextHolder.getContext().flatMap { ctx ->
             val auth = ctx.authentication ?: return@flatMap Mono.empty()
             if (!auth.isAuthenticated) return@flatMap Mono.empty()
             (auth.principal as? UserPrincipal)?.let {
-                Mono.just(it.userId)
+                Mono.just(it.userId.toKotlinUuid())
             } ?: Mono.empty()
         }
 }
