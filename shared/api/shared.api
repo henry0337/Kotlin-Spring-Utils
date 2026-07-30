@@ -87,6 +87,8 @@ public final class dev/myrlennia237/component/ImmutableList : java/util/Abstract
 	public fun none (Ljava/util/function/Predicate;)Z
 	public static fun of ([Ljava/lang/Object;)Ldev/myrlennia237/component/ImmutableList;
 	public fun reversed ()Ldev/myrlennia237/component/ImmutableList;
+	public synthetic fun reversed ()Ljava/util/List;
+	public synthetic fun reversed ()Ljava/util/SequencedCollection;
 	public fun size ()I
 	public fun sorted ()Ldev/myrlennia237/component/ImmutableList;
 	public fun sortedWith (Ljava/util/Comparator;)Ldev/myrlennia237/component/ImmutableList;
@@ -191,6 +193,16 @@ public abstract interface class dev/myrlennia237/contract/UserPrincipal {
 	public abstract fun getUserId ()Ljava/util/UUID;
 }
 
+public final class dev/myrlennia237/delegator/Slf4jDelegate : kotlin/properties/ReadOnlyProperty {
+	public fun <init> ()V
+	public synthetic fun getValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;)Ljava/lang/Object;
+	public fun getValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;)Lorg/slf4j/Logger;
+}
+
+public final class dev/myrlennia237/delegator/Slf4jDelegateKt {
+	public static final fun slf4j ()Ldev/myrlennia237/delegator/Slf4jDelegate;
+}
+
 public final class dev/myrlennia237/exception/HttpClientException : dev/myrlennia237/exception/SpringUtilsException {
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
@@ -203,27 +215,16 @@ public class dev/myrlennia237/exception/SpringUtilsException : java/lang/Runtime
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 }
 
-public final class dev/myrlennia237/util/CommonUtils {
-	public static final field INSTANCE Ldev/myrlennia237/util/CommonUtils;
-	public static final fun requireNonNull (Ljava/lang/Object;)Ljava/lang/Object;
-	public static final fun requireNonNull (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-	public static final fun requireNonNull (Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
-	public static synthetic fun requireNonNull$default (Ljava/lang/Object;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Ljava/lang/Object;
-	public static final fun toImmutableList (Ljava/util/List;)Ldev/myrlennia237/component/ImmutableList;
+public final class dev/myrlennia237/utils/CommonUtils {
+	public static final field INSTANCE Ldev/myrlennia237/utils/CommonUtils;
+	public static final fun requireNonNull (Ljava/lang/Object;)V
+	public static final fun requireNonNull (Ljava/lang/Object;Ljava/lang/String;)V
+	public static synthetic fun requireNonNull$default (Ljava/lang/Object;Ljava/lang/String;ILjava/lang/Object;)V
+	public static final fun requireNonNullOrDefault (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 }
 
-public final class dev/myrlennia237/util/Slf4jDelegate : kotlin/properties/ReadOnlyProperty {
-	public fun <init> ()V
-	public synthetic fun getValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;)Ljava/lang/Object;
-	public fun getValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;)Lorg/slf4j/Logger;
-}
-
-public final class dev/myrlennia237/util/Slf4jDelegateKt {
-	public static final fun slf4j ()Ldev/myrlennia237/util/Slf4jDelegate;
-}
-
-public final class dev/myrlennia237/util/TimeUtils {
-	public static final field INSTANCE Ldev/myrlennia237/util/TimeUtils;
+public final class dev/myrlennia237/utils/TimeUtils {
+	public static final field INSTANCE Ldev/myrlennia237/utils/TimeUtils;
 	public static final fun ofDuration (JJJJ)Ljava/time/Duration;
 	public static final fun ofLocalDateTime (IIIIII)Ljava/time/LocalDateTime;
 }

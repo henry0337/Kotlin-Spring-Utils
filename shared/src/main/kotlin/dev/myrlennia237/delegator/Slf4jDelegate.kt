@@ -1,4 +1,4 @@
-package dev.myrlennia237.util
+package dev.myrlennia237.delegator
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

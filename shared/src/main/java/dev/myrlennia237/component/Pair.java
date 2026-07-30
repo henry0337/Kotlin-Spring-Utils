@@ -43,7 +43,7 @@ public record Pair<A extends @Nullable Object, B extends @Nullable Object>(A fir
     @Contract(pure = true)
     @Deprecated(since = "0.1.0", forRemoval = false)
     public A getKey() {
-        return first;
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -54,7 +54,7 @@ public record Pair<A extends @Nullable Object, B extends @Nullable Object>(A fir
     @Contract(pure = true)
     @Deprecated(since = "0.1.0", forRemoval = false)
     public B getValue() {
-        return second;
+        throw new UnsupportedOperationException();
     }
 
     /**

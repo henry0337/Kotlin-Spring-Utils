@@ -25,7 +25,7 @@ kotlin {
     // https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
     explicitApi()
     @OptIn(ExperimentalAbiValidation::class) abiValidation()
-    jvmToolchain(17)
+    jvmToolchain(21)
 
     compilerOptions {
         val vmargs = listOf("-Xjsr305=strict")
