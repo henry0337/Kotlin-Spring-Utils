@@ -1,4 +1,4 @@
-public final class dev/myrlennia237/config/AuditorAwareImpl : org/springframework/data/domain/AuditorAware {
+public final class dev/myrlennia237/config/BlockingAuditorAware : org/springframework/data/domain/AuditorAware {
 	public fun <init> ()V
 	public fun getCurrentAuditor ()Ljava/util/Optional;
 }
@@ -20,7 +20,7 @@ public final class dev/myrlennia237/config/RestClientProperties {
 
 public class dev/myrlennia237/config/SpringMvcAutoConfiguration {
 	public fun <init> ()V
-	public fun auditorAware ()Ldev/myrlennia237/config/AuditorAwareImpl;
+	public fun auditorAware ()Ldev/myrlennia237/config/BlockingAuditorAware;
 	public fun httpClient (Lorg/springframework/web/client/RestClient;)Ldev/myrlennia237/service/HttpClient;
 	public fun i18nHelper (Lorg/springframework/context/MessageSource;)Ldev/myrlennia237/component/service/I18nService;
 	public fun jpaQueryFactory (Ljakarta/persistence/EntityManager;)Lcom/querydsl/jpa/impl/JPAQueryFactory;

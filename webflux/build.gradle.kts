@@ -21,7 +21,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.reactor)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.jackson.module.kotlin)
-    implementation(libs.resilience4j.spring.boot3)
+    implementation(libs.resilience4j.spring.boot4)
     implementation(libs.querydsl.r2dbc)
     kapt(libs.spring.boot.configuration.processor)
     testImplementation(libs.spring.boot.starter.test)
@@ -32,10 +32,14 @@ kotlin {
     // https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
     explicitApi()
     @OptIn(ExperimentalAbiValidation::class) abiValidation()
-    jvmToolchain(17)
+    jvmToolchain(21)
 
     compilerOptions {
-        val vmargs = listOf("-Xjsr305=strict")
+        val vmargs = listOf(
+            "-Xjsr305=strict",
+            "-Xreturn-value-checker=full"
+        )
+        
         freeCompilerArgs.addAll(vmargs)
     }
 }

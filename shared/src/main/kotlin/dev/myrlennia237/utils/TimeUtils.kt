@@ -1,4 +1,4 @@
-package dev.myrlennia237.util
+package dev.myrlennia237.utils
 
 import java.time.Duration
 import java.time.LocalDateTime
