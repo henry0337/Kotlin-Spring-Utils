@@ -38,6 +38,7 @@ out/
 .vscode/
 
 ### Kotlin ###
-.kotlin
-.claude
-CLAUDE.md
+.kotlin/
+
+### Other ###
+.claude/settings.local.json

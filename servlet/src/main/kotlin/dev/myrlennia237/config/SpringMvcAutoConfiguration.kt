@@ -22,7 +22,7 @@ import org.springframework.web.client.RestClient
  * Auto-configuration cho ứng dụng Spring MVC (blocking, JPA): bật JPA auditing và đăng ký sẵn các bean nền tảng
  * của thư viện. Mọi bean đều `@ConditionalOnMissingBean` nên ứng dụng có thể ghi đè bằng bean của riêng mình.
  *
- * Bean cung cấp: [AuditorAwareImpl], [I18nService], [HttpClient], [RedisService], [JPAQueryFactory], [MailService].
+ * Bean cung cấp: [BlockingAuditorAware], [I18nService], [HttpClient], [RedisService], [JPAQueryFactory], [MailService].
  *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
@@ -34,7 +34,7 @@ public class SpringMvcAutoConfiguration {
     /** Cung cấp thông tin người dùng hiện tại cho JPA auditing (`createdBy`/`lastModifiedBy`). */
     @Bean
     @ConditionalOnMissingBean
-    public fun auditorAware(): AuditorAwareImpl = AuditorAwareImpl()
+    public fun auditorAware(): BlockingAuditorAware = BlockingAuditorAware()
 
     /** Dịch message qua [MessageSource]; chỉ đăng ký khi có bean [MessageSource]. */
     @Bean

@@ -20,8 +20,10 @@ public object CommonUtils {
      */
     @JvmStatic
     @JvmOverloads
-    public fun requireNonNull(instance: Any?, message: String = ""): Unit =
-        Assert.notNull(instance, message)
+    public fun requireNonNull(
+        instance: Any?, 
+        message: String = "${instance?.javaClass?.simpleName ?: "Tham số 'instance'"} không thể là null!"
+    ): Unit = Assert.notNull(instance, message)
     
     
     /**

@@ -28,7 +28,11 @@ kotlin {
     jvmToolchain(21)
 
     compilerOptions {
-        val vmargs = listOf("-Xjsr305=strict")
+        val vmargs = listOf(
+            "-Xjsr305=strict",
+            "-Xreturn-value-checker=full"
+        )
+        
         freeCompilerArgs.addAll(vmargs)
     }
 }

@@ -16,7 +16,7 @@ import java.util.UUID
  *
  * @author <a href="https://github.com/henry0337">Muharux</a>
  */
-public class AuditorAwareImpl : AuditorAware<UUID> {
+public class BlockingAuditorAware : AuditorAware<UUID> {
     override fun getCurrentAuditor(): Optional<UUID> {
         val auth = SecurityContextHolder.getContext().authentication
         if (auth == null || !auth.isAuthenticated) return Optional.empty()

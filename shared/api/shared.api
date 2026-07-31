@@ -193,16 +193,6 @@ public abstract interface class dev/myrlennia237/contract/UserPrincipal {
 	public abstract fun getUserId ()Ljava/util/UUID;
 }
 
-public final class dev/myrlennia237/delegator/Slf4jDelegate : kotlin/properties/ReadOnlyProperty {
-	public fun <init> ()V
-	public synthetic fun getValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;)Ljava/lang/Object;
-	public fun getValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;)Lorg/slf4j/Logger;
-}
-
-public final class dev/myrlennia237/delegator/Slf4jDelegateKt {
-	public static final fun slf4j ()Ldev/myrlennia237/delegator/Slf4jDelegate;
-}
-
 public final class dev/myrlennia237/exception/HttpClientException : dev/myrlennia237/exception/SpringUtilsException {
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
