@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page
 
 /**
  * Phiên bản tối giản hơn của [Page].
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 public data class PagedResponse<T : Any>(
     val content: ImmutableList<T>,
@@ -39,7 +39,7 @@ public data class PagedResponse<T : Any>(
  * Phương thức mở rộng dùng để khởi tạo nhanh một [PagedResponse] với các tham số lấy từ [Page].
  *
  * **Ghi chú**: Chỉ có thể được gọi bằng các API của Kotlin.
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @KotlinVariant
 @JvmSynthetic

@@ -19,10 +19,15 @@ import java.io.Serial
 import java.util.UUID
 
 /**
- * Khai báo một lớp mà bản thân nó không phải là một **Entity**, nhưng các cấu hình ánh xạ của nó sẽ được kế thừa bởi
- * các entity kế thừa từ nó.
+ * Khai báo một contract cho các **Entity** mà bản thân nó không phải là một **Entity**, nhưng các cấu hình ánh xạ của
+ * nó sẽ được kế thừa thông qua các entity sử dụng nó.
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ * @see Auditable
+ * @see Conflictable
+ * @see Restorable
+ * @see java.io.Serializable
+ * @sample dev.myrlennia237.sample.Foo
  */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)

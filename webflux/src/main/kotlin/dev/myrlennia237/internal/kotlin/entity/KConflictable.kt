@@ -4,7 +4,7 @@ import dev.myrlennia237.annotation.KotlinVariant
 
 /**
  * Chỉ định một **Aggregate Root** sẽ sử dụng cơ chế **khóa lạc quan (optimistic locking)** lên các dữ liệu mà nó quản lý.
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  * @see <a href="https://docs.spring.io/spring-data/relational/reference/jdbc/entity-persistence.html#jdbc.entity-persistence.optimistic-locking">
  *     Lưu trữ dữ liệu lên Entity
  *     </a>

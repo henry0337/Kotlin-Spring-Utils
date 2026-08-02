@@ -28,6 +28,23 @@ public class dev/myrlennia237/config/SpringMvcAutoConfiguration {
 	public fun redisService (Lorg/springframework/data/redis/core/StringRedisTemplate;)Ldev/myrlennia237/service/RedisService;
 }
 
+public class dev/myrlennia237/sample/QFoo : com/querydsl/core/types/dsl/EntityPathBase {
+	public final field _super Ldev/myrlennia237/template/entity/QBaseEntity;
+	public final field createdBy Lcom/querydsl/core/types/dsl/ComparablePath;
+	public final field createdDate Lcom/querydsl/core/types/dsl/DateTimePath;
+	public final field disabled Lcom/querydsl/core/types/dsl/BooleanPath;
+	public static final field foo Ldev/myrlennia237/sample/QFoo;
+	public final field id Lcom/querydsl/core/types/dsl/ComparablePath;
+	public final field lastDisabledAt Lcom/querydsl/core/types/dsl/DateTimePath;
+	public final field lastDisabledBy Lcom/querydsl/core/types/dsl/ComparablePath;
+	public final field lastModifiedBy Lcom/querydsl/core/types/dsl/ComparablePath;
+	public final field lastModifiedDate Lcom/querydsl/core/types/dsl/DateTimePath;
+	public final field version Lcom/querydsl/core/types/dsl/NumberPath;
+	public fun <init> (Lcom/querydsl/core/types/Path;)V
+	public fun <init> (Lcom/querydsl/core/types/PathMetadata;)V
+	public fun <init> (Ljava/lang/String;)V
+}
+
 public class dev/myrlennia237/service/HttpClient {
 	public field self Ldev/myrlennia237/service/HttpClient;
 	public fun <init> (Lorg/springframework/web/client/RestClient;)V
@@ -46,13 +63,20 @@ public class dev/myrlennia237/service/HttpClient {
 public final class dev/myrlennia237/service/RedisService {
 	public fun <init> (Lorg/springframework/data/redis/core/StringRedisTemplate;)V
 	public final fun get (Ljava/lang/String;)Ljava/lang/String;
-	public final fun getRange (Ljava/lang/String;)Ljava/lang/String;
-	public final fun getRange (Ljava/lang/String;J)Ljava/lang/String;
-	public final fun getRange (Ljava/lang/String;JJ)Ljava/lang/String;
-	public static synthetic fun getRange$default (Ldev/myrlennia237/service/RedisService;Ljava/lang/String;JJILjava/lang/Object;)Ljava/lang/String;
 	public final fun set (Ljava/lang/String;Ljava/lang/String;)Z
 	public final fun set (Ljava/lang/String;Ljava/lang/String;Ljava/time/Duration;)Z
 	public static synthetic fun set$default (Ldev/myrlennia237/service/RedisService;Ljava/lang/String;Ljava/lang/String;Ljava/time/Duration;ILjava/lang/Object;)Z
+}
+
+public abstract class dev/myrlennia237/template/controller/AbstractCrudController : dev/myrlennia237/template/controller/BaseController {
+	public fun <init> ()V
+	public abstract fun create (Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;
+	public abstract fun delete (Ljava/util/UUID;)Lorg/springframework/http/ResponseEntity;
+	public abstract fun disable (Ljava/util/UUID;)Lorg/springframework/http/ResponseEntity;
+	public abstract fun enable (Ljava/util/UUID;)Lorg/springframework/http/ResponseEntity;
+	public abstract fun findAll (Lorg/springframework/data/domain/Pageable;)Lorg/springframework/http/ResponseEntity;
+	public abstract fun findById (Ljava/util/UUID;)Lorg/springframework/http/ResponseEntity;
+	public abstract fun update (Ljava/util/UUID;Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;
 }
 
 public abstract class dev/myrlennia237/template/controller/BaseController {
@@ -60,10 +84,6 @@ public abstract class dev/myrlennia237/template/controller/BaseController {
 	public fun <init> ()V
 	protected final fun getI18nService ()Ldev/myrlennia237/component/service/I18nService;
 	protected final fun setI18nService (Ldev/myrlennia237/component/service/I18nService;)V
-}
-
-public abstract class dev/myrlennia237/template/controller/CrudController : dev/myrlennia237/template/controller/BaseController {
-	public fun <init> ()V
 }
 
 public abstract class dev/myrlennia237/template/entity/BaseEntity : dev/myrlennia237/internal/entity/Auditable, dev/myrlennia237/internal/entity/Conflictable, dev/myrlennia237/internal/entity/Restorable, java/io/Serializable {
@@ -130,7 +150,12 @@ public class dev/myrlennia237/template/entity/QBaseEntity : com/querydsl/core/ty
 	public fun <init> (Ljava/lang/String;)V
 }
 
-public abstract interface class dev/myrlennia237/template/repository/ModifiedJpaRepository : org/springframework/data/querydsl/ListQuerydslPredicateExecutor, org/springframework/data/repository/ListCrudRepository, org/springframework/data/repository/ListPagingAndSortingRepository {
+public abstract interface class dev/myrlennia237/template/repository/ModifiedJpaRepository : org/springframework/data/jpa/repository/JpaRepository, org/springframework/data/jpa/repository/JpaSpecificationExecutor {
+	public abstract fun findAllBy (Lorg/springframework/data/domain/Pageable;)Ldev/myrlennia237/component/ImmutableList;
+}
+
+public abstract class dev/myrlennia237/template/service/AbstractCrudService : dev/myrlennia237/template/service/BaseService, dev/myrlennia237/internal/service/Deletable, dev/myrlennia237/internal/service/Insertable, dev/myrlennia237/internal/service/Modifiable, dev/myrlennia237/internal/service/ReadableWithID, dev/myrlennia237/internal/service/Reversible {
+	public fun <init> ()V
 }
 
 public abstract class dev/myrlennia237/template/service/BaseService {
@@ -138,12 +163,5 @@ public abstract class dev/myrlennia237/template/service/BaseService {
 	public fun <init> ()V
 	protected final fun getI18nService ()Ldev/myrlennia237/component/service/I18nService;
 	protected final fun setI18nService (Ldev/myrlennia237/component/service/I18nService;)V
-}
-
-public abstract class dev/myrlennia237/template/service/CrudService : dev/myrlennia237/template/service/BaseService, dev/myrlennia237/internal/service/Deletable, dev/myrlennia237/internal/service/Insertable, dev/myrlennia237/internal/service/Modifiable, dev/myrlennia237/internal/service/ReadableWithID, dev/myrlennia237/internal/service/Reversible {
-	protected field queryFactory Lcom/querydsl/jpa/impl/JPAQueryFactory;
-	public fun <init> ()V
-	protected final fun getQueryFactory ()Lcom/querydsl/jpa/impl/JPAQueryFactory;
-	protected final fun setQueryFactory (Lcom/querydsl/jpa/impl/JPAQueryFactory;)V
 }
 

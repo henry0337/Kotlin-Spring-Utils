@@ -14,7 +14,7 @@ import kotlin.uuid.toKotlinUuid
  * Đây là bản Kotlin variant của [AsyncAuditorAware], dành cho các entity kế thừa từ
  * [dev.myrlennia237.template.entity.KEntity].
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  * @see AsyncAuditorAware
  */
 @KotlinVariant

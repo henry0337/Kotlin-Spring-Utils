@@ -23,7 +23,7 @@ import java.util.UUID
  * - Auditing (thông qua [Auditable])
  * - Bảo vệ tính toàn vẹn của dữ liệu (thông qua [Conflictable])
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 public abstract class Entity protected constructor(
 

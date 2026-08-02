@@ -5,7 +5,7 @@ import java.util.UUID
 /**
  * Contract vô hiệu hóa và kích hoạt lại entity theo cơ chế xóa mềm — Spring MVC / blocking variant.
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 internal interface Reversible {
     /**

@@ -90,16 +90,16 @@ public final class dev/myrlennia237/helper/ResponseHelper {
 public class dev/myrlennia237/service/ReactiveHttpClient {
 	public field self Ldev/myrlennia237/service/ReactiveHttpClient;
 	public fun <init> (Lorg/springframework/web/reactive/function/client/WebClient;)V
-	public final fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;)Lreactor/core/publisher/Mono;
-	public final fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;)Lreactor/core/publisher/Mono;
+	public fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;)Lreactor/core/publisher/Mono;
+	public fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;)Lreactor/core/publisher/Mono;
 	public fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lreactor/core/publisher/Mono;
 	public static synthetic fun doGet$default (Ldev/myrlennia237/service/ReactiveHttpClient;Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lreactor/core/publisher/Mono;
-	public final fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;)Lreactor/core/publisher/Mono;
-	public final fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;)Lreactor/core/publisher/Mono;
+	public fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;)Lreactor/core/publisher/Mono;
+	public fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;)Lreactor/core/publisher/Mono;
 	public fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lreactor/core/publisher/Mono;
 	public static synthetic fun doPost$default (Ldev/myrlennia237/service/ReactiveHttpClient;Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lreactor/core/publisher/Mono;
-	public final fun getSelf ()Ldev/myrlennia237/service/ReactiveHttpClient;
-	public final fun setSelf (Ldev/myrlennia237/service/ReactiveHttpClient;)V
+	public fun getSelf ()Ldev/myrlennia237/service/ReactiveHttpClient;
+	public fun setSelf (Ldev/myrlennia237/service/ReactiveHttpClient;)V
 }
 
 public final class dev/myrlennia237/service/ReactiveRedisService {
@@ -120,14 +120,14 @@ public final class dev/myrlennia237/service/ReactiveRedisService {
 	public static synthetic fun setAndAwait$default (Ldev/myrlennia237/service/ReactiveRedisService;Ljava/lang/String;Ljava/lang/String;Ljava/time/Duration;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
-public abstract class dev/myrlennia237/template/controller/ReactiveRestController {
+public abstract class dev/myrlennia237/template/controller/ReactiveController {
 	protected field i18nService Ldev/myrlennia237/component/service/I18nService;
 	public fun <init> ()V
 	protected final fun getI18nService ()Ldev/myrlennia237/component/service/I18nService;
 	protected final fun setI18nService (Ldev/myrlennia237/component/service/I18nService;)V
 }
 
-public abstract class dev/myrlennia237/template/controller/java/AbstractCrudController : dev/myrlennia237/template/controller/ReactiveRestController {
+public abstract class dev/myrlennia237/template/controller/java/AbstractCrudController : dev/myrlennia237/template/controller/ReactiveController {
 	protected field responseHelper Ldev/myrlennia237/helper/ResponseHelper;
 	public fun <init> ()V
 	public abstract fun create (Ljava/lang/Object;)Lreactor/core/publisher/Mono;
@@ -141,7 +141,7 @@ public abstract class dev/myrlennia237/template/controller/java/AbstractCrudCont
 	public abstract fun update (Ljava/util/UUID;Ljava/lang/Object;)Lreactor/core/publisher/Mono;
 }
 
-public abstract class dev/myrlennia237/template/controller/kotlin/CoroutineRestController : dev/myrlennia237/template/controller/ReactiveRestController {
+public abstract class dev/myrlennia237/template/controller/kotlin/CoroutineRestController : dev/myrlennia237/template/controller/ReactiveController {
 	public fun <init> ()V
 	public abstract fun create (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun delete (Lkotlin/uuid/Uuid;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -241,18 +241,18 @@ public abstract interface class dev/myrlennia237/template/repository/CoroutineRe
 	public abstract fun findAllBy (Lorg/springframework/data/domain/Pageable;)Lkotlinx/coroutines/flow/Flow;
 }
 
-public abstract interface class dev/myrlennia237/template/repository/ModifiedR2dbcRepository : org/springframework/data/querydsl/ReactiveQuerydslPredicateExecutor, org/springframework/data/repository/reactive/ReactiveCrudRepository, org/springframework/data/repository/reactive/ReactiveSortingRepository {
+public abstract interface class dev/myrlennia237/template/repository/ExtendedR2dbcRepository : org/springframework/data/r2dbc/repository/R2dbcRepository {
 	public abstract fun findAllBy (Lorg/springframework/data/domain/Pageable;)Lreactor/core/publisher/Flux;
 }
 
-public abstract class dev/myrlennia237/template/service/BaseReactiveService {
+public abstract class dev/myrlennia237/template/service/ReactiveService {
 	protected field i18nService Ldev/myrlennia237/component/service/I18nService;
 	public fun <init> ()V
 	protected final fun getI18nService ()Ldev/myrlennia237/component/service/I18nService;
 	protected final fun setI18nService (Ldev/myrlennia237/component/service/I18nService;)V
 }
 
-public abstract class dev/myrlennia237/template/service/java/AbstractCrudService : dev/myrlennia237/template/service/BaseReactiveService, dev/myrlennia237/internal/java/service/Deletable, dev/myrlennia237/internal/java/service/Insertable, dev/myrlennia237/internal/java/service/Modifiable, dev/myrlennia237/internal/java/service/ReadableWithID, dev/myrlennia237/internal/java/service/Reversible {
+public abstract class dev/myrlennia237/template/service/java/AbstractCrudService : dev/myrlennia237/template/service/ReactiveService, dev/myrlennia237/internal/java/service/Deletable, dev/myrlennia237/internal/java/service/Insertable, dev/myrlennia237/internal/java/service/Modifiable, dev/myrlennia237/internal/java/service/ReadableWithID, dev/myrlennia237/internal/java/service/Reversible {
 	protected field auditorAware Ldev/myrlennia237/config/AsyncAuditorAware;
 	protected field reactorHelper Ldev/myrlennia237/helper/ReactorHelper;
 	public fun <init> ()V
@@ -262,7 +262,7 @@ public abstract class dev/myrlennia237/template/service/java/AbstractCrudService
 	protected final fun setReactorHelper (Ldev/myrlennia237/helper/ReactorHelper;)V
 }
 
-public abstract class dev/myrlennia237/template/service/kotlin/CoroutineCrudService : dev/myrlennia237/template/service/BaseReactiveService, dev/myrlennia237/internal/kotlin/service/KDeletable, dev/myrlennia237/internal/kotlin/service/KInsertable, dev/myrlennia237/internal/kotlin/service/KModifiable, dev/myrlennia237/internal/kotlin/service/KReadableWithID, dev/myrlennia237/internal/kotlin/service/KReversible {
+public abstract class dev/myrlennia237/template/service/kotlin/CoroutineCrudService : dev/myrlennia237/template/service/ReactiveService, dev/myrlennia237/internal/kotlin/service/KDeletable, dev/myrlennia237/internal/kotlin/service/KInsertable, dev/myrlennia237/internal/kotlin/service/KModifiable, dev/myrlennia237/internal/kotlin/service/KReadableWithID, dev/myrlennia237/internal/kotlin/service/KReversible {
 	protected field auditorAware Ldev/myrlennia237/config/KAsyncAuditorAware;
 	public fun <init> ()V
 	protected final fun getAuditorAware ()Ldev/myrlennia237/config/KAsyncAuditorAware;

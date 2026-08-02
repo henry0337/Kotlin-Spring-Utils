@@ -3,28 +3,34 @@ package dev.myrlennia237.service
 import dev.myrlennia237.JavaDuration
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.data.redis.core.ValueOperations
+import kotlin.time.Duration
+import kotlin.time.toJavaDuration
 
 /**
- * Redis helper blocking, bọc các thao tác phổ biến của
- * [StringRedisTemplate][org.springframework.data.redis.core.StringRedisTemplate].
- *
- * Được auto-configure khi bean [StringRedisTemplate][org.springframework.data.redis.core.StringRedisTemplate]
- * có mặt trong context.
- *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ * @sample dev.myrlennia237.sample.FooComponent1
  */
 public class RedisService(redisTemplate: StringRedisTemplate) {
     private val redisOps: ValueOperations<String, String> = redisTemplate.opsForValue()
 
     /**
-     * Lưu vào Redis với cặp [key]-[value] tương ứng, với hiệu lực sử dụng được giới hạn trong khoảng [duration].
-     * @param key      Tên khóa
-     * @param value    Giá trị được thiết lập cho khóa đó
-     * @param duration Thời gian tồn tại của cặp khóa-giá trị này, mặc định là `null` (vô thời hạn)
+     * Lưu vào Redis với cặp [key]-[value] tương ứng, với thời lượng hợp lệ trong [duration].
+     *
+     * **Ghi chú**: Giá trị của hàm này có thể được **bỏ qua**, nếu không có nhu cầu sử dụng.
+     *
+     * @param key      Khóa được lưu trong Redis
+     * @param value    Giá trị được lưu vào khóa đó
+     * @param duration Thời gian tồn tại của cặp khóa-giá trị này, mặc định là vô thời hạn ([Duration.INFINITE])
      * @return `true` nếu ghi thành công, `false` nếu giá trị [duration] không hợp lệ hoặc lỗi khác.
+     * @see ValueOperations.set
+     * @see <a href="https://redis.io/docs/latest/commands/set/">Lệnh Redis: SET</a>
      */
     @JvmOverloads
-    public fun set(key: String, value: String, duration: JavaDuration? = null): Boolean {
+    public fun set(
+        key: String,
+        value: String,
+        duration: JavaDuration? = Duration.INFINITE.toJavaDuration()
+    ): Boolean {
         return when {
             duration != null && (duration.isZero || duration.isNegative) -> false
             duration != null -> { redisOps.set(key, value, duration); true }
@@ -33,21 +39,10 @@ public class RedisService(redisTemplate: StringRedisTemplate) {
     }
 
     /**
-     * Đọc ra giá trị được gán vào [key] tương ứng.
-     * @param key Tên khóa cần đọc
+     * Lấy ra giá trị được lưu trong [key].
+     *
+     * @param key Khóa được lưu trong Redis
      * @return Giá trị được lưu trong [key] nếu tồn tại, hoặc `null` nếu không có.
      */
     public fun get(key: String): String? = redisOps.get(key)
-
-    /**
-     * Đọc một đoạn con của giá trị [key] bằng lệnh Redis `GETRANGE`.
-     *
-     * @param key   Khóa Redis cần đọc
-     * @param start Vị trí bắt đầu (inclusive, 0-based)
-     * @param end   Vị trí kết thúc (inclusive); `-1` tương đương cuối chuỗi
-     * @return Chuỗi con tương ứng, hoặc `null` nếu key không tồn tại
-     */
-    @JvmOverloads
-    public fun getRange(key: String, start: Long = 0, end: Long = -1): String? =
-        redisOps.get(key, start, end)
 }

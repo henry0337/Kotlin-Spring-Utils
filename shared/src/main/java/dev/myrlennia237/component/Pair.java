@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @param <A> Thành phần thứ nhất.
  * @param <B> Thành phần thứ hai.
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  * @author <a href="https://github.com/AdorableDandelion25">Himekawa</a>
  */
 @SuppressWarnings("unused")
@@ -41,7 +41,7 @@ public record Pair<A extends @Nullable Object, B extends @Nullable Object>(A fir
      * @deprecated In favor of {@link Pair}'s {@link Pair#first} property.
      */
     @Contract(pure = true)
-    @Deprecated(since = "0.1.0", forRemoval = false)
+    @Deprecated(since = "0.1.0")
     public A getKey() {
         throw new UnsupportedOperationException();
     }
@@ -52,7 +52,7 @@ public record Pair<A extends @Nullable Object, B extends @Nullable Object>(A fir
      * @deprecated In favor of {@link Pair}'s {@link Pair#second} property.
      */
     @Contract(pure = true)
-    @Deprecated(since = "0.1.0", forRemoval = false)
+    @Deprecated(since = "0.1.0")
     public B getValue() {
         throw new UnsupportedOperationException();
     }
@@ -64,7 +64,7 @@ public record Pair<A extends @Nullable Object, B extends @Nullable Object>(A fir
      * don't use this method, it would be confused and breaks the contract we made.
      */
     @Contract("_ -> fail")
-    @Deprecated(since = "0.1.0", forRemoval = false)
+    @Deprecated(since = "0.1.0")
     public B setValue(B value) {
         throw new UnsupportedOperationException();
     }

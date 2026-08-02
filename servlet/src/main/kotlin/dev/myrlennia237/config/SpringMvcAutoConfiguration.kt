@@ -19,12 +19,7 @@ import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.web.client.RestClient
 
 /**
- * Auto-configuration cho ứng dụng Spring MVC (blocking, JPA): bật JPA auditing và đăng ký sẵn các bean nền tảng
- * của thư viện. Mọi bean đều `@ConditionalOnMissingBean` nên ứng dụng có thể ghi đè bằng bean của riêng mình.
- *
- * Bean cung cấp: [BlockingAuditorAware], [I18nService], [HttpClient], [RedisService], [JPAQueryFactory], [MailService].
- *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @AutoConfiguration
 @EnableJpaAuditing

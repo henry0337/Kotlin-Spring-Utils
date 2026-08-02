@@ -1,10 +1,9 @@
 package dev.myrlennia237.utils
 
-import dev.myrlennia237.component.ImmutableList
 import org.springframework.util.Assert
 
 /**
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  * @author <a href="https://github.com/AdorableDandelion25">Himekawa</a>
  */
 public object CommonUtils {
@@ -14,7 +13,7 @@ public object CommonUtils {
      * [IllegalArgumentException] sẽ được ném ra nếu như đối tượng được truyền vào có giá trị `null`.
      *
      * @param instance  Đối tượng cần kiểm tra
-     * @param T         Kiểu dữ liệu của đối tượng cần kiểm tra
+     * @param message   Message báo lỗi nếu như `instance` null
      * @return Chính instance đó nếu nó không `null`.
      * @throws IllegalArgumentException nếu [instance] là `null`.
      */

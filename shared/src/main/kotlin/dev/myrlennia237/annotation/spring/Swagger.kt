@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 
 /**
- * Đánh dấu một lớp được đánh dấu là [@RestController][RestController] sẽ được coi là một chức năng/mô-đun cụ thể được
+ * Đánh dấu một lớp được đánh dấu là [@RestController][RestController] sẽ được coi là một module/chức năng cụ thể được
  * thể hiện trong **đặc tả OpenAPI**.
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @RestController
 @RequestMapping
@@ -25,29 +25,29 @@ import org.springframework.web.bind.annotation.RestController
 @MustBeDocumented
 public annotation class ApiController(
     /**
-     * URI path đại diện cho mô-đun/chức năng đó.
+     * URI path đại diện cho module/chức năng đó.
      */
     @get:AliasFor(annotation = RequestMapping::class, attribute = "path")
     vararg val path: String,
 
     /**
-     * Tên của mô-đun/chức năng sẽ được hiển thị trong đặc tả OpenAPI.
+     * Tên của module/chức năng sẽ được hiển thị trong đặc tả OpenAPI.
      */
     @get:AliasFor(annotation = Tag::class, attribute = "name")
     val moduleName: String = "",
 
     /**
-     * Mô tả về mô-đun/chức năng.
+     * Mô tả về module/chức năng.
      */
     @get:AliasFor(annotation = Tag::class, attribute = "description")
-    val description: String = "",
+    val description: String = ""
 )
 
 /**
  * Đánh dấu **phương thức đại diện** cho một HTTP endpoint cụ thể trong [@RestController][RestController] sẽ được tích hợp thêm
  * khả năng định nghĩa **đặc tả OpenAPI** cho một endpoint cụ thể.
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @Operation
 @RequestMapping
@@ -84,6 +84,15 @@ public annotation class ApiMethod(
     @get:AliasFor(annotation = Operation::class, attribute = "description")
     val endpointDescription: String = "",
 
+    @get:AliasFor(annotation = RequestMapping::class, attribute = "consumes")
+    val consumeType: Array<String> = [],
+
+    @get:AliasFor(annotation = RequestMapping::class, attribute = "produces")
+    val produceType: Array<String> = [],
+
+    @get:AliasFor(annotation = RequestMapping::class, attribute = "version")
+    val version: String = "",
+
     /**
      * Đánh dấu endpoint là đã lỗi thời trong đặc tả OpenAPI.
      *
@@ -103,7 +112,7 @@ public annotation class ApiMethod(
  * Đánh dấu một **tham số** của phương thức đại diện cho một HTTP endpoint cụ thể là một phần của [Operation] trong
  * **đặc tả OpenAPI**.
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @Parameter
 @Target(AnnotationTarget.VALUE_PARAMETER)
@@ -177,7 +186,7 @@ public annotation class ApiParameter(
  * Đánh dấu một **tham số** của phương thức đại diện cho một HTTP endpoint cụ thể là một request body của một [Operation]
  * được thể hiện trong **đặc tả OpenAPI**.
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @RequestBody
 @Target(AnnotationTarget.VALUE_PARAMETER)
@@ -202,7 +211,7 @@ public annotation class ApiRequestBody(
  * Đánh dấu một lớp và các thuộc tính của nó khi được sử dụng như request body/response body (lớp) là một phần của một
  * [Operation] được thể hiện trong **đặc tả OpenAPI**.
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @Schema
 @Target(AnnotationTarget.CLASS, AnnotationTarget.PROPERTY)

@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 import java.time.Month
 
 /**
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 public object TimeUtils {
     /**

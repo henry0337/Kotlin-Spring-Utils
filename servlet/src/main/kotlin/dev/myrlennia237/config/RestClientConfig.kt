@@ -7,10 +7,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.web.client.RestClient
 
 /**
- * Cấu hình [RestClient] mặc định của thư viện, áp các header mặc định lấy từ [RestClientProperties]
- * (`Accept`, `Content-Type`, `Accept-Language`, `Accept-Encoding`).
- *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(RestClientProperties::class)

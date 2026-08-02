@@ -14,7 +14,7 @@ import java.util.UUID
  *
  * Trả về [Mono.empty] nếu chưa xác thực hoặc principal không implement [UserPrincipal].
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 public class AsyncAuditorAware : ReactiveAuditorAware<UUID> {
     override fun getCurrentAuditor(): Mono<UUID> =

@@ -8,12 +8,15 @@ public abstract interface annotation class dev/myrlennia237/annotation/spring/Ap
 }
 
 public abstract interface annotation class dev/myrlennia237/annotation/spring/ApiMethod : java/lang/annotation/Annotation {
+	public abstract fun consumeType ()[Ljava/lang/String;
 	public abstract fun endpointDescription ()Ljava/lang/String;
 	public abstract fun endpointSummary ()Ljava/lang/String;
 	public abstract fun markAsDeprecated ()Z
 	public abstract fun markAsHidden ()Z
 	public abstract fun method ()[Lorg/springframework/web/bind/annotation/RequestMethod;
 	public abstract fun path ()[Ljava/lang/String;
+	public abstract fun produceType ()[Ljava/lang/String;
+	public abstract fun version ()Ljava/lang/String;
 }
 
 public abstract interface annotation class dev/myrlennia237/annotation/spring/ApiParameter : java/lang/annotation/Annotation {
@@ -203,6 +206,11 @@ public class dev/myrlennia237/exception/SpringUtilsException : java/lang/Runtime
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class dev/myrlennia237/utils/CollectionUtils {
+	public static final field INSTANCE Ldev/myrlennia237/utils/CollectionUtils;
+	public static final fun toImmutableList (Ljava/util/List;)Ldev/myrlennia237/component/ImmutableList;
 }
 
 public final class dev/myrlennia237/utils/CommonUtils {

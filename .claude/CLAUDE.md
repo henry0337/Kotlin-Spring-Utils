@@ -57,7 +57,7 @@ Package nội bộ `webflux`:
 
 **`servlet` (`dev.myrlennia237.template.*`)**:
 
-- `entity/BaseEntity` — `@MappedSuperclass` JPA: audit, soft delete (`disabled`, `lastDisabledAt`, `lastDisabledBy`), optimistic lock (`version`). Đồng bộ mô hình với webflux `Entity`/`KEntity`.
+- `entity/BaseEntity` — `@MappedSuperclass` JPA: audit, soft delete (`disabled`, `lastDisabledAt`, `lastDisabledBy`), optimistic lock (`version`). Đồng bộ mô hình với webflux `BaseEntity`/`KEntity`.
 - `repository/ModifiedJpaRepository<T>` — `ListCrudRepository` + `ListPagingAndSortingRepository` + `ListQuerydslPredicateExecutor` (QueryDSL thay Specification).
 - `service/BaseService` → `service/CrudService<T, I1, I2>` (inject sẵn `JPAQueryFactory`).
 - `controller/BaseController` → `controller/CrudController`.
@@ -65,7 +65,7 @@ Package nội bộ `webflux`:
 **`webflux` (`dev.myrlennia237.template.*`)**:
 
 - `entity/Entity` (Java) / `entity/KEntity` (Kotlin, `@Serializable`) — base entity R2DBC: audit, soft delete, optimistic lock.
-- `repository/ModifiedR2dbcRepository<T>` (`ReactiveQuerydslPredicateExecutor`) / `repository/CoroutineRepository<T>` (Kotlin, ID `Uuid`).
+- `repository/ModifiedR2dbcRepository<T>` (`ReactiveCrudRepository` + `ReactiveSortingRepository`, không có QueryDSL — `spring-data-r2dbc` chưa implement `ReactiveQuerydslPredicateExecutor`) / `repository/CoroutineRepository<T>` (Kotlin, ID `Uuid`).
 - `service/BaseReactiveService` → `service/java/AbstractCrudService` / `service/kotlin/CoroutineCrudService`.
 - `controller/ReactiveRestController` → `controller/java/AbstractCrudController` / `controller/kotlin/CoroutineRestController` (endpoint: findAll, findById, create, update, delete, disable, enable).
 
@@ -85,7 +85,7 @@ Cả hai: circuit breaker + retry (Resilience4j, instance `unwrapGet`/`unwrapPos
 
 ## Tech Stack
 
-Kotlin 2.4.0 · Java Toolchain 21 · Spring Boot 4.0.7 (WebFlux/R2DBC theo BOM) · Kotlinx Coroutines (BOM) · Kotlinx Serialization 1.11.0 · Kotlinx DateTime 0.7.1 · Resilience4j 2.4.0 · QueryDSL (OpenFeign fork) 7.4.0 · ArchUnit 1.4.2 (test) · Gradle wrapper 9.6.0
+Kotlin 2.4.0 · Java Toolchain 21 · Spring Boot 4.0.7 (WebFlux/R2DBC theo BOM) · Kotlinx Coroutines (BOM) · Kotlinx Serialization 1.11.0 · Kotlinx DateTime 0.7.1 · Resilience4j 2.4.0 · QueryDSL (OpenFeign fork) 7.4.0, chỉ dùng ở `servlet` (JPA) · ArchUnit 1.4.2 (test) · Gradle wrapper 9.6.0
 
 ## Key Conventions
 

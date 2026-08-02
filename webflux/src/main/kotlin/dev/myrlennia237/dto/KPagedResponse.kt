@@ -11,7 +11,7 @@ import org.springframework.data.domain.Page
  *
  * **Ghi chú**: Chỉ dành cho **Kotlin**. Dùng [Page.toPagedResponse] để khởi tạo nhanh từ một `Page`.
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 public data class KPagedResponse<T : Any>(
     val content: ImmutableList<T>,
@@ -27,7 +27,7 @@ public data class KPagedResponse<T : Any>(
  * Phương thức mở rộng dùng để khởi tạo nhanh một [KPagedResponse] với các tham số lấy từ [Page].
  *
  * **Ghi chú**: Chỉ có thể được gọi bằng các API của Kotlin.
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @JvmSynthetic
 public fun <T : Any> Page<T>.toPagedResponse(): KPagedResponse<T> = KPagedResponse(

@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono
  * Lấy giá trị được bọc trong [Mono] bằng cách hoãn coroutine cho đến khi [Mono] này phát ra tín hiệu hoàn thành.
  *
  * @return Giá trị bên trong nếu [Mono] phát ra dữ liệu, hoặc `null` nếu là [Mono.empty].
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @JvmSynthetic
 public suspend fun <T : Any> Mono<T>.await(): T? = this.awaitSingleOrNull()
@@ -21,7 +21,7 @@ public suspend fun <T : Any> Mono<T>.await(): T? = this.awaitSingleOrNull()
  * Biến đổi một đối tượng [Flux] thành [List] theo cách **bất đồng bộ** của Kotlin.
  *
  * @return Danh sách tất cả phần tử [Flux] phát ra; trả về list rỗng nếu [Flux] không phát ra gì.
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @JvmSynthetic
 public suspend fun <T : Any> Flux<T>.transformToList(): List<T> = this.asFlow().toList()
@@ -31,7 +31,7 @@ public suspend fun <T : Any> Flux<T>.transformToList(): List<T> = this.asFlow().
  *
  * Kết quả trả về cuối cùng được thay bằng `Mono<Void>`.
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  * @see Mono.then
  */
 @JvmSynthetic

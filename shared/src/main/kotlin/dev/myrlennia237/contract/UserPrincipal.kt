@@ -8,7 +8,7 @@ import java.util.UUID
  * Implement interface này trên `UserDetails` (hoặc principal tương ứng) của ứng dụng để
  * tích hợp với cơ chế auditing ([org.springframework.data.domain.AuditorAware]) của thư viện.
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 public interface UserPrincipal {
     /**

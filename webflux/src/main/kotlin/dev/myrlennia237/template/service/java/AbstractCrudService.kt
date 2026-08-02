@@ -6,7 +6,7 @@ import dev.myrlennia237.internal.java.service.Insertable
 import dev.myrlennia237.internal.java.service.Modifiable
 import dev.myrlennia237.internal.java.service.ReadableWithID
 import dev.myrlennia237.internal.java.service.Reversible
-import dev.myrlennia237.template.service.BaseReactiveService
+import dev.myrlennia237.template.service.ReactiveService
 import dev.myrlennia237.helper.ReactorHelper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -17,9 +17,9 @@ import org.springframework.stereotype.Service
  * @param T  **Entity** hoặc **Output DTO** mong muốn
  * @param I1 **Input DTO** dùng để tạo mới bản ghi
  * @param I2 **Input DTO** dùng để cập nhật dữ liệu bản ghi
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
-public abstract class AbstractCrudService<T : Any, in I1, in I2> : BaseReactiveService(),
+public abstract class AbstractCrudService<T : Any, in I1, in I2> : ReactiveService(),
     ReadableWithID<T>,
     Insertable<T, I1>,
     Modifiable<T, I2>,

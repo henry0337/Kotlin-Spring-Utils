@@ -7,7 +7,7 @@ import java.util.UUID
 
 /**
  * @param T Dữ liệu đầu ra, thường là Aggregate Root.
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 internal fun interface Readable<T : Any> {
     /**
@@ -19,7 +19,7 @@ internal fun interface Readable<T : Any> {
 
 /**
  * @param T Dữ liệu đầu ra, thường là Aggregate Root.
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 internal interface ReadableWithID<T : Any> : Readable<T> {
     /**

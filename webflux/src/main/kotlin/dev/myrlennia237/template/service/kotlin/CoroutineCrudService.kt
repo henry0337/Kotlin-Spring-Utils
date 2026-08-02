@@ -7,7 +7,7 @@ import dev.myrlennia237.internal.kotlin.service.KInsertable
 import dev.myrlennia237.internal.kotlin.service.KModifiable
 import dev.myrlennia237.internal.kotlin.service.KReadableWithID
 import dev.myrlennia237.internal.kotlin.service.KReversible
-import dev.myrlennia237.template.service.BaseReactiveService
+import dev.myrlennia237.template.service.ReactiveService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -17,10 +17,10 @@ import org.springframework.stereotype.Service
  * @param T  **Entity** hoặc **Output DTO** mong muốn
  * @param I1 **Input DTO** dùng để tạo mới bản ghi
  * @param I2 **Input DTO** dùng để cập nhật dữ liệu bản ghi
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @KotlinVariant
-public abstract class CoroutineCrudService<T : Any, in I1, in I2> : BaseReactiveService(),
+public abstract class CoroutineCrudService<T : Any, in I1, in I2> : ReactiveService(),
     KReadableWithID<T>,
     KInsertable<T, I1>,
     KModifiable<T, I2>,

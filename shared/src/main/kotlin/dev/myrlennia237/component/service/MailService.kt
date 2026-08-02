@@ -11,7 +11,7 @@ import reactor.core.scheduler.Schedulers.boundedElastic
  * ([sendMailAndAwait], chạy trên [Schedulers.boundedElastic][reactor.core.scheduler.Schedulers.boundedElastic]).
  *
  * @author <a href="https://github.com/AdorableDandelion25">Himekawa</a>
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 public class MailService(private val mailSender: JavaMailSender) {
 

@@ -27,7 +27,7 @@ import kotlin.uuid.Uuid
  * - Auditing (thông qua [KAuditable])
  * - Bảo vệ tính toàn vẹn của dữ liệu (thông qua [KConflictable])
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @Serializable
 @KotlinVariant

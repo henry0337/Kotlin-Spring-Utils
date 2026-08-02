@@ -30,7 +30,7 @@ import java.util.function.Predicate;
  *
  * <p><b>Đây là phiên bản được port một phần từ ngôn ngữ Kotlin.</b></p>
  * @param <E> Kiểu phần tử trong danh sách.
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  * @author <a href="https://github.com/AdorableDandelion25">Himekawa</a>
  */
 @SuppressWarnings("unused")

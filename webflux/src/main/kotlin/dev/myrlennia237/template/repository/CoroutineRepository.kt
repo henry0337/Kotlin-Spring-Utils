@@ -16,7 +16,7 @@ import kotlin.uuid.Uuid
  *
  * @param T  Kiểu domain mà repository này sẽ quản lý, vì ưu tiên convention của thư viện nên lớp đại diện cho generic
  * đó phải là một **entity** (tức kế thừa [KEntity]).
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  * @see <a href="https://docs.spring.io/spring-data/relational/reference/kotlin/coroutines.html">Coroutine-specific Repository</a>
  */
 @KotlinVariant

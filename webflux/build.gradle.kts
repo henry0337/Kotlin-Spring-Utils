@@ -22,7 +22,6 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.jackson.module.kotlin)
     implementation(libs.resilience4j.spring.boot4)
-    implementation(libs.querydsl.r2dbc)
     kapt(libs.spring.boot.configuration.processor)
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.archunit)
