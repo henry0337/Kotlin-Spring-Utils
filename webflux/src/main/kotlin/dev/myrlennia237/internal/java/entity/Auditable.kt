@@ -5,47 +5,47 @@ import java.util.UUID
 
 /**
  * Chứa thông tin truy vết tới đối tượng thực hiện tinh chỉnh dữ liệu trên cơ sở dữ liệu.
+ * 
  * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 internal interface Auditable {
     /**
-     * Đối tượng thực hiện tạo mới bản ghi.
+     * @return UUID của đối tượng tạo dữ liệu.
      */
     fun getCreatedAuditor(): UUID?
 
     /**
-     * @param id Đối tượng thực hiện tạo mới bản ghi.
+     * @param id UUID của đối tượng tạo dữ liệu.
      */
     fun setCreatedAuditor(id: UUID?)
 
     /**
-     * @return Thời gian bản ghi này được tạo ra.
+     * @return Thời điểm dữ liệu được tạo ra.
      */
-    fun getCreatedDate(): JavaInstant
+    fun getCreatedTimestamp(): JavaInstant
 
     /**
-     * @param creationDate Thời gian bản ghi này được tạo ra.
+     * @param timestamp Thời điểm dữ liệu được tạo ra.
      */
-    fun setCreatedDate(creationDate: JavaInstant)
+    fun setCreatedTimestamp(timestamp: JavaInstant)
 
     /**
-     * Đối tượng cuối cùng thực hiện chỉnh sửa bản ghi này.
      * @return UUID của đối tượng chỉnh sửa gần nhất, hoặc `null` nếu chưa có.
      */
     fun getLastModifiedAuditor(): UUID?
 
     /**
-     * @param auditor UUID của đối tượng chỉnh sửa gần nhất, hoặc `null` nếu chưa có.
+     * @param auditor UUID của đối tượng chỉnh sửa, hoặc `null` nếu muốn xóa giá trị.
      */
     fun setLastModifiedAuditor(auditor: UUID?)
 
     /**
-     * Thời gian lần cuối bản ghi này được chỉnh sửa.
+     * @return Thời điểm chỉnh sửa gần nhất, hoặc `null` nếu chưa có.
      */
-    fun getLastModifiedDate(): JavaInstant?
+    fun getLastModifiedTimestamp(): JavaInstant?
 
     /**
-     * @param lastModifiedDate Thời điểm chỉnh sửa gần nhất, hoặc `null` nếu muốn xóa giá trị.
+     * @param timestamp Thời điểm chỉnh sửa gần nhất, hoặc `null` nếu muốn xóa giá trị.
      */
-    fun setLastModifiedDate(lastModifiedDate: JavaInstant?)
+    fun setLastModifiedTimestamp(timestamp: JavaInstant?)
 }

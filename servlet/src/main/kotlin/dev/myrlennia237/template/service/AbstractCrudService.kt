@@ -7,8 +7,7 @@ import dev.myrlennia237.internal.service.ReadableWithID
 import dev.myrlennia237.internal.service.Reversible
 
 /**
- * Một lớp chỉ dành cho các [Service][org.springframework.stereotype.Service] dạng **contract (giao kèo)** chứa sẵn các
- * định nghĩa cho các phương thức REST API cơ bản.
+ * Một lớp định nghĩa các contract cho các phương thức đại diện cho logic nghiệp vụ cơ bản liên quan tới CRUD.
  *
  * Việc mà phía consumer cần làm sẽ chỉ đơn giản là **triển khai logic tương tác database** (hoặc logic nghiệp vụ khác,
  * nếu có kế thừa các interface khác) cho từng phương thức bên trong.

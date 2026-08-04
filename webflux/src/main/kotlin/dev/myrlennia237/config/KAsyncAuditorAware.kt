@@ -9,13 +9,11 @@ import kotlin.uuid.Uuid
 import kotlin.uuid.toKotlinUuid
 
 /**
- * Implementation mặc định của [ReactiveAuditorAware] trả về [Uuid] thực của người dùng hiện tại.
+ * Phiên bản [AuditorAware] dành cho môi trường reactive sử dụng [Uuid] làm đối tượng tham chiếu tới auditor.
  *
- * Đây là bản Kotlin variant của [AsyncAuditorAware], dành cho các entity kế thừa từ
- * [dev.myrlennia237.template.entity.KEntity].
+ * **Ghi chú**: Chỉ có các **"K" variant** trong thư viện này và các Kotlin consumer mới nên sử dụng lớp này.
  *
  * @author <a href="https://github.com/henry0337">Myrlennia</a>
- * @see AsyncAuditorAware
  */
 @KotlinVariant
 public class KAsyncAuditorAware : ReactiveAuditorAware<Uuid> {

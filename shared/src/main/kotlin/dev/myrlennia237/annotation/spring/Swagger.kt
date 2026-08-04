@@ -56,7 +56,7 @@ public annotation class ApiController(
 @MustBeDocumented
 public annotation class ApiMethod(
     /**
-     * Phương thức HTTP mà phương thức đại diện sẽ xử lý.
+     * Phương thức HTTP mà endpoint đại diện sẽ xử lý.
      *
      * Giá trị hợp lệ: [RequestMethod.GET], [RequestMethod.POST], [RequestMethod.PUT], [RequestMethod.PATCH],
      * [RequestMethod.DELETE].
@@ -65,7 +65,7 @@ public annotation class ApiMethod(
     val method: Array<RequestMethod>,
 
     /**
-     * Domain path dựa trên domain path gốc của controller.
+     * Domain path của endpoint dựa trên domain path gốc hiện tại của controller.
      */
     @get:AliasFor(annotation = RequestMapping::class, attribute = "path")
     val path: Array<String> = [],
@@ -79,17 +79,26 @@ public annotation class ApiMethod(
     val endpointSummary: String = "",
 
     /**
-     * Mô tả chi tiết hơn về endpoint.
+     * Mô tả chi tiết về endpoint.
      */
     @get:AliasFor(annotation = Operation::class, attribute = "description")
     val endpointDescription: String = "",
 
+    /**
+     * Danh sách các [MediaType][org.springframework.http.MediaType] mà phương thức này **nhận vào**.
+     */
     @get:AliasFor(annotation = RequestMapping::class, attribute = "consumes")
     val consumeType: Array<String> = [],
 
+    /**
+     * Danh sách các [MediaType][org.springframework.http.MediaType] mà phương thức này **cung cấp ra**.
+     */
     @get:AliasFor(annotation = RequestMapping::class, attribute = "produces")
     val produceType: Array<String> = [],
 
+    /**
+     * Phiên bản API tương ứng cho phương thức hiện tại.
+     */
     @get:AliasFor(annotation = RequestMapping::class, attribute = "version")
     val version: String = "",
 
@@ -103,13 +112,15 @@ public annotation class ApiMethod(
 
     /**
      * Đánh dấu endpoint là sẽ bị ẩn khỏi đặc tả OpenAPI.
+     * 
+     * Giá trị mặc định: `false`
      */
     @get:AliasFor(annotation = Operation::class, attribute = "hidden")
     val markAsHidden: Boolean = false,
 )
 
 /**
- * Đánh dấu một **tham số** của phương thức đại diện cho một HTTP endpoint cụ thể là một phần của [Operation] trong
+ * Đánh dấu một **tham số** của phương thức đại diện cho một HTTP endpoint là một phần của [Operation] trong
  * **đặc tả OpenAPI**.
  *
  * @author <a href="https://github.com/henry0337">Myrlennia</a>

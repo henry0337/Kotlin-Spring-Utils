@@ -7,6 +7,8 @@ import java.util.Optional
 import java.util.UUID
 
 /**
+ * Phiên bản triển khai của interface [AuditorAware], sử dụng [UUID] làm đối tượng tham chiếu khi sử dụng chức năng Audit.
+ *
  * @author <a href="https://github.com/henry0337">Myrlennia</a>
  * @sample dev.myrlennia237.sample.FooComponent3
  */

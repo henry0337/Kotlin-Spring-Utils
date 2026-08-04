@@ -9,7 +9,7 @@ import java.time.Month
  */
 public object TimeUtils {
     /**
-     * Tạo [Duration] từ số ngày, giờ, phút, giây.
+     * Khởi tạo một instance của [Duration] từ số ngày, giờ, phút, giây.
      *
      * @param days    số ngày
      * @param hours   số giờ
@@ -30,7 +30,7 @@ public object TimeUtils {
     }
 
     /**
-     * Tạo [LocalDateTime] từ năm, tháng, ngày, giờ, phút, giây.
+     * Khởi tạo một instance của [LocalDateTime] từ năm, tháng, ngày, giờ, phút, giây.
      *
      * @param year   năm
      * @param month  tháng

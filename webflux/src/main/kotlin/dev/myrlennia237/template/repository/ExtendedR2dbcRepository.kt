@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux
 import java.util.UUID
 
 /**
- * Repository đã được chỉnh sửa theo cú pháp gốc từ [R2dbcRepository] có thêm chức năng phân trang dữ liệu.
+ * Repository được tinh chỉnh từ [R2dbcRepository] có thêm chức năng phân trang dữ liệu.
  *
  * @param T  Kiểu domain mà repository này sẽ quản lý, vì ưu tiên convention của thư viện nên lớp đại diện cho generic
  * đó phải là một **entity** (tức kế thừa [Entity]).

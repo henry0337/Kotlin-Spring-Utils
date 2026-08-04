@@ -32,36 +32,82 @@ import java.util.UUID
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
 public abstract class BaseEntity protected constructor(
+
+    /**
+     * ID duy nhất cho bản ghi hiện tại.
+     */
     @Id
     public var id: UUID? = null,
 
-    @CreatedBy
-    @Column(updatable = false)
-    public var createdBy: UUID? = null,
-
-    @LastModifiedBy
-    public var lastModifiedBy: UUID? = null,
-
-    public var disabled: Boolean = false,
-
-    public var lastDisabledAt: JavaInstant? = null,
-
-    public var lastDisabledBy: UUID? = null,
-
+    /**
+     * Thời gian bản ghi này được **tạo mới** lần đầu.
+     * 
+     * Giá trị mặc định: `java.util.Instant.now()`
+     */
     @CreatedDate
     @Column(updatable = false)
-    @get:JvmName("getCreatedDateValue")
-    @set:JvmName("setCreatedDateValue")
-    public var createdDate: JavaInstant = JavaInstant.now(),
+    @get:JvmSynthetic
+    @set:JvmSynthetic
+    public var createdAt: JavaInstant = JavaInstant.now(),
 
+    /**
+     * Đối tượng thực hiện **tạo mới** bản ghi này.
+     */
+    @CreatedBy
+    @Column(updatable = false)
+    @get:JvmSynthetic
+    @set:JvmSynthetic
+    public var createdBy: UUID? = null,
+
+    /**
+     * Thời gian lần cuối bản ghi này được **chỉnh sửa**.
+     */
     @LastModifiedDate
-    @get:JvmName("getLastModifiedDateValue")
-    @set:JvmName("setLastModifiedDateValue")
-    public var lastModifiedDate: JavaInstant? = null,
+    @get:JvmSynthetic
+    @set:JvmSynthetic
+    public var lastModifiedAt: JavaInstant? = null,
 
+    /**
+     * Đối tượng cuối cùng thực hiện **chỉnh sửa** bản ghi này.
+     */
+    @LastModifiedBy
+    @get:JvmSynthetic
+    @set:JvmSynthetic
+    public var lastModifiedBy: UUID? = null,
+
+    /**
+     * Liệu bản ghi có thể được sử dụng ở hiện tại không?
+     * 
+     * Giá trị mặc định: `true`
+     */
+    @get:JvmSynthetic
+    @set:JvmSynthetic
+    public var enabled: Boolean = true,
+
+    /**
+     * Thời gian lần cuối **vô hiệu hóa** bản ghi này.
+     */
+    @get:JvmSynthetic
+    @set:JvmSynthetic
+    public var lastDisabledAt: JavaInstant? = null,
+
+    /**
+     * Đối tượng cuối cùng thực hiện **vô hiệu hóa** bản ghi này.
+     */
+    @get:JvmSynthetic
+    @set:JvmSynthetic
+    public var lastDisabledBy: UUID? = null,
+
+    /**
+     * Phiên bản hiện tại của dữ liệu.
+     *
+     * Dùng để kiểm tra tính toàn vẹn của dữ liệu khi được tương tác từ nhiều nguồn.
+     */
     @Version
-    @get:JvmName("getEntityVersion")
-    @set:JvmName("setEntityVersion")
+    @get:JvmName("getRecordVersion")
+    @set:JvmName("setRecordVersion")
+    @get:JvmSynthetic
+    @set:JvmSynthetic
     public var version: Long = 0
 ) : Auditable, Conflictable, Restorable, JavaSerializable {
     override fun getCreatedAuditor(): UUID? = createdBy
@@ -69,9 +115,9 @@ public abstract class BaseEntity protected constructor(
         createdBy = id
     }
 
-    override fun getCreatedDate(): JavaInstant = createdDate
-    override fun setCreatedDate(creationDate: JavaInstant) {
-        createdDate = creationDate
+    override fun getCreatedTimestamp(): JavaInstant = createdAt
+    override fun setCreatedTimestamp(timestamp: JavaInstant) {
+        createdAt = timestamp
     }
 
     override fun getLastModifiedAuditor(): UUID? = lastModifiedBy
@@ -79,9 +125,9 @@ public abstract class BaseEntity protected constructor(
         lastModifiedBy = auditor
     }
 
-    override fun getLastModifiedDate(): JavaInstant? = lastModifiedDate
-    override fun setLastModifiedDate(lastModifiedDate: JavaInstant?) {
-        this.lastModifiedDate = lastModifiedDate
+    override fun getLastModifiedTimestamp(): JavaInstant? = lastModifiedAt
+    override fun setLastModifiedTimestamp(timestamp: JavaInstant?) {
+        this.lastModifiedAt = timestamp
     }
 
     override fun getVersion(): Long = version
@@ -89,9 +135,9 @@ public abstract class BaseEntity protected constructor(
         this.version = version
     }
 
-    override fun getDisabledState(): Boolean = disabled
-    override fun setDisabledState(disabled: Boolean) {
-        this.disabled = disabled
+    override fun getDisabledState(): Boolean = !enabled
+    override fun setDisabledState(state: Boolean) {
+        enabled = !state
     }
 
     override fun getDisabledTimestamp(): JavaInstant? = lastDisabledAt
@@ -105,7 +151,7 @@ public abstract class BaseEntity protected constructor(
     }
 
     override fun toString(): String =
-        "${this::class.simpleName}(id=$id, version=$version, disabled=$disabled)"
+        "${this::class.simpleName}(id=$id, version=$version, enabled=$enabled)"
 
     public companion object {
         @Serial

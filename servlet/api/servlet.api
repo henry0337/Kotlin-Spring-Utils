@@ -23,22 +23,21 @@ public class dev/myrlennia237/config/SpringMvcAutoConfiguration {
 	public fun auditorAware ()Ldev/myrlennia237/config/BlockingAuditorAware;
 	public fun httpClient (Lorg/springframework/web/client/RestClient;)Ldev/myrlennia237/service/HttpClient;
 	public fun i18nHelper (Lorg/springframework/context/MessageSource;)Ldev/myrlennia237/component/service/I18nService;
-	public fun jpaQueryFactory (Ljakarta/persistence/EntityManager;)Lcom/querydsl/jpa/impl/JPAQueryFactory;
 	public fun mailService (Lorg/springframework/mail/javamail/JavaMailSender;)Ldev/myrlennia237/component/service/MailService;
 	public fun redisService (Lorg/springframework/data/redis/core/StringRedisTemplate;)Ldev/myrlennia237/service/RedisService;
 }
 
 public class dev/myrlennia237/sample/QFoo : com/querydsl/core/types/dsl/EntityPathBase {
 	public final field _super Ldev/myrlennia237/template/entity/QBaseEntity;
+	public final field createdAt Lcom/querydsl/core/types/dsl/DateTimePath;
 	public final field createdBy Lcom/querydsl/core/types/dsl/ComparablePath;
-	public final field createdDate Lcom/querydsl/core/types/dsl/DateTimePath;
-	public final field disabled Lcom/querydsl/core/types/dsl/BooleanPath;
+	public final field enabled Lcom/querydsl/core/types/dsl/BooleanPath;
 	public static final field foo Ldev/myrlennia237/sample/QFoo;
 	public final field id Lcom/querydsl/core/types/dsl/ComparablePath;
 	public final field lastDisabledAt Lcom/querydsl/core/types/dsl/DateTimePath;
 	public final field lastDisabledBy Lcom/querydsl/core/types/dsl/ComparablePath;
+	public final field lastModifiedAt Lcom/querydsl/core/types/dsl/DateTimePath;
 	public final field lastModifiedBy Lcom/querydsl/core/types/dsl/ComparablePath;
-	public final field lastModifiedDate Lcom/querydsl/core/types/dsl/DateTimePath;
 	public final field version Lcom/querydsl/core/types/dsl/NumberPath;
 	public fun <init> (Lcom/querydsl/core/types/Path;)V
 	public fun <init> (Lcom/querydsl/core/types/PathMetadata;)V
@@ -89,44 +88,45 @@ public abstract class dev/myrlennia237/template/controller/BaseController {
 public abstract class dev/myrlennia237/template/entity/BaseEntity : dev/myrlennia237/internal/entity/Auditable, dev/myrlennia237/internal/entity/Conflictable, dev/myrlennia237/internal/entity/Restorable, java/io/Serializable {
 	public static final field Companion Ldev/myrlennia237/template/entity/BaseEntity$Companion;
 	protected fun <init> ()V
-	protected fun <init> (Ljava/util/UUID;Ljava/util/UUID;Ljava/util/UUID;ZLjava/time/Instant;Ljava/util/UUID;Ljava/time/Instant;Ljava/time/Instant;J)V
-	public synthetic fun <init> (Ljava/util/UUID;Ljava/util/UUID;Ljava/util/UUID;ZLjava/time/Instant;Ljava/util/UUID;Ljava/time/Instant;Ljava/time/Instant;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	protected fun <init> (Ljava/util/UUID;Ljava/time/Instant;Ljava/util/UUID;Ljava/time/Instant;Ljava/util/UUID;ZLjava/time/Instant;Ljava/util/UUID;J)V
+	public synthetic fun <init> (Ljava/util/UUID;Ljava/time/Instant;Ljava/util/UUID;Ljava/time/Instant;Ljava/util/UUID;ZLjava/time/Instant;Ljava/util/UUID;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final synthetic fun getCreatedAt ()Ljava/time/Instant;
 	public fun getCreatedAuditor ()Ljava/util/UUID;
-	public final fun getCreatedBy ()Ljava/util/UUID;
-	public fun getCreatedDate ()Ljava/time/Instant;
-	public final fun getCreatedDateValue ()Ljava/time/Instant;
-	public final fun getDisabled ()Z
+	public final synthetic fun getCreatedBy ()Ljava/util/UUID;
+	public fun getCreatedTimestamp ()Ljava/time/Instant;
 	public fun getDisabledBy ()Ljava/util/UUID;
 	public fun getDisabledState ()Z
 	public fun getDisabledTimestamp ()Ljava/time/Instant;
-	public final fun getEntityVersion ()J
+	public final synthetic fun getEnabled ()Z
 	public final fun getId ()Ljava/util/UUID;
-	public final fun getLastDisabledAt ()Ljava/time/Instant;
-	public final fun getLastDisabledBy ()Ljava/util/UUID;
+	public final synthetic fun getLastDisabledAt ()Ljava/time/Instant;
+	public final synthetic fun getLastDisabledBy ()Ljava/util/UUID;
+	public final synthetic fun getLastModifiedAt ()Ljava/time/Instant;
 	public fun getLastModifiedAuditor ()Ljava/util/UUID;
-	public final fun getLastModifiedBy ()Ljava/util/UUID;
-	public fun getLastModifiedDate ()Ljava/time/Instant;
-	public final fun getLastModifiedDateValue ()Ljava/time/Instant;
+	public final synthetic fun getLastModifiedBy ()Ljava/util/UUID;
+	public fun getLastModifiedTimestamp ()Ljava/time/Instant;
+	public final synthetic fun getRecordVersion ()J
 	public fun getVersion ()J
+	public fun increaseVersion ()V
 	public fun isDisabled ()Z
 	public fun markAsDisabled (Ljava/util/UUID;Ljava/time/Instant;)V
 	public fun restore ()V
+	public final synthetic fun setCreatedAt (Ljava/time/Instant;)V
 	public fun setCreatedAuditor (Ljava/util/UUID;)V
-	public final fun setCreatedBy (Ljava/util/UUID;)V
-	public fun setCreatedDate (Ljava/time/Instant;)V
-	public final fun setCreatedDateValue (Ljava/time/Instant;)V
-	public final fun setDisabled (Z)V
+	public final synthetic fun setCreatedBy (Ljava/util/UUID;)V
+	public fun setCreatedTimestamp (Ljava/time/Instant;)V
 	public fun setDisabledBy (Ljava/util/UUID;)V
 	public fun setDisabledState (Z)V
 	public fun setDisabledTimestamp (Ljava/time/Instant;)V
-	public final fun setEntityVersion (J)V
+	public final synthetic fun setEnabled (Z)V
 	public final fun setId (Ljava/util/UUID;)V
-	public final fun setLastDisabledAt (Ljava/time/Instant;)V
-	public final fun setLastDisabledBy (Ljava/util/UUID;)V
+	public final synthetic fun setLastDisabledAt (Ljava/time/Instant;)V
+	public final synthetic fun setLastDisabledBy (Ljava/util/UUID;)V
+	public final synthetic fun setLastModifiedAt (Ljava/time/Instant;)V
 	public fun setLastModifiedAuditor (Ljava/util/UUID;)V
-	public final fun setLastModifiedBy (Ljava/util/UUID;)V
-	public fun setLastModifiedDate (Ljava/time/Instant;)V
-	public final fun setLastModifiedDateValue (Ljava/time/Instant;)V
+	public final synthetic fun setLastModifiedBy (Ljava/util/UUID;)V
+	public fun setLastModifiedTimestamp (Ljava/time/Instant;)V
+	public final synthetic fun setRecordVersion (J)V
 	public fun setVersion (J)V
 	public fun toString ()Ljava/lang/String;
 }
@@ -136,21 +136,21 @@ public final class dev/myrlennia237/template/entity/BaseEntity$Companion {
 
 public class dev/myrlennia237/template/entity/QBaseEntity : com/querydsl/core/types/dsl/EntityPathBase {
 	public static final field baseEntity Ldev/myrlennia237/template/entity/QBaseEntity;
+	public final field createdAt Lcom/querydsl/core/types/dsl/DateTimePath;
 	public final field createdBy Lcom/querydsl/core/types/dsl/ComparablePath;
-	public final field createdDate Lcom/querydsl/core/types/dsl/DateTimePath;
-	public final field disabled Lcom/querydsl/core/types/dsl/BooleanPath;
+	public final field enabled Lcom/querydsl/core/types/dsl/BooleanPath;
 	public final field id Lcom/querydsl/core/types/dsl/ComparablePath;
 	public final field lastDisabledAt Lcom/querydsl/core/types/dsl/DateTimePath;
 	public final field lastDisabledBy Lcom/querydsl/core/types/dsl/ComparablePath;
+	public final field lastModifiedAt Lcom/querydsl/core/types/dsl/DateTimePath;
 	public final field lastModifiedBy Lcom/querydsl/core/types/dsl/ComparablePath;
-	public final field lastModifiedDate Lcom/querydsl/core/types/dsl/DateTimePath;
 	public final field version Lcom/querydsl/core/types/dsl/NumberPath;
 	public fun <init> (Lcom/querydsl/core/types/Path;)V
 	public fun <init> (Lcom/querydsl/core/types/PathMetadata;)V
 	public fun <init> (Ljava/lang/String;)V
 }
 
-public abstract interface class dev/myrlennia237/template/repository/ModifiedJpaRepository : org/springframework/data/jpa/repository/JpaRepository, org/springframework/data/jpa/repository/JpaSpecificationExecutor {
+public abstract interface class dev/myrlennia237/template/repository/ExtendedJpaRepository : org/springframework/data/jpa/repository/JpaRepository, org/springframework/data/jpa/repository/JpaSpecificationExecutor {
 	public abstract fun findAllBy (Lorg/springframework/data/domain/Pageable;)Ldev/myrlennia237/component/ImmutableList;
 }
 

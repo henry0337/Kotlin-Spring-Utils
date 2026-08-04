@@ -1,7 +1,8 @@
 package dev.myrlennia237.internal.entity
 
 /**
- * Chỉ định một **Aggregate Root** sẽ sử dụng cơ chế **khóa lạc quan (optimistic locking)** lên các dữ liệu mà nó quản lý.
+ * Chỉ định một **Entity** sẽ sử dụng cơ chế **optimistic locking** lên các dữ liệu mà nó quản lý.
+ * 
  * @author <a href="https://github.com/henry0337">Myrlennia</a>
  * @see <a href="https://docs.spring.io/spring-data/relational/reference/jdbc/entity-persistence.html#jdbc.entity-persistence.optimistic-locking">
  *     Lưu trữ dữ liệu lên Entity
@@ -9,13 +10,20 @@ package dev.myrlennia237.internal.entity
  */
 internal interface Conflictable {
     /**
-     * @return Một số nguyên 64-bit đại diện cho phiên bản chỉnh sửa mới nhất của dữ liệu hiện tại.
+     * Phiên bản dữ liệu hiện tại của bản ghi.
      */
     fun getVersion(): Long
 
     /**
-     * Cập nhật phiên bản hiện tại của entity.
+     * Cập nhật phiên bản hiện tại của bản ghi.
      * @param version Giá trị version mới
      */
     fun setVersion(version: Long)
+    
+    /**
+     * Tăng phiên bản hiện tại lên 1.
+     */
+    fun increaseVersion() {
+        setVersion(getVersion() + 1)
+    }
 }

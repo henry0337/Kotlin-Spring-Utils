@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired
  * @see I18nService
  */
 public abstract class ReactiveController {
+
+    /**
+     * **Localization Service** - Lớp quản lý các message được dịch cho các khu vực được hỗ trợ bởi hệ thống.
+     */
     @set:Autowired(required = false)
     protected lateinit var i18nService: I18nService
 }

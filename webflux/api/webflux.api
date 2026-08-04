@@ -1,3 +1,22 @@
+public abstract interface class Specification {
+	public static final field Companion LSpecification$Companion;
+	public fun and (LSpecification;)LSpecification;
+	public fun or (LSpecification;)LSpecification;
+	public abstract fun toCriteria ()Lorg/springframework/data/relational/core/query/Criteria;
+	public static fun unrestricted ()LSpecification;
+	public static fun where (LSpecification;)LSpecification;
+}
+
+public final class Specification$Companion {
+	public final fun unrestricted ()LSpecification;
+	public final fun where (LSpecification;)LSpecification;
+}
+
+public final class Specification$DefaultImpls {
+	public static fun and (LSpecification;LSpecification;)LSpecification;
+	public static fun or (LSpecification;LSpecification;)LSpecification;
+}
+
 public final class dev/myrlennia237/config/AsyncAuditorAware : org/springframework/data/domain/ReactiveAuditorAware {
 	public fun <init> ()V
 	public fun getCurrentAuditor ()Lreactor/core/publisher/Mono;
@@ -32,7 +51,6 @@ public final class dev/myrlennia237/config/WebClientProperties {
 	public final fun getAcceptEncodings ()Ljava/util/List;
 	public final fun getAcceptLanguages ()Ljava/util/List;
 	public final fun getDefaultContentType ()Ljava/lang/String;
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class dev/myrlennia237/dto/KPagedResponse {
@@ -155,45 +173,45 @@ public abstract class dev/myrlennia237/template/controller/kotlin/CoroutineRestC
 public abstract class dev/myrlennia237/template/entity/Entity : dev/myrlennia237/internal/java/entity/Auditable, dev/myrlennia237/internal/java/entity/Conflictable, dev/myrlennia237/internal/java/entity/Restorable, java/io/Serializable {
 	public static final field Companion Ldev/myrlennia237/template/entity/Entity$Companion;
 	protected fun <init> ()V
-	protected fun <init> (Ljava/util/UUID;Ljava/util/UUID;Ljava/time/Instant;Ljava/util/UUID;Ljava/time/Instant;ZLjava/time/Instant;Ljava/util/UUID;J)V
-	public synthetic fun <init> (Ljava/util/UUID;Ljava/util/UUID;Ljava/time/Instant;Ljava/util/UUID;Ljava/time/Instant;ZLjava/time/Instant;Ljava/util/UUID;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	protected fun <init> (Ljava/util/UUID;Ljava/time/Instant;Ljava/util/UUID;Ljava/time/Instant;Ljava/util/UUID;ZLjava/time/Instant;Ljava/util/UUID;J)V
+	public synthetic fun <init> (Ljava/util/UUID;Ljava/time/Instant;Ljava/util/UUID;Ljava/time/Instant;Ljava/util/UUID;ZLjava/time/Instant;Ljava/util/UUID;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final synthetic fun getCreatedAt ()Ljava/time/Instant;
 	public fun getCreatedAuditor ()Ljava/util/UUID;
-	public final fun getCreatedBy ()Ljava/util/UUID;
-	public fun getCreatedDate ()Ljava/time/Instant;
-	public final fun getCreatedDateValue ()Ljava/time/Instant;
-	public final fun getDisabled ()Z
+	public final synthetic fun getCreatedBy ()Ljava/util/UUID;
+	public fun getCreatedTimestamp ()Ljava/time/Instant;
 	public fun getDisabledBy ()Ljava/util/UUID;
 	public fun getDisabledState ()Z
 	public fun getDisabledTimestamp ()Ljava/time/Instant;
-	public final fun getEntityVersion ()J
+	public final synthetic fun getEnabled ()Z
 	public final fun getId ()Ljava/util/UUID;
-	public final fun getLastDisabledAt ()Ljava/time/Instant;
-	public final fun getLastDisabledBy ()Ljava/util/UUID;
+	public final synthetic fun getLastDisabledAt ()Ljava/time/Instant;
+	public final synthetic fun getLastDisabledBy ()Ljava/util/UUID;
+	public final synthetic fun getLastModifiedAt ()Ljava/time/Instant;
 	public fun getLastModifiedAuditor ()Ljava/util/UUID;
-	public final fun getLastModifiedBy ()Ljava/util/UUID;
-	public fun getLastModifiedDate ()Ljava/time/Instant;
-	public final fun getLastModifiedDateValue ()Ljava/time/Instant;
+	public final synthetic fun getLastModifiedBy ()Ljava/util/UUID;
+	public fun getLastModifiedTimestamp ()Ljava/time/Instant;
+	public final synthetic fun getRecordVersion ()J
 	public fun getVersion ()J
 	public fun increaseVersion ()V
 	public fun isDisabled ()Z
 	public fun markAsDisabled (Ljava/util/UUID;Ljava/time/Instant;)V
 	public fun restore ()V
+	public final synthetic fun setCreatedAt (Ljava/time/Instant;)V
 	public fun setCreatedAuditor (Ljava/util/UUID;)V
-	public final fun setCreatedBy (Ljava/util/UUID;)V
-	public fun setCreatedDate (Ljava/time/Instant;)V
-	public final fun setCreatedDateValue (Ljava/time/Instant;)V
-	public final fun setDisabled (Z)V
+	public final synthetic fun setCreatedBy (Ljava/util/UUID;)V
+	public fun setCreatedTimestamp (Ljava/time/Instant;)V
 	public fun setDisabledBy (Ljava/util/UUID;)V
 	public fun setDisabledState (Z)V
 	public fun setDisabledTimestamp (Ljava/time/Instant;)V
-	public final fun setEntityVersion (J)V
+	public final synthetic fun setEnabled (Z)V
 	public final fun setId (Ljava/util/UUID;)V
-	public final fun setLastDisabledAt (Ljava/time/Instant;)V
-	public final fun setLastDisabledBy (Ljava/util/UUID;)V
+	public final synthetic fun setLastDisabledAt (Ljava/time/Instant;)V
+	public final synthetic fun setLastDisabledBy (Ljava/util/UUID;)V
+	public final synthetic fun setLastModifiedAt (Ljava/time/Instant;)V
 	public fun setLastModifiedAuditor (Ljava/util/UUID;)V
-	public final fun setLastModifiedBy (Ljava/util/UUID;)V
-	public fun setLastModifiedDate (Ljava/time/Instant;)V
-	public final fun setLastModifiedDateValue (Ljava/time/Instant;)V
+	public final synthetic fun setLastModifiedBy (Ljava/util/UUID;)V
+	public fun setLastModifiedTimestamp (Ljava/time/Instant;)V
+	public final synthetic fun setRecordVersion (J)V
 	public fun setVersion (J)V
 	public fun toString ()Ljava/lang/String;
 }
@@ -204,9 +222,9 @@ public final class dev/myrlennia237/template/entity/Entity$Companion {
 public abstract class dev/myrlennia237/template/entity/KEntity : dev/myrlennia237/internal/kotlin/entity/KAuditable, dev/myrlennia237/internal/kotlin/entity/KConflictable, dev/myrlennia237/internal/kotlin/entity/KRestorable {
 	public static final field Companion Ldev/myrlennia237/template/entity/KEntity$Companion;
 	protected fun <init> ()V
-	public synthetic fun <init> (ILkotlin/uuid/Uuid;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;ZLkotlin/time/Instant;Lkotlin/uuid/Uuid;JLkotlinx/serialization/internal/SerializationConstructorMarker;)V
-	protected fun <init> (Lkotlin/uuid/Uuid;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;ZLkotlin/time/Instant;Lkotlin/uuid/Uuid;J)V
-	public synthetic fun <init> (Lkotlin/uuid/Uuid;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;ZLkotlin/time/Instant;Lkotlin/uuid/Uuid;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ILkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;ZLkotlin/time/Instant;Lkotlin/uuid/Uuid;JLkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	protected fun <init> (Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;ZLkotlin/time/Instant;Lkotlin/uuid/Uuid;J)V
+	public synthetic fun <init> (Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;ZLkotlin/time/Instant;Lkotlin/uuid/Uuid;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun getCreatedBy ()Lkotlin/uuid/Uuid;
 	public fun getCreatedDate ()Lkotlin/time/Instant;
 	public fun getDisabled ()Z
