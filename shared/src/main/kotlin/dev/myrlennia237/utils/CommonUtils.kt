@@ -1,5 +1,7 @@
 package dev.myrlennia237.utils
 
+import dev.myrlennia237.annotation.Ignorable
+import dev.myrlennia237.exception.ImplementationNeededException
 import org.springframework.util.Assert
 
 /**
@@ -36,4 +38,16 @@ public object CommonUtils {
     @JvmStatic  
     public fun <T> requireNonNullOrDefault(instance: T?, defaultValue: T): T =
         instance ?: defaultValue
+        
+    
+    /**
+     * Luôn ném ra [ImplementationNeededException] để nhắc nhở lập trình viên rằng phương thức cần được triển khai.
+     * 
+     * @param message Message chi tiết cho exception trên
+     * @throws ImplementationNeededException vì phương thức chưa được triển khai.
+     */
+    @Ignorable
+    public fun <T> TODO(message: String = ""): T {
+        throw ImplementationNeededException(message)
+    }
 }
