@@ -9,4 +9,4 @@ package dev.myrlennia237.annotation
  */
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
-public annotation class Ignorable
+public annotation class IgnorableReturnValue

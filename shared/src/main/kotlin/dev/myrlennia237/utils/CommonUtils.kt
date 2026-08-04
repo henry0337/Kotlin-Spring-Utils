@@ -1,6 +1,5 @@
 package dev.myrlennia237.utils
 
-import dev.myrlennia237.annotation.Ignorable
 import dev.myrlennia237.exception.ImplementationNeededException
 import org.springframework.util.Assert
 
@@ -46,8 +45,8 @@ public object CommonUtils {
      * @param message Message chi tiết cho exception trên
      * @throws ImplementationNeededException vì phương thức chưa được triển khai.
      */
-    @Ignorable
-    public fun <T> TODO(message: String = ""): T {
+    @IgnorableReturnValue
+    public fun <T> TODO(message: String): T {
         throw ImplementationNeededException(message)
     }
 }

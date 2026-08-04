@@ -1,22 +1,3 @@
-public abstract interface class Specification {
-	public static final field Companion LSpecification$Companion;
-	public fun and (LSpecification;)LSpecification;
-	public fun or (LSpecification;)LSpecification;
-	public abstract fun toCriteria ()Lorg/springframework/data/relational/core/query/Criteria;
-	public static fun unrestricted ()LSpecification;
-	public static fun where (LSpecification;)LSpecification;
-}
-
-public final class Specification$Companion {
-	public final fun unrestricted ()LSpecification;
-	public final fun where (LSpecification;)LSpecification;
-}
-
-public final class Specification$DefaultImpls {
-	public static fun and (LSpecification;LSpecification;)LSpecification;
-	public static fun or (LSpecification;LSpecification;)LSpecification;
-}
-
 public final class dev/myrlennia237/config/AsyncAuditorAware : org/springframework/data/domain/ReactiveAuditorAware {
 	public fun <init> ()V
 	public fun getCurrentAuditor ()Lreactor/core/publisher/Mono;
@@ -103,6 +84,25 @@ public final class dev/myrlennia237/helper/ResponseHelper {
 	public final fun ok (Lreactor/core/publisher/Mono;)Lreactor/core/publisher/Mono;
 	public final fun okEmpty (Lreactor/core/publisher/Mono;)Lreactor/core/publisher/Mono;
 	public final fun okOrNotFound (Lreactor/core/publisher/Mono;)Lreactor/core/publisher/Mono;
+}
+
+public abstract interface class dev/myrlennia237/query/Specification {
+	public static final field Companion Ldev/myrlennia237/query/Specification$Companion;
+	public fun and (Ldev/myrlennia237/query/Specification;)Ldev/myrlennia237/query/Specification;
+	public fun or (Ldev/myrlennia237/query/Specification;)Ldev/myrlennia237/query/Specification;
+	public abstract fun toCriteria ()Lorg/springframework/data/relational/core/query/Criteria;
+	public static fun unrestricted ()Ldev/myrlennia237/query/Specification;
+	public static fun where (Ldev/myrlennia237/query/Specification;)Ldev/myrlennia237/query/Specification;
+}
+
+public final class dev/myrlennia237/query/Specification$Companion {
+	public final fun unrestricted ()Ldev/myrlennia237/query/Specification;
+	public final fun where (Ldev/myrlennia237/query/Specification;)Ldev/myrlennia237/query/Specification;
+}
+
+public final class dev/myrlennia237/query/Specification$DefaultImpls {
+	public static fun and (Ldev/myrlennia237/query/Specification;Ldev/myrlennia237/query/Specification;)Ldev/myrlennia237/query/Specification;
+	public static fun or (Ldev/myrlennia237/query/Specification;Ldev/myrlennia237/query/Specification;)Ldev/myrlennia237/query/Specification;
 }
 
 public class dev/myrlennia237/service/ReactiveHttpClient {

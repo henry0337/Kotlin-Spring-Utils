@@ -1,3 +1,6 @@
+public abstract interface annotation class dev/myrlennia237/annotation/IgnorableReturnValue : java/lang/annotation/Annotation {
+}
+
 public abstract interface annotation class dev/myrlennia237/annotation/KotlinVariant : java/lang/annotation/Annotation {
 }
 
@@ -202,6 +205,12 @@ public final class dev/myrlennia237/exception/HttpClientException : dev/myrlenni
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 }
 
+public final class dev/myrlennia237/exception/ImplementationNeededException : java/lang/RuntimeException {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
 public class dev/myrlennia237/exception/SpringUtilsException : java/lang/RuntimeException {
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
@@ -215,6 +224,7 @@ public final class dev/myrlennia237/utils/CollectionUtils {
 
 public final class dev/myrlennia237/utils/CommonUtils {
 	public static final field INSTANCE Ldev/myrlennia237/utils/CommonUtils;
+	public final fun TODO (Ljava/lang/String;)Ljava/lang/Object;
 	public static final fun requireNonNull (Ljava/lang/Object;)V
 	public static final fun requireNonNull (Ljava/lang/Object;Ljava/lang/String;)V
 	public static synthetic fun requireNonNull$default (Ljava/lang/Object;Ljava/lang/String;ILjava/lang/Object;)V
