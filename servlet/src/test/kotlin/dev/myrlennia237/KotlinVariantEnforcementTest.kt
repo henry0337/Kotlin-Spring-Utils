@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test
  * - **Interface default method** — helper trên các internal marker interface (`KConflictable`, `KRestorable`...),
  *   bản thân abstract method đã bị loại sẵn.
  */
-class KotlinVariantEnforcementTest {
+public class KotlinVariantEnforcementTest {
 
     private val classes: JavaClasses = ClassFileImporter()
         .withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS)
@@ -40,7 +40,7 @@ class KotlinVariantEnforcementTest {
         name == "copy"
 
     @Test
-    fun `@KotlinVariant concrete functions must be synthetic`() {
+    public fun `@KotlinVariant concrete functions must be synthetic`() {
         val violations = classes
             .flatMap { it.methods }
             .filter { method ->
@@ -58,19 +58,21 @@ class KotlinVariantEnforcementTest {
     }
 
     @Test
-    fun `concrete public functions in @KotlinVariant classes must be synthetic`() {
+    public fun `concrete public functions in @KotlinVariant classes must be synthetic`() {
         val violations = classes
+            .asSequence()
             .filter { it.isAnnotatedWith(KotlinVariant::class.java) }
             .filter { !it.isInterface }                   // interface default method là helper, không phải API gọi trực tiếp
             .filter { !it.simpleName.endsWith("Entity") }  // entity buộc expose accessor + domain helper cho framework
             .flatMap { it.methods }
             .filter { method ->
                 !method.modifiers.contains(JavaModifier.ABSTRACT) &&
-                method.modifiers.contains(JavaModifier.PUBLIC) &&
-                !method.name.contains("$") &&
-                !method.modifiers.contains(JavaModifier.SYNTHETIC) &&
-                !isPropertyAccessor(method.name)           // property accessor là hợp đồng framework, không phải API Kotlin-only
+                        method.modifiers.contains(JavaModifier.PUBLIC) &&
+                        !method.name.contains("$") &&
+                        !method.modifiers.contains(JavaModifier.SYNTHETIC) &&
+                        !isPropertyAccessor(method.name)           // property accessor là hợp đồng framework, không phải API Kotlin-only
             }
+            .toList()
 
         assertThat(violations)
             .withFailMessage {

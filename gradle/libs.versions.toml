@@ -10,7 +10,6 @@ kotlinx-serialization-json = "1.4.1"
 kotlinx-datetime = "0.4.0"
 swagger-annotations = "2.2.41"
 jetbrains-annotations = "26.1.0"
-jspecify = "1.0.0"
 resilience4j = "2.4.0"
 querydsl = "6.2.1"
 archunit = "1.4.2"
@@ -39,7 +38,6 @@ spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-s
 swagger-annotations = { module = "io.swagger.core.v3:swagger-annotations", version.ref = "swagger-annotations" }
 slf4j-api = { module = "org.slf4j:slf4j-api" }
 jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
-jspecify = { module = "org.jspecify:jspecify", version.ref = "jspecify" }
 kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-collections-immutable" }
 
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }

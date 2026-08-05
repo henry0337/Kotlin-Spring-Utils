@@ -18,7 +18,6 @@ dependencies {
     implementation(libs.swagger.annotations)
     implementation(libs.slf4j.api)
     compileOnly(libs.jetbrains.annotations)
-    compileOnly(libs.jspecify)
 }
 
 kotlin {

@@ -12,13 +12,13 @@ public abstract interface annotation class dev/myrlennia237/annotation/spring/Ap
 
 public abstract interface annotation class dev/myrlennia237/annotation/spring/ApiMethod : java/lang/annotation/Annotation {
 	public abstract fun consumeType ()[Ljava/lang/String;
-	public abstract fun endpointDescription ()Ljava/lang/String;
-	public abstract fun endpointSummary ()Ljava/lang/String;
+	public abstract fun description ()Ljava/lang/String;
 	public abstract fun markAsDeprecated ()Z
 	public abstract fun markAsHidden ()Z
 	public abstract fun method ()[Lorg/springframework/web/bind/annotation/RequestMethod;
 	public abstract fun path ()[Ljava/lang/String;
 	public abstract fun produceType ()[Ljava/lang/String;
+	public abstract fun summary ()Ljava/lang/String;
 	public abstract fun version ()Ljava/lang/String;
 }
 

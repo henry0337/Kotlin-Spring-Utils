@@ -76,13 +76,13 @@ public annotation class ApiMethod(
      * Nên điền giá trị ít hơn 120 ký tự.
      */
     @get:AliasFor(annotation = Operation::class, attribute = "summary")
-    val endpointSummary: String = "",
+    val summary: String = "",
 
     /**
      * Mô tả chi tiết về endpoint.
      */
     @get:AliasFor(annotation = Operation::class, attribute = "description")
-    val endpointDescription: String = "",
+    val description: String = "",
 
     /**
      * Danh sách các [MediaType][org.springframework.http.MediaType] mà phương thức này **nhận vào**.
