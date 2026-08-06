@@ -6,7 +6,7 @@ import kotlin.uuid.Uuid
 /**
  * Contract vô hiệu hóa và kích hoạt lại entity theo cơ chế xóa mềm — Kotlin coroutine variant.
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @KotlinVariant
 internal interface KReversible {

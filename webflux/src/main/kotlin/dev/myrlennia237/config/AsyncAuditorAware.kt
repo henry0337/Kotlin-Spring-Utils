@@ -7,14 +7,9 @@ import reactor.core.publisher.Mono
 import java.util.UUID
 
 /**
- * Implementation mặc định của [ReactiveAuditorAware] trả về [UUID] thực của người dùng hiện tại.
- *
- * Lấy UUID từ principal thông qua interface [UserPrincipal]. Để tích hợp, implement
- * [UserPrincipal] trên `UserDetails` của ứng dụng và expose [UserPrincipal.userId].
- *
- * Trả về [Mono.empty] nếu chưa xác thực hoặc principal không implement [UserPrincipal].
- *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * Phiên bản [AuditorAware] dành cho môi trường reactive sử dụng [UUID] làm đối tượng tham chiếu tới auditor.
+ * 
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 public class AsyncAuditorAware : ReactiveAuditorAware<UUID> {
     override fun getCurrentAuditor(): Mono<UUID> =

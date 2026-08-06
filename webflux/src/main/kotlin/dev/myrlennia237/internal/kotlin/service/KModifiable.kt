@@ -6,7 +6,7 @@ import kotlin.uuid.Uuid
 /**
  * @param T Dữ liệu đầu ra, thường là Aggregate Root.
  * @param I Dữ liệu đầu vào, thường là DTO, Projection hoặc tương tự.
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @KotlinVariant
 internal fun interface KModifiable<out T, in I> {

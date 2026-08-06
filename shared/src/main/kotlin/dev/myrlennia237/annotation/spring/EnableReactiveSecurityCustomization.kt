@@ -7,7 +7,8 @@ import org.springframework.security.config.web.server.ServerHttpSecurity
 /**
  * Đánh dấu một lớp [Configuration] có thể được sử dụng để cấu hình **Spring Security WebFlux** thông qua các bean
  * [ServerHttpSecurity].
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ *
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @Configuration
 @EnableWebFluxSecurity

@@ -17,7 +17,8 @@ import org.springframework.web.client.RestClient
 
 /**
  * Một HTTP Client dùng để gọi tới các API bên thứ 3.
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
+ * @sample dev.myrlennia237.sample.FooComponent2
  */
 public open class HttpClient(private val restClient: RestClient) {
     @Autowired
@@ -39,7 +40,7 @@ public open class HttpClient(private val restClient: RestClient) {
      * @throws IllegalArgumentException nếu [errorHandler] được cung cấp nhưng [statusPredicate] là `null`.
      * @throws dev.myrlennia237.exception.HttpClientException nếu lời gọi thất bại sau khi retry, hoặc khi circuit
      *   breaker đang mở; nguyên nhân gốc (exception của Spring/Resilience4j) được giữ qua `cause`.
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
      */
     @Retry(name = "unwrapGet", fallbackMethod = "retryFallback")
@@ -74,7 +75,7 @@ public open class HttpClient(private val restClient: RestClient) {
      * Phiên bản rút gọn của [doGet] cho lệnh gọi từ **Java** không cần `params`/`headers`/xử lý lỗi tuỳ biến —
      * tránh phải truyền `null` thủ công cho từng tham số còn lại. Đi qua [self] (không gọi trực tiếp [doGet])
      * để lệnh gọi vẫn xuyên qua AOP proxy, giữ nguyên `@Retry`/`@CircuitBreaker`.
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      */
     public fun <T : Any> doGet(url: String, responseType: ParameterizedTypeReference<T>): T? =
         self.doGet(url, responseType, null, null, null, null)
@@ -82,7 +83,7 @@ public open class HttpClient(private val restClient: RestClient) {
     /**
      * Phiên bản rút gọn của [doGet] cho lệnh gọi từ **Java** kèm `params`/`headers` nhưng không cần xử lý lỗi
      * tuỳ biến. Đi qua [self] để giữ nguyên `@Retry`/`@CircuitBreaker` như [doGet] gốc.
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      */
     public fun <T : Any> doGet(
         url: String,
@@ -107,7 +108,7 @@ public open class HttpClient(private val restClient: RestClient) {
      * @throws IllegalArgumentException nếu [errorHandler] được cung cấp nhưng [statusPredicate] là `null`.
      * @throws dev.myrlennia237.exception.HttpClientException nếu lời gọi thất bại sau khi retry, hoặc khi circuit
      *   breaker đang mở; nguyên nhân gốc (exception của Spring/Resilience4j) được giữ qua `cause`.
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
      */
     @Retry(name = "unwrapPost", fallbackMethod = "retryFallback")
@@ -143,7 +144,7 @@ public open class HttpClient(private val restClient: RestClient) {
     /**
      * Phiên bản rút gọn của [doPost] cho lệnh gọi từ **Java** không cần `params`/`headers`/xử lý lỗi tuỳ biến.
      * Đi qua [self] để giữ nguyên `@Retry`/`@CircuitBreaker` như [doPost] gốc.
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      */
     public fun <T : Any, B : Any> doPost(url: String, body: B, responseType: ParameterizedTypeReference<T>): T? =
         self.doPost(url, body, responseType, null, null, null, null)
@@ -151,7 +152,7 @@ public open class HttpClient(private val restClient: RestClient) {
     /**
      * Phiên bản rút gọn của [doPost] cho lệnh gọi từ **Java** kèm `params`/`headers` nhưng không cần xử lý lỗi
      * tuỳ biến. Đi qua [self] để giữ nguyên `@Retry`/`@CircuitBreaker` như [doPost] gốc.
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      */
     public fun <T : Any, B : Any> doPost(
         url: String,
@@ -176,7 +177,7 @@ public open class HttpClient(private val restClient: RestClient) {
      * @param errorHandler   Hàm xử lý lỗi khi [statusPredicate] khớp
      * @param T              Kiểu dữ liệu của phần thân phản hồi
      * @return Dữ liệu phản hồi kiểu [T], hoặc `null` nếu phản hồi rỗng
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      */
     @KotlinVariant
     @JvmSynthetic
@@ -212,7 +213,7 @@ public open class HttpClient(private val restClient: RestClient) {
      * @param T              Kiểu dữ liệu của phần thân phản hồi
      * @param B              Kiểu dữ liệu của phần thân request
      * @return Dữ liệu phản hồi kiểu [T], hoặc `null` nếu phản hồi rỗng
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      */
     @KotlinVariant
     @JvmSynthetic

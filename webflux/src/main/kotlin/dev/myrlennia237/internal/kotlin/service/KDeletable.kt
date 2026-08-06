@@ -6,7 +6,7 @@ import kotlin.uuid.Uuid
 /**
  * Contract xóa vĩnh viễn entity khỏi cơ sở dữ liệu theo ID (Kotlin coroutine variant).
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @KotlinVariant
 internal fun interface KDeletable {

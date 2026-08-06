@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono
  * Các phương thức được cung cấp trong này sẽ chỉ nên được tương tác **đơn lẻ** với từng toán tử khác nhau khác.
  * Không khuyến khích nối các toán tử này với các toán tử gốc của thư viện.
  * @see <a href="https://projectreactor.io/">Project Reactor</a>
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 public class ReactorHelper {
     /**

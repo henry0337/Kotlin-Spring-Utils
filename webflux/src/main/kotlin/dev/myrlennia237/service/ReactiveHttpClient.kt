@@ -13,17 +13,18 @@ import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.HttpStatusCode
 import org.springframework.web.reactive.function.client.ClientResponse
 import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.util.UriComponentsBuilder
 import reactor.core.publisher.Mono
 
 /**
  * Một Reactive HTTP Client dùng để gọi tới các API bên thứ 3.
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 public open class ReactiveHttpClient(private val webClient: WebClient) {
     @Autowired
     @Lazy
     @PublishedApi
-    internal lateinit var self: ReactiveHttpClient
+    internal open lateinit var self: ReactiveHttpClient
 
     /**
      * Gửi một HTTP GET request đến [url] rồi trả về phản hồi với kiểu [T] tương ứng.
@@ -39,7 +40,7 @@ public open class ReactiveHttpClient(private val webClient: WebClient) {
      * @return [Mono] phát dữ liệu phản hồi nếu thành công, hoặc empty nếu không có nội dung. Mọi lỗi — kể cả lỗi
      *   tham số ([responseHandler] có mặt nhưng [statusPredicate] là `null`) — đều phát qua tín hiệu `onError`,
      *   không ném đồng bộ. Lỗi HTTP được bọc thành [dev.myrlennia237.exception.HttpClientException] (giữ `cause`).
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
      */
     @Retry(name = "unwrapGet", fallbackMethod = "retryFallback")
@@ -58,12 +59,13 @@ public open class ReactiveHttpClient(private val webClient: WebClient) {
             )
         }
 
+        val uri = UriComponentsBuilder.fromUriString(url)
+            .apply { params?.forEach { (k, v) -> queryParam(k, v) } }
+            .build()
+            .toUri()
+
         val request = webClient.get()
-            .uri {
-                it.path(url)
-                params?.forEach { (k, v) -> it.queryParam(k, v) }
-                it.build()
-            }
+            .uri(uri)
             .headers { headers?.forEach { (k, v) -> it.set(k, v) } }
 
         val spec = request.retrieve()
@@ -80,17 +82,17 @@ public open class ReactiveHttpClient(private val webClient: WebClient) {
      * Phiên bản rút gọn của [doGet] cho lệnh gọi từ **Java** không cần `params`/`headers`/xử lý lỗi tuỳ biến —
      * tránh phải truyền `null` thủ công cho từng tham số còn lại. Đi qua [self] (không gọi trực tiếp [doGet])
      * để lệnh gọi vẫn xuyên qua AOP proxy, giữ nguyên `@Retry`/`@CircuitBreaker`.
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      */
-    public fun <T : Any> doGet(url: String, responseType: ParameterizedTypeReference<T>): Mono<T> =
+    public open fun <T : Any> doGet(url: String, responseType: ParameterizedTypeReference<T>): Mono<T> =
         self.doGet(url, responseType, null, null, null, null)
 
     /**
      * Phiên bản rút gọn của [doGet] cho lệnh gọi từ **Java** kèm `params`/`headers` nhưng không cần xử lý lỗi
      * tuỳ biến. Đi qua [self] để giữ nguyên `@Retry`/`@CircuitBreaker` như [doGet] gốc.
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      */
-    public fun <T : Any> doGet(
+    public open fun <T : Any> doGet(
         url: String,
         responseType: ParameterizedTypeReference<T>,
         params: Map<String, Array<Any>>?,
@@ -113,7 +115,7 @@ public open class ReactiveHttpClient(private val webClient: WebClient) {
      * @return [Mono] phát dữ liệu phản hồi nếu thành công, hoặc empty nếu không có nội dung. Mọi lỗi — kể cả lỗi
      *   tham số ([responseHandler] có mặt nhưng [statusPredicate] là `null`) — đều phát qua tín hiệu `onError`,
      *   không ném đồng bộ. Lỗi HTTP được bọc thành [dev.myrlennia237.exception.HttpClientException] (giữ `cause`).
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      * @see <a href="https://resilience4j.readme.io/docs/getting-started">Resilience4j</a>
      */
     @Retry(name = "unwrapPost", fallbackMethod = "retryFallback")
@@ -133,12 +135,13 @@ public open class ReactiveHttpClient(private val webClient: WebClient) {
             )
         }
 
+        val uri = UriComponentsBuilder.fromUriString(url)
+            .apply { params?.forEach { (k, v) -> queryParam(k, v) } }
+            .build()
+            .toUri()
+
         val request = webClient.post()
-            .uri {
-                it.path(url)
-                params?.forEach { (k, v) -> it.queryParam(k, v) }
-                it.build()
-            }
+            .uri(uri)
             .headers { headers?.forEach { (k, v) -> it.set(k, v) } }
             .bodyValue(body)
 
@@ -154,17 +157,17 @@ public open class ReactiveHttpClient(private val webClient: WebClient) {
     /**
      * Phiên bản rút gọn của [doPost] cho lệnh gọi từ **Java** không cần `params`/`headers`/xử lý lỗi tuỳ biến.
      * Đi qua [self] để giữ nguyên `@Retry`/`@CircuitBreaker` như [doPost] gốc.
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      */
-    public fun <T : Any, B : Any> doPost(url: String, body: B, responseType: ParameterizedTypeReference<T>): Mono<T> =
+    public open fun <T : Any, B : Any> doPost(url: String, body: B, responseType: ParameterizedTypeReference<T>): Mono<T> =
         self.doPost(url, body, responseType, null, null, null, null)
 
     /**
      * Phiên bản rút gọn của [doPost] cho lệnh gọi từ **Java** kèm `params`/`headers` nhưng không cần xử lý lỗi
      * tuỳ biến. Đi qua [self] để giữ nguyên `@Retry`/`@CircuitBreaker` như [doPost] gốc.
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      */
-    public fun <T : Any, B : Any> doPost(
+    public open fun <T : Any, B : Any> doPost(
         url: String,
         body: B,
         responseType: ParameterizedTypeReference<T>,
@@ -183,7 +186,7 @@ public open class ReactiveHttpClient(private val webClient: WebClient) {
      * @param responseHandler Hàm xử lý khi [statusPredicate] khớp
      * @param T Kiểu dữ liệu của phần thân phản hồi
      * @return Dữ liệu phản hồi mong muốn nếu thành công, hoặc `null` nếu thất bại.
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      */
     @KotlinVariant
     @JvmSynthetic
@@ -215,7 +218,7 @@ public open class ReactiveHttpClient(private val webClient: WebClient) {
      * @param T Kiểu phản hồi mong đợi
      * @param B Kiểu dữ liệu đầu vào của request body
      * @return Dữ liệu phản hồi mong muốn nếu thành công, hoặc `null` nếu thất bại.
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      */
     @KotlinVariant
     @JvmSynthetic

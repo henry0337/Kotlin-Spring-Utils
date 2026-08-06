@@ -13,7 +13,7 @@ import kotlin.time.Duration
 import kotlin.time.toJavaDuration
 
 /**
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 public class ReactiveRedisService(redisTemplate: ReactiveStringRedisTemplate) {
     private val redisOps: ReactiveValueOperations<String, String> = redisTemplate.opsForValue()
@@ -22,9 +22,8 @@ public class ReactiveRedisService(redisTemplate: ReactiveStringRedisTemplate) {
      * Lấy ra giá trị được lưu trong [key].
      *
      * @param key Khóa được lưu trong Redis
-     * @return [Mono] phát ra giá trị được lưu trong [key] được chỉ định.
+     * @return [Mono] phát ra giá trị được lưu trong [key] được chỉ định, hoặc [Mono.empty] nếu như không tìm thấy.
      * @see ReactiveValueOperations.get
-     * @see <a href="https://redis.io/docs/latest/commands/get/">Lệnh Redis: GET</a>
      */
     public fun get(key: String): Mono<String> = redisOps.get(key)
 
@@ -38,7 +37,6 @@ public class ReactiveRedisService(redisTemplate: ReactiveStringRedisTemplate) {
      * @param duration Thời gian tồn tại của cặp khóa-giá trị này, mặc định là vô thời hạn ([Duration.INFINITE])
      * @return [Mono] phát ra giá trị `true` nếu ghi thành công, `false` nếu giá trị [duration] không hợp lệ hoặc lỗi khác.
      * @see ReactiveValueOperations.set
-     * @see <a href="https://redis.io/docs/latest/commands/set/">Lệnh Redis: SET</a>
      */
     @JvmOverloads
     public fun set(
@@ -59,7 +57,6 @@ public class ReactiveRedisService(redisTemplate: ReactiveStringRedisTemplate) {
      * @param key Khóa sẽ bị xóa khỏi Redis
      * @return [Mono] phát ra giá trị `true`/`false` tương ứng biểu thị hành động xóa **thành công/thất bại**.
      * @see ReactiveValueOperations.delete
-     * @see <a href="https://redis.io/docs/latest/commands/del/">Lệnh Redis: DEL</a>
      */
     public fun delete(key: String): Mono<Boolean> = redisOps.delete(key)
 
@@ -73,7 +70,6 @@ public class ReactiveRedisService(redisTemplate: ReactiveStringRedisTemplate) {
      * @param duration  Thời lượng vô hiệu sẽ diễn ra, mặc định là vô thời hạn ([Duration.INFINITE])
      * @return [Mono] phát ra giá trị được lưu trong [key] chỉ định.
      * @see ReactiveValueOperations.getAndExpire
-     * @see <a href="https://redis.io/docs/latest/commands/getex/">Lệnh Redis: GETEX</a>
      */
     @JvmOverloads
     public fun expire(

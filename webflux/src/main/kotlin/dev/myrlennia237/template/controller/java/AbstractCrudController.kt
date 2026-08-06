@@ -1,7 +1,7 @@
 package dev.myrlennia237.template.controller.java
 
 import dev.myrlennia237.component.dto.PagedResponse
-import dev.myrlennia237.template.controller.ReactiveRestController
+import dev.myrlennia237.template.controller.ReactiveController
 import dev.myrlennia237.helper.ResponseHelper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
@@ -16,9 +16,9 @@ import java.util.UUID
  * @param T  **Entity** hoặc **Output DTO** mong muốn
  * @param I1 **Input DTO** dùng để tạo mới bản ghi
  * @param I2 **Input DTO** dùng để cập nhật dữ liệu bản ghi
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
-public abstract class AbstractCrudController<T : Any, in I1, in I2> : ReactiveRestController() {
+public abstract class AbstractCrudController<T : Any, in I1, in I2> : ReactiveController() {
 
     @set:Autowired
     protected lateinit var responseHelper: ResponseHelper

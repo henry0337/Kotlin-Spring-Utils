@@ -22,12 +22,7 @@ import kotlin.uuid.Uuid
  *
  * **Ghi chú**: Phiên bản này chỉ hỗ trợ API tiêu chuẩn của Kotlin, không dành cho các đối tượng gọi tới là Java.
  *
- * Hỗ trợ:
- * - Xóa mềm (thông qua [KRestorable])
- * - Auditing (thông qua [KAuditable])
- * - Bảo vệ tính toàn vẹn của dữ liệu (thông qua [KConflictable])
- *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @Serializable
 @KotlinVariant
@@ -35,17 +30,17 @@ public abstract class KEntity protected constructor(
     @Id
     public var id: Uuid? = null,
 
-    @CreatedBy @InsertOnlyProperty
-    public override var createdBy: Uuid? = null,
-
     @CreatedDate @InsertOnlyProperty
     public override var createdDate: Instant = Clock.System.now(),
 
-    @LastModifiedBy
-    public override var lastModifiedBy: Uuid? = null,
+    @CreatedBy @InsertOnlyProperty
+    public override var createdBy: Uuid? = null,
 
     @LastModifiedDate
     public override var lastModifiedDate: Instant? = null,
+
+    @LastModifiedBy
+    public override var lastModifiedBy: Uuid? = null,
 
     public override var disabled: Boolean = false,
 

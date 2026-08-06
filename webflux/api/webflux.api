@@ -32,7 +32,6 @@ public final class dev/myrlennia237/config/WebClientProperties {
 	public final fun getAcceptEncodings ()Ljava/util/List;
 	public final fun getAcceptLanguages ()Ljava/util/List;
 	public final fun getDefaultContentType ()Ljava/lang/String;
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class dev/myrlennia237/dto/KPagedResponse {
@@ -87,19 +86,38 @@ public final class dev/myrlennia237/helper/ResponseHelper {
 	public final fun okOrNotFound (Lreactor/core/publisher/Mono;)Lreactor/core/publisher/Mono;
 }
 
+public abstract interface class dev/myrlennia237/query/Specification {
+	public static final field Companion Ldev/myrlennia237/query/Specification$Companion;
+	public fun and (Ldev/myrlennia237/query/Specification;)Ldev/myrlennia237/query/Specification;
+	public fun or (Ldev/myrlennia237/query/Specification;)Ldev/myrlennia237/query/Specification;
+	public abstract fun toCriteria ()Lorg/springframework/data/relational/core/query/Criteria;
+	public static fun unrestricted ()Ldev/myrlennia237/query/Specification;
+	public static fun where (Ldev/myrlennia237/query/Specification;)Ldev/myrlennia237/query/Specification;
+}
+
+public final class dev/myrlennia237/query/Specification$Companion {
+	public final fun unrestricted ()Ldev/myrlennia237/query/Specification;
+	public final fun where (Ldev/myrlennia237/query/Specification;)Ldev/myrlennia237/query/Specification;
+}
+
+public final class dev/myrlennia237/query/Specification$DefaultImpls {
+	public static fun and (Ldev/myrlennia237/query/Specification;Ldev/myrlennia237/query/Specification;)Ldev/myrlennia237/query/Specification;
+	public static fun or (Ldev/myrlennia237/query/Specification;Ldev/myrlennia237/query/Specification;)Ldev/myrlennia237/query/Specification;
+}
+
 public class dev/myrlennia237/service/ReactiveHttpClient {
 	public field self Ldev/myrlennia237/service/ReactiveHttpClient;
 	public fun <init> (Lorg/springframework/web/reactive/function/client/WebClient;)V
-	public final fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;)Lreactor/core/publisher/Mono;
-	public final fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;)Lreactor/core/publisher/Mono;
+	public fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;)Lreactor/core/publisher/Mono;
+	public fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;)Lreactor/core/publisher/Mono;
 	public fun doGet (Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lreactor/core/publisher/Mono;
 	public static synthetic fun doGet$default (Ldev/myrlennia237/service/ReactiveHttpClient;Ljava/lang/String;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lreactor/core/publisher/Mono;
-	public final fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;)Lreactor/core/publisher/Mono;
-	public final fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;)Lreactor/core/publisher/Mono;
+	public fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;)Lreactor/core/publisher/Mono;
+	public fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;)Lreactor/core/publisher/Mono;
 	public fun doPost (Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lreactor/core/publisher/Mono;
 	public static synthetic fun doPost$default (Ldev/myrlennia237/service/ReactiveHttpClient;Ljava/lang/String;Ljava/lang/Object;Lorg/springframework/core/ParameterizedTypeReference;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lreactor/core/publisher/Mono;
-	public final fun getSelf ()Ldev/myrlennia237/service/ReactiveHttpClient;
-	public final fun setSelf (Ldev/myrlennia237/service/ReactiveHttpClient;)V
+	public fun getSelf ()Ldev/myrlennia237/service/ReactiveHttpClient;
+	public fun setSelf (Ldev/myrlennia237/service/ReactiveHttpClient;)V
 }
 
 public final class dev/myrlennia237/service/ReactiveRedisService {
@@ -120,14 +138,14 @@ public final class dev/myrlennia237/service/ReactiveRedisService {
 	public static synthetic fun setAndAwait$default (Ldev/myrlennia237/service/ReactiveRedisService;Ljava/lang/String;Ljava/lang/String;Ljava/time/Duration;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
-public abstract class dev/myrlennia237/template/controller/ReactiveRestController {
+public abstract class dev/myrlennia237/template/controller/ReactiveController {
 	protected field i18nService Ldev/myrlennia237/component/service/I18nService;
 	public fun <init> ()V
 	protected final fun getI18nService ()Ldev/myrlennia237/component/service/I18nService;
 	protected final fun setI18nService (Ldev/myrlennia237/component/service/I18nService;)V
 }
 
-public abstract class dev/myrlennia237/template/controller/java/AbstractCrudController : dev/myrlennia237/template/controller/ReactiveRestController {
+public abstract class dev/myrlennia237/template/controller/java/AbstractCrudController : dev/myrlennia237/template/controller/ReactiveController {
 	protected field responseHelper Ldev/myrlennia237/helper/ResponseHelper;
 	public fun <init> ()V
 	public abstract fun create (Ljava/lang/Object;)Lreactor/core/publisher/Mono;
@@ -141,7 +159,7 @@ public abstract class dev/myrlennia237/template/controller/java/AbstractCrudCont
 	public abstract fun update (Ljava/util/UUID;Ljava/lang/Object;)Lreactor/core/publisher/Mono;
 }
 
-public abstract class dev/myrlennia237/template/controller/kotlin/CoroutineRestController : dev/myrlennia237/template/controller/ReactiveRestController {
+public abstract class dev/myrlennia237/template/controller/kotlin/CoroutineRestController : dev/myrlennia237/template/controller/ReactiveController {
 	public fun <init> ()V
 	public abstract fun create (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun delete (Lkotlin/uuid/Uuid;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -155,45 +173,45 @@ public abstract class dev/myrlennia237/template/controller/kotlin/CoroutineRestC
 public abstract class dev/myrlennia237/template/entity/Entity : dev/myrlennia237/internal/java/entity/Auditable, dev/myrlennia237/internal/java/entity/Conflictable, dev/myrlennia237/internal/java/entity/Restorable, java/io/Serializable {
 	public static final field Companion Ldev/myrlennia237/template/entity/Entity$Companion;
 	protected fun <init> ()V
-	protected fun <init> (Ljava/util/UUID;Ljava/util/UUID;Ljava/time/Instant;Ljava/util/UUID;Ljava/time/Instant;ZLjava/time/Instant;Ljava/util/UUID;J)V
-	public synthetic fun <init> (Ljava/util/UUID;Ljava/util/UUID;Ljava/time/Instant;Ljava/util/UUID;Ljava/time/Instant;ZLjava/time/Instant;Ljava/util/UUID;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	protected fun <init> (Ljava/util/UUID;Ljava/time/Instant;Ljava/util/UUID;Ljava/time/Instant;Ljava/util/UUID;ZLjava/time/Instant;Ljava/util/UUID;J)V
+	public synthetic fun <init> (Ljava/util/UUID;Ljava/time/Instant;Ljava/util/UUID;Ljava/time/Instant;Ljava/util/UUID;ZLjava/time/Instant;Ljava/util/UUID;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final synthetic fun getCreatedAt ()Ljava/time/Instant;
 	public fun getCreatedAuditor ()Ljava/util/UUID;
-	public final fun getCreatedBy ()Ljava/util/UUID;
-	public fun getCreatedDate ()Ljava/time/Instant;
-	public final fun getCreatedDateValue ()Ljava/time/Instant;
-	public final fun getDisabled ()Z
+	public final synthetic fun getCreatedBy ()Ljava/util/UUID;
+	public fun getCreatedTimestamp ()Ljava/time/Instant;
 	public fun getDisabledBy ()Ljava/util/UUID;
 	public fun getDisabledState ()Z
 	public fun getDisabledTimestamp ()Ljava/time/Instant;
-	public final fun getEntityVersion ()J
+	public final synthetic fun getEnabled ()Z
 	public final fun getId ()Ljava/util/UUID;
-	public final fun getLastDisabledAt ()Ljava/time/Instant;
-	public final fun getLastDisabledBy ()Ljava/util/UUID;
+	public final synthetic fun getLastDisabledAt ()Ljava/time/Instant;
+	public final synthetic fun getLastDisabledBy ()Ljava/util/UUID;
+	public final synthetic fun getLastModifiedAt ()Ljava/time/Instant;
 	public fun getLastModifiedAuditor ()Ljava/util/UUID;
-	public final fun getLastModifiedBy ()Ljava/util/UUID;
-	public fun getLastModifiedDate ()Ljava/time/Instant;
-	public final fun getLastModifiedDateValue ()Ljava/time/Instant;
+	public final synthetic fun getLastModifiedBy ()Ljava/util/UUID;
+	public fun getLastModifiedTimestamp ()Ljava/time/Instant;
+	public final synthetic fun getRecordVersion ()J
 	public fun getVersion ()J
 	public fun increaseVersion ()V
 	public fun isDisabled ()Z
 	public fun markAsDisabled (Ljava/util/UUID;Ljava/time/Instant;)V
 	public fun restore ()V
+	public final synthetic fun setCreatedAt (Ljava/time/Instant;)V
 	public fun setCreatedAuditor (Ljava/util/UUID;)V
-	public final fun setCreatedBy (Ljava/util/UUID;)V
-	public fun setCreatedDate (Ljava/time/Instant;)V
-	public final fun setCreatedDateValue (Ljava/time/Instant;)V
-	public final fun setDisabled (Z)V
+	public final synthetic fun setCreatedBy (Ljava/util/UUID;)V
+	public fun setCreatedTimestamp (Ljava/time/Instant;)V
 	public fun setDisabledBy (Ljava/util/UUID;)V
 	public fun setDisabledState (Z)V
 	public fun setDisabledTimestamp (Ljava/time/Instant;)V
-	public final fun setEntityVersion (J)V
+	public final synthetic fun setEnabled (Z)V
 	public final fun setId (Ljava/util/UUID;)V
-	public final fun setLastDisabledAt (Ljava/time/Instant;)V
-	public final fun setLastDisabledBy (Ljava/util/UUID;)V
+	public final synthetic fun setLastDisabledAt (Ljava/time/Instant;)V
+	public final synthetic fun setLastDisabledBy (Ljava/util/UUID;)V
+	public final synthetic fun setLastModifiedAt (Ljava/time/Instant;)V
 	public fun setLastModifiedAuditor (Ljava/util/UUID;)V
-	public final fun setLastModifiedBy (Ljava/util/UUID;)V
-	public fun setLastModifiedDate (Ljava/time/Instant;)V
-	public final fun setLastModifiedDateValue (Ljava/time/Instant;)V
+	public final synthetic fun setLastModifiedBy (Ljava/util/UUID;)V
+	public fun setLastModifiedTimestamp (Ljava/time/Instant;)V
+	public final synthetic fun setRecordVersion (J)V
 	public fun setVersion (J)V
 	public fun toString ()Ljava/lang/String;
 }
@@ -204,9 +222,9 @@ public final class dev/myrlennia237/template/entity/Entity$Companion {
 public abstract class dev/myrlennia237/template/entity/KEntity : dev/myrlennia237/internal/kotlin/entity/KAuditable, dev/myrlennia237/internal/kotlin/entity/KConflictable, dev/myrlennia237/internal/kotlin/entity/KRestorable {
 	public static final field Companion Ldev/myrlennia237/template/entity/KEntity$Companion;
 	protected fun <init> ()V
-	public synthetic fun <init> (ILkotlin/uuid/Uuid;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;ZLkotlin/time/Instant;Lkotlin/uuid/Uuid;JLkotlinx/serialization/internal/SerializationConstructorMarker;)V
-	protected fun <init> (Lkotlin/uuid/Uuid;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;ZLkotlin/time/Instant;Lkotlin/uuid/Uuid;J)V
-	public synthetic fun <init> (Lkotlin/uuid/Uuid;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;ZLkotlin/time/Instant;Lkotlin/uuid/Uuid;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ILkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;ZLkotlin/time/Instant;Lkotlin/uuid/Uuid;JLkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	protected fun <init> (Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;ZLkotlin/time/Instant;Lkotlin/uuid/Uuid;J)V
+	public synthetic fun <init> (Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;Lkotlin/time/Instant;Lkotlin/uuid/Uuid;ZLkotlin/time/Instant;Lkotlin/uuid/Uuid;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun getCreatedBy ()Lkotlin/uuid/Uuid;
 	public fun getCreatedDate ()Lkotlin/time/Instant;
 	public fun getDisabled ()Z
@@ -241,18 +259,18 @@ public abstract interface class dev/myrlennia237/template/repository/CoroutineRe
 	public abstract fun findAllBy (Lorg/springframework/data/domain/Pageable;)Lkotlinx/coroutines/flow/Flow;
 }
 
-public abstract interface class dev/myrlennia237/template/repository/ModifiedR2dbcRepository : org/springframework/data/querydsl/ReactiveQuerydslPredicateExecutor, org/springframework/data/repository/reactive/ReactiveCrudRepository, org/springframework/data/repository/reactive/ReactiveSortingRepository {
+public abstract interface class dev/myrlennia237/template/repository/ExtendedR2dbcRepository : org/springframework/data/r2dbc/repository/R2dbcRepository {
 	public abstract fun findAllBy (Lorg/springframework/data/domain/Pageable;)Lreactor/core/publisher/Flux;
 }
 
-public abstract class dev/myrlennia237/template/service/BaseReactiveService {
+public abstract class dev/myrlennia237/template/service/ReactiveService {
 	protected field i18nService Ldev/myrlennia237/component/service/I18nService;
 	public fun <init> ()V
 	protected final fun getI18nService ()Ldev/myrlennia237/component/service/I18nService;
 	protected final fun setI18nService (Ldev/myrlennia237/component/service/I18nService;)V
 }
 
-public abstract class dev/myrlennia237/template/service/java/AbstractCrudService : dev/myrlennia237/template/service/BaseReactiveService, dev/myrlennia237/internal/java/service/Deletable, dev/myrlennia237/internal/java/service/Insertable, dev/myrlennia237/internal/java/service/Modifiable, dev/myrlennia237/internal/java/service/ReadableWithID, dev/myrlennia237/internal/java/service/Reversible {
+public abstract class dev/myrlennia237/template/service/java/AbstractCrudService : dev/myrlennia237/template/service/ReactiveService, dev/myrlennia237/internal/java/service/Deletable, dev/myrlennia237/internal/java/service/Insertable, dev/myrlennia237/internal/java/service/Modifiable, dev/myrlennia237/internal/java/service/ReadableWithID, dev/myrlennia237/internal/java/service/Reversible {
 	protected field auditorAware Ldev/myrlennia237/config/AsyncAuditorAware;
 	protected field reactorHelper Ldev/myrlennia237/helper/ReactorHelper;
 	public fun <init> ()V
@@ -262,7 +280,7 @@ public abstract class dev/myrlennia237/template/service/java/AbstractCrudService
 	protected final fun setReactorHelper (Ldev/myrlennia237/helper/ReactorHelper;)V
 }
 
-public abstract class dev/myrlennia237/template/service/kotlin/CoroutineCrudService : dev/myrlennia237/template/service/BaseReactiveService, dev/myrlennia237/internal/kotlin/service/KDeletable, dev/myrlennia237/internal/kotlin/service/KInsertable, dev/myrlennia237/internal/kotlin/service/KModifiable, dev/myrlennia237/internal/kotlin/service/KReadableWithID, dev/myrlennia237/internal/kotlin/service/KReversible {
+public abstract class dev/myrlennia237/template/service/kotlin/CoroutineCrudService : dev/myrlennia237/template/service/ReactiveService, dev/myrlennia237/internal/kotlin/service/KDeletable, dev/myrlennia237/internal/kotlin/service/KInsertable, dev/myrlennia237/internal/kotlin/service/KModifiable, dev/myrlennia237/internal/kotlin/service/KReadableWithID, dev/myrlennia237/internal/kotlin/service/KReversible {
 	protected field auditorAware Ldev/myrlennia237/config/KAsyncAuditorAware;
 	public fun <init> ()V
 	protected final fun getAuditorAware ()Ldev/myrlennia237/config/KAsyncAuditorAware;

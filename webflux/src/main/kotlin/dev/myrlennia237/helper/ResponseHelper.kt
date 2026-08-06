@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity
 import reactor.core.publisher.Mono
 
 /**
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 public class ResponseHelper {
     /**

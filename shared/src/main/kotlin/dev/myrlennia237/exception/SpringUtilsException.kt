@@ -9,7 +9,7 @@ package dev.myrlennia237.exception
  *
  * @param message Mô tả lỗi
  * @param cause   Nguyên nhân gốc (exception của dependency), hoặc `null`
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 public open class SpringUtilsException(
     message: String? = null,

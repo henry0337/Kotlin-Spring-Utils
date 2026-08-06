@@ -8,7 +8,7 @@ import kotlin.uuid.Uuid
 /**
  * Đánh dấu một Entity sẽ áp dụng cơ chế xóa mềm lên data của chúng thay vì xóa hoàn toàn, đồng thời áp dụng cơ chế
  * khôi phục tương ứng cho mỗi dữ liệu đó.
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @KotlinVariant
 internal interface KRestorable {

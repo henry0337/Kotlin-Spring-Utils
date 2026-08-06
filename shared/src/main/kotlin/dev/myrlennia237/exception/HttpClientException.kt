@@ -10,7 +10,7 @@ package dev.myrlennia237.exception
  *
  * @param message Mô tả lỗi
  * @param cause   Nguyên nhân gốc (exception của Spring/Resilience4j), hoặc `null`
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 public class HttpClientException(
     message: String? = null,

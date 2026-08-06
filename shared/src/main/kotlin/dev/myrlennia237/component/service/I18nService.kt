@@ -7,7 +7,7 @@ import org.springframework.context.i18n.LocaleContextHolder
 import java.util.Locale
 
 /**
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  * @see org.springframework.context.MessageSource
  * @see org.springframework.context.i18n.LocaleContextHolder
  */
@@ -23,7 +23,7 @@ public class I18nService(private val messageSource: MessageSource) {
      * @param args Tham số thay thế cho các placeholder trong message, nếu có
      * @param locale Locale dùng để resolve message
      * @return Message đã dịch, hoặc chuỗi rỗng nếu không tìm thấy [code].
-     * @author <a href="https://github.com/henry0337">Muharux</a>
+     * @author <a href="https://github.com/henry0337">Myrlennia</a>
      */
     @JvmOverloads
     public fun translate(

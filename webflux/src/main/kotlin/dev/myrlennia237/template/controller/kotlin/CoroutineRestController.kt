@@ -2,7 +2,7 @@ package dev.myrlennia237.template.controller.kotlin
 
 import dev.myrlennia237.annotation.KotlinVariant
 import dev.myrlennia237.dto.KPagedResponse
-import dev.myrlennia237.template.controller.ReactiveRestController
+import dev.myrlennia237.template.controller.ReactiveController
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.RestController
 import kotlin.uuid.Uuid
@@ -13,10 +13,10 @@ import kotlin.uuid.Uuid
  * @param T  **Entity** hoặc **Output DTO** mong muốn
  * @param I1 **Input DTO** dùng để tạo mới bản ghi
  * @param I2 **Input DTO** dùng để cập nhật dữ liệu bản ghi
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @KotlinVariant
-public abstract class CoroutineRestController<T : Any, in I1, in I2> : ReactiveRestController() {
+public abstract class CoroutineRestController<T : Any, in I1, in I2> : ReactiveController() {
 
     /**
      * Lấy toàn bộ bản ghi dưới dạng phân trang.

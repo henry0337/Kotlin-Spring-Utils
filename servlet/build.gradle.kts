@@ -24,7 +24,6 @@ dependencies {
     testImplementation(libs.archunit)
     kapt(variantOf(libs.querydsl.apt) { classifier("jpa") })
     kapt(libs.jakarta.persistence.api)
-    compileOnly(libs.jspecify)
 }
 
 kotlin {

@@ -5,7 +5,7 @@ import java.util.UUID
 /**
  * Contract xóa vĩnh viễn entity khỏi cơ sở dữ liệu theo ID (Spring MVC / blocking variant).
  *
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 internal fun interface Deletable {
     /**

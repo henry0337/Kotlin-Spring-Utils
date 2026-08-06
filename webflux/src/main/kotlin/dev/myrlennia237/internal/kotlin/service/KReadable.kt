@@ -7,7 +7,7 @@ import kotlin.uuid.Uuid
 
 /**
  * @param T Dữ liệu đầu ra, thường là Aggregate Root.
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @KotlinVariant
 internal fun interface KReadable<T : Any> {
@@ -20,7 +20,7 @@ internal fun interface KReadable<T : Any> {
 
 /**
  * @param T Dữ liệu đầu ra, thường là Aggregate Root.
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 @KotlinVariant
 internal interface KReadableWithID<T : Any> : KReadable<T> {

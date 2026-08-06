@@ -8,7 +8,7 @@ package dev.myrlennia237.contract
  * là mutable object — để tránh chia sẻ tham chiếu ngoài ý muốn.
  *
  * @param T Kiểu của đối tượng được sao chép — thường là chính lớp triển khai mô hình này.
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  */
 public fun interface Cloneable<T> {
     /**

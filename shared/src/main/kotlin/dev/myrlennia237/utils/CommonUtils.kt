@@ -1,10 +1,10 @@
 package dev.myrlennia237.utils
 
-import dev.myrlennia237.component.ImmutableList
+import dev.myrlennia237.exception.ImplementationNeededException
 import org.springframework.util.Assert
 
 /**
- * @author <a href="https://github.com/henry0337">Muharux</a>
+ * @author <a href="https://github.com/henry0337">Myrlennia</a>
  * @author <a href="https://github.com/AdorableDandelion25">Himekawa</a>
  */
 public object CommonUtils {
@@ -14,7 +14,7 @@ public object CommonUtils {
      * [IllegalArgumentException] sẽ được ném ra nếu như đối tượng được truyền vào có giá trị `null`.
      *
      * @param instance  Đối tượng cần kiểm tra
-     * @param T         Kiểu dữ liệu của đối tượng cần kiểm tra
+     * @param message   Message báo lỗi nếu như `instance` null
      * @return Chính instance đó nếu nó không `null`.
      * @throws IllegalArgumentException nếu [instance] là `null`.
      */
@@ -37,4 +37,18 @@ public object CommonUtils {
     @JvmStatic  
     public fun <T> requireNonNullOrDefault(instance: T?, defaultValue: T): T =
         instance ?: defaultValue
+        
+    
+    /**
+     * Luôn ném ra [ImplementationNeededException] để nhắc nhở lập trình viên rằng phương thức cần được triển khai.
+     * 
+     * @param message Message chi tiết cho exception trên
+     * @throws ImplementationNeededException vì phương thức chưa được triển khai.
+     */
+    @JvmStatic
+    @JvmOverloads
+    @IgnorableReturnValue
+    public fun <T> TODO(message: String = ""): T {
+        throw ImplementationNeededException(message)
+    }
 }
