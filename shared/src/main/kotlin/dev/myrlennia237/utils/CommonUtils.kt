@@ -45,8 +45,10 @@ public object CommonUtils {
      * @param message Message chi tiết cho exception trên
      * @throws ImplementationNeededException vì phương thức chưa được triển khai.
      */
+    @JvmStatic
+    @JvmOverloads
     @IgnorableReturnValue
-    public fun <T> TODO(message: String): T {
+    public fun <T> TODO(message: String = ""): T {
         throw ImplementationNeededException(message)
     }
 }

@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController
 @Tag(name = "")
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
-@MustBeDocumented
 public annotation class ApiController(
     /**
      * URI path đại diện cho module/chức năng đó.
@@ -53,7 +52,6 @@ public annotation class ApiController(
 @RequestMapping
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
-@MustBeDocumented
 public annotation class ApiMethod(
     /**
      * Phương thức HTTP mà endpoint đại diện sẽ xử lý.
@@ -227,7 +225,6 @@ public annotation class ApiRequestBody(
 @Schema
 @Target(AnnotationTarget.CLASS, AnnotationTarget.PROPERTY)
 @Retention(AnnotationRetention.RUNTIME)
-@MustBeDocumented
 public annotation class ApiSchema(
     /**
      * Tên hiển thị của lớp/thuộc tính trên đặc tả OpenAPI.

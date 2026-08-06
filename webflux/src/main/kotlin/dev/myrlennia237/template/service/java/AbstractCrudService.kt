@@ -9,6 +9,7 @@ import dev.myrlennia237.internal.java.service.Reversible
 import dev.myrlennia237.template.service.ReactiveService
 import dev.myrlennia237.helper.ReactorHelper
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.context.properties.PropertyMapper
 import org.springframework.stereotype.Service
 
 /**

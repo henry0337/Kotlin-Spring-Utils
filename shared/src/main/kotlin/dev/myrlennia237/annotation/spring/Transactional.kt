@@ -6,9 +6,10 @@ import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 
 /**
- * Đánh dấu một phương thức thuộc về một [transaction][Transactional] chỉ tối ưu cho việc ghi (thêm mới/cập nhật/xóa) dữ liệu.
+ * Đánh dấu một phương thức thuộc về một **transaction** chỉ tối ưu cho việc **ghi (thêm mới/cập nhật/xóa)** dữ liệu.
  * 
- * Đây là phiên bản tối giản cho annotation [Transactional] sẵn có của **Spring Boot**.
+ * Đây là phiên bản tối giản cho annotation [Transactional][org.springframework.transaction.annotation.Transactional]
+ * sẵn có của **Spring Framework**.
  * 
  * @author <a href="https://github.com/AdorableDandelion25">Himekawa</a>
  */
@@ -16,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
-public annotation class EffectiveTransactional(
+public annotation class Transactional(
     @get:AliasFor(annotation = Transactional::class, attribute = "label")
     val name: String = "",
     
