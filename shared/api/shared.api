@@ -54,19 +54,19 @@ public abstract interface annotation class dev/myrlennia237/annotation/spring/Ap
 	public abstract fun title ()Ljava/lang/String;
 }
 
-public abstract interface annotation class dev/myrlennia237/annotation/spring/EffectiveReadOnlyTransactional : java/lang/annotation/Annotation {
-	public abstract fun name ()Ljava/lang/String;
-	public abstract fun propagation ()Lorg/springframework/transaction/annotation/Propagation;
-	public abstract fun timeout ()I
-}
-
-public abstract interface annotation class dev/myrlennia237/annotation/spring/EffectiveTransactional : java/lang/annotation/Annotation {
-	public abstract fun name ()Ljava/lang/String;
-	public abstract fun propagation ()Lorg/springframework/transaction/annotation/Propagation;
-	public abstract fun timeout ()I
-}
-
 public abstract interface annotation class dev/myrlennia237/annotation/spring/EnableReactiveSecurityCustomization : java/lang/annotation/Annotation {
+}
+
+public abstract interface annotation class dev/myrlennia237/annotation/spring/ReadOnlyTransactional : java/lang/annotation/Annotation {
+	public abstract fun name ()Ljava/lang/String;
+	public abstract fun propagation ()Lorg/springframework/transaction/annotation/Propagation;
+	public abstract fun timeout ()I
+}
+
+public abstract interface annotation class dev/myrlennia237/annotation/spring/Transactional : java/lang/annotation/Annotation {
+	public abstract fun name ()Ljava/lang/String;
+	public abstract fun propagation ()Lorg/springframework/transaction/annotation/Propagation;
+	public abstract fun timeout ()I
 }
 
 public final class dev/myrlennia237/component/ImmutableList : java/util/AbstractList {
@@ -224,7 +224,9 @@ public final class dev/myrlennia237/utils/CollectionUtils {
 
 public final class dev/myrlennia237/utils/CommonUtils {
 	public static final field INSTANCE Ldev/myrlennia237/utils/CommonUtils;
-	public final fun TODO (Ljava/lang/String;)Ljava/lang/Object;
+	public static final fun TODO ()Ljava/lang/Object;
+	public static final fun TODO (Ljava/lang/String;)Ljava/lang/Object;
+	public static synthetic fun TODO$default (Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/Object;
 	public static final fun requireNonNull (Ljava/lang/Object;)V
 	public static final fun requireNonNull (Ljava/lang/Object;Ljava/lang/String;)V
 	public static synthetic fun requireNonNull$default (Ljava/lang/Object;Ljava/lang/String;ILjava/lang/Object;)V
