@@ -69,11 +69,13 @@ public final class dev/myrlennia237/extension/ReactorKt {
 
 public final class dev/myrlennia237/helper/ReactorHelper {
 	public fun <init> ()V
+	public final fun deferError (Ljava/lang/Exception;)Lreactor/core/publisher/Mono;
 	public final fun discardReturnValue (Lreactor/core/publisher/Mono;)Lreactor/core/publisher/Mono;
+	public final fun emit (Ljava/lang/Object;)Lreactor/core/publisher/Mono;
+	public final fun emitThisOrEmpty (Ljava/lang/Object;)Lreactor/core/publisher/Mono;
 	public final fun emptyFlux ()Lreactor/core/publisher/Flux;
 	public final fun emptyMono ()Lreactor/core/publisher/Mono;
-	public final fun only (Ljava/lang/Object;)Lreactor/core/publisher/Mono;
-	public final fun onlyOrEmpty (Ljava/lang/Object;)Lreactor/core/publisher/Mono;
+	public final fun error (Ljava/lang/Exception;)Lreactor/core/publisher/Mono;
 	public final fun waitUntilCompleted (Lreactor/core/publisher/Mono;)Ljava/lang/Object;
 }
 
