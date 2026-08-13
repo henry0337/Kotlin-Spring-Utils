@@ -80,14 +80,14 @@ public class ReactorHelper {
     public fun <T : Any> deferError(error: Exception): Mono<T> = Mono.defer { Mono.error(error) }
 
     /**
-     * Lấy ra giá trị được bọc trong một [Mono] được chỉ định bằng cách **chặn luồng vô thời hạn** cho đến khi nhận được
-     * tín hiệu kế tiếp.
+     * Lấy ra giá trị được bọc trong một [Mono] bằng cách **chặn luồng vô thời hạn** cho đến khi nhận được
+     * tín hiệu kế tiếp từ chính [Mono] đó.
      *
      * @param T     Kiểu dữ liệu được wrap trong [Mono]
      * @param mono  Đối tượng [Mono] cần lấy giá trị được wrap tương ứng
      * @return Giá trị được wrap bên trong nếu tồn tại, nếu như [Mono.empty] thì trả về `null`.
      */
-    public fun <T : Any> waitUntilCompleted(mono: Mono<T>): T? = mono.block()
+    public fun <T : Any> awaitMonoComplete(mono: Mono<T>): T? = mono.block()
 
     /**
      * Chuyển đổi sang một [Mono] chỉ phát ra tín hiệu hoàn thành hoặc lỗi dựa trên kết quả thực tế.
@@ -96,5 +96,5 @@ public class ReactorHelper {
      * @see Mono.then
      */
     @Suppress("kotlin:S6508")
-    public fun <T : Any> discardReturnValue(mono: Mono<T>): Mono<Void> = mono.then()
+    public fun <T : Any> emitCompleteSignal(mono: Mono<T>): Mono<Void> = mono.then()
 }

@@ -27,6 +27,27 @@ public class dev/myrlennia237/config/SpringMvcAutoConfiguration {
 	public fun redisService (Lorg/springframework/data/redis/core/StringRedisTemplate;)Ldev/myrlennia237/service/RedisService;
 }
 
+public final class dev/myrlennia237/helper/UriBuilder {
+	public fun <init> ()V
+	public final fun build (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;)Ljava/lang/String;
+	public final fun build (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/Map;)Ljava/lang/String;
+	public final fun build (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;)Ljava/lang/String;
+	public final fun build (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun build$default (Ldev/myrlennia237/helper/UriBuilder;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public final fun buildFromCurrentContextPath (Ljava/lang/String;)Ljava/lang/String;
+	public final fun buildFromCurrentContextPath (Ljava/lang/String;Ljava/util/Map;)Ljava/lang/String;
+	public final fun buildFromCurrentContextPath (Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun buildFromCurrentContextPath$default (Ldev/myrlennia237/helper/UriBuilder;Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public final fun buildFromCurrentRequestUri (Ljava/lang/String;)Ljava/lang/String;
+	public final fun buildFromCurrentRequestUri (Ljava/lang/String;Ljava/util/Map;)Ljava/lang/String;
+	public final fun buildFromCurrentRequestUri (Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun buildFromCurrentRequestUri$default (Ldev/myrlennia237/helper/UriBuilder;Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public final fun buildFromCurrentServletMapping (Ljava/lang/String;)Ljava/lang/String;
+	public final fun buildFromCurrentServletMapping (Ljava/lang/String;Ljava/util/Map;)Ljava/lang/String;
+	public final fun buildFromCurrentServletMapping (Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun buildFromCurrentServletMapping$default (Ldev/myrlennia237/helper/UriBuilder;Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+}
+
 public class dev/myrlennia237/sample/QFoo : com/querydsl/core/types/dsl/EntityPathBase {
 	public final field _super Ldev/myrlennia237/template/entity/QBaseEntity;
 	public final field createdAt Lcom/querydsl/core/types/dsl/DateTimePath;

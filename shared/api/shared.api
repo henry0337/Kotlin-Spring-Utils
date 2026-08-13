@@ -148,6 +148,13 @@ public final class dev/myrlennia237/component/dto/PagedResponseKt {
 	public static final synthetic fun toPagedResponse (Lorg/springframework/data/domain/Page;)Ldev/myrlennia237/component/dto/PagedResponse;
 }
 
+public final class dev/myrlennia237/component/helper/EnvironmentHelper {
+	public fun <init> (Lorg/springframework/core/env/Environment;)V
+	public final fun isDevelopment ()Z
+	public final fun isProduction ()Z
+	public final fun isStaging ()Z
+}
+
 public final class dev/myrlennia237/component/service/I18nService {
 	public fun <init> (Lorg/springframework/context/MessageSource;)V
 	public final fun translate (Ljava/lang/String;)Ljava/lang/String;

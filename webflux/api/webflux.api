@@ -67,16 +67,34 @@ public final class dev/myrlennia237/extension/ReactorKt {
 	public static final synthetic fun transformToList (Lreactor/core/publisher/Flux;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
+public final class dev/myrlennia237/helper/ReactiveUriBuilder {
+	public fun <init> ()V
+	public final fun build (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;)Ljava/lang/String;
+	public final fun build (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/Map;)Ljava/lang/String;
+	public final fun build (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;)Ljava/lang/String;
+	public final fun build (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun build$default (Ldev/myrlennia237/helper/ReactiveUriBuilder;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public final fun buildFromCurrentContextPath (Ljava/lang/String;)Lreactor/core/publisher/Mono;
+	public final fun buildFromCurrentContextPath (Ljava/lang/String;Ljava/util/Map;)Lreactor/core/publisher/Mono;
+	public final fun buildFromCurrentContextPath (Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;)Lreactor/core/publisher/Mono;
+	public static synthetic fun buildFromCurrentContextPath$default (Ldev/myrlennia237/helper/ReactiveUriBuilder;Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;ILjava/lang/Object;)Lreactor/core/publisher/Mono;
+	public final fun buildFromCurrentRequestUri (Ljava/lang/String;)Lreactor/core/publisher/Mono;
+	public final fun buildFromCurrentRequestUri (Ljava/lang/String;Ljava/util/Map;)Lreactor/core/publisher/Mono;
+	public final fun buildFromCurrentRequestUri (Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;)Lreactor/core/publisher/Mono;
+	public static synthetic fun buildFromCurrentRequestUri$default (Ldev/myrlennia237/helper/ReactiveUriBuilder;Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;ILjava/lang/Object;)Lreactor/core/publisher/Mono;
+	public final fun fromRequest (Lorg/springframework/http/server/reactive/ServerHttpRequest;)Lorg/springframework/web/util/UriComponentsBuilder;
+}
+
 public final class dev/myrlennia237/helper/ReactorHelper {
 	public fun <init> ()V
+	public final fun awaitMonoComplete (Lreactor/core/publisher/Mono;)Ljava/lang/Object;
 	public final fun deferError (Ljava/lang/Exception;)Lreactor/core/publisher/Mono;
-	public final fun discardReturnValue (Lreactor/core/publisher/Mono;)Lreactor/core/publisher/Mono;
 	public final fun emit (Ljava/lang/Object;)Lreactor/core/publisher/Mono;
+	public final fun emitCompleteSignal (Lreactor/core/publisher/Mono;)Lreactor/core/publisher/Mono;
 	public final fun emitThisOrEmpty (Ljava/lang/Object;)Lreactor/core/publisher/Mono;
 	public final fun emptyFlux ()Lreactor/core/publisher/Flux;
 	public final fun emptyMono ()Lreactor/core/publisher/Mono;
 	public final fun error (Ljava/lang/Exception;)Lreactor/core/publisher/Mono;
-	public final fun waitUntilCompleted (Lreactor/core/publisher/Mono;)Ljava/lang/Object;
 }
 
 public final class dev/myrlennia237/helper/ResponseHelper {
