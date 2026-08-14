@@ -6,13 +6,12 @@ import org.springframework.web.util.UriComponentsBuilder
 import reactor.core.publisher.Mono
 
 /**
- * Helper hỗ trợ xây dựng chuỗi URI cho môi trường **reactive (WebFlux)**.
- *
- * WebFlux không có khái niệm "request hiện tại" một cách đồng bộ như Servlet (không có [ThreadLocal]), nên các
- * phương thức dựa trên request hiện tại đều trả về [Mono] thay vì [String] trực tiếp, đọc exchange qua
- * [ServerWebExchangeContextFilter].
+ * Helper hỗ trợ tạo URI cho môi trường **WebFlux**.
+ * 
+ * @author <a href="https://github.com/AdorableDandelion25">Himekawa</a>
  */
-public class ReactiveUriBuilder {
+public object WebFluxUriBuilder {
+    
     /**
      * Tạo một chuỗi URI đầy đủ từ toàn bộ các phần được chỉ định để cấu tạo nên một URL.
      *
@@ -24,6 +23,7 @@ public class ReactiveUriBuilder {
      * @param fragment      Fragment (`#...`) của URI, bỏ trống (`null`) nếu không cần
      * @return Chuỗi URI hoàn chỉnh, đã được encode.
      */
+    @JvmStatic
     @JvmOverloads
     public fun build(
         scheme: String,
@@ -68,6 +68,7 @@ public class ReactiveUriBuilder {
      * @param fragment      Fragment (`#...`) của URI, bỏ trống (`null`) nếu không cần
      * @return [Mono] phát ra chuỗi URI hoàn chỉnh, hoặc rỗng nếu không tìm thấy exchange hiện tại.
      */
+    @JvmStatic
     @JvmOverloads
     public fun buildFromCurrentContextPath(
         path: String,
@@ -95,6 +96,7 @@ public class ReactiveUriBuilder {
      * @param fragment      Fragment (`#...`) của URI, bỏ trống (`null`) nếu không cần
      * @return [Mono] phát ra chuỗi URI hoàn chỉnh, hoặc rỗng nếu không tìm thấy exchange hiện tại.
      */
+    @JvmStatic
     @JvmOverloads
     public fun buildFromCurrentRequestUri(
         path: String,

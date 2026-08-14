@@ -3,7 +3,13 @@ package dev.myrlennia237.helper
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import org.springframework.web.util.UriComponentsBuilder
 
-public class UriBuilder {
+/**
+ * Helper hỗ trợ tạo URI cho môi trường **Servlet**.
+ * 
+ * @author <a href="https://github.com/AdorableDandelion25">Himekawa</a>
+ */
+public object ServletUriBuilder {
+    
     /**
      * Tạo một chuỗi URI đầy đủ từ toàn bộ các phần được chỉ định để cấu tạo nên một URL.
      *
@@ -15,6 +21,7 @@ public class UriBuilder {
      * @param fragment      Fragment (`#...`) của URI, bỏ trống (`null`) nếu không cần
      * @return Chuỗi URI hoàn chỉnh, đã được encode.
      */
+    @JvmStatic
     @JvmOverloads
     public fun build(
         scheme: String,
@@ -44,6 +51,7 @@ public class UriBuilder {
      * @param fragment      Fragment (`#...`) của URI, bỏ trống (`null`) nếu không cần
      * @return Chuỗi URI hoàn chỉnh, đã được encode.
      */
+    @JvmStatic
     @JvmOverloads
     public fun buildFromCurrentContextPath(
         path: String,
@@ -68,6 +76,7 @@ public class UriBuilder {
      * @param fragment      Fragment (`#...`) của URI, bỏ trống (`null`) nếu không cần
      * @return Chuỗi URI hoàn chỉnh, đã được encode.
      */
+    @JvmStatic
     @JvmOverloads
     public fun buildFromCurrentServletMapping(
         path: String,
@@ -92,6 +101,7 @@ public class UriBuilder {
      * @param fragment      Fragment (`#...`) của URI, bỏ trống (`null`) nếu không cần
      * @return Chuỗi URI hoàn chỉnh, đã được encode.
      */
+    @JvmStatic
     @JvmOverloads
     public fun buildFromCurrentRequestUri(
         path: String,
