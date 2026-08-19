@@ -54,20 +54,6 @@ public class ReactorHelper {
      */
     public fun <T : Any> error(error: Exception): Mono<T> = Mono.error(error)
     
-    // /**
-    //  * Tạo ra một [Mono] sẽ phát ra một [RuntimeException] bọc [message] và [exception] ngay lập tức sau khi được
-    //  * subscribe tới.
-    //  *
-    //  * @param message   Mô tả lỗi
-    //  * @param exception Nguyên nhân gốc, được giữ qua [Throwable.cause]
-    //  * @see Mono.error
-    //  */
-    // @JvmOverloads
-    // public fun <T : Any> error(
-    //     message: String = "Có lỗi xảy ra!",
-    //     cause: Throwable = Exception()
-    // ): Mono<T> = Mono.error(RuntimeException(message, cause))
-    
     /**
      * Trì hoãn việc tạo ra một [Mono] phát ra [error] cho đến khi có một [Subscriber][org.reactivestreams.Subscriber]
      * thực hiện subscribe vào nó.
@@ -86,6 +72,7 @@ public class ReactorHelper {
      * @param T     Kiểu dữ liệu được wrap trong [Mono]
      * @param mono  Đối tượng [Mono] cần lấy giá trị được wrap tương ứng
      * @return Giá trị được wrap bên trong nếu tồn tại, nếu như [Mono.empty] thì trả về `null`.
+     * @see Mono.block
      */
     public fun <T : Any> awaitMonoComplete(mono: Mono<T>): T? = mono.block()
 
@@ -95,6 +82,5 @@ public class ReactorHelper {
      * `Mono<Void>` sẽ được trả về theo quy chuẩn của Project Reactor.
      * @see Mono.then
      */
-    @Suppress("kotlin:S6508")
     public fun <T : Any> emitCompleteSignal(mono: Mono<T>): Mono<Void> = mono.then()
 }
