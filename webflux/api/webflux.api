@@ -70,7 +70,6 @@ public final class dev/myrlennia237/extension/ReactorKt {
 public final class dev/myrlennia237/helper/ReactorHelper {
 	public fun <init> ()V
 	public final fun awaitMonoComplete (Lreactor/core/publisher/Mono;)Ljava/lang/Object;
-	public final fun compare (Lreactor/core/publisher/Mono;Ljava/lang/Object;)Lreactor/core/publisher/Mono;
 	public final fun deferError (Ljava/lang/Exception;)Lreactor/core/publisher/Mono;
 	public final fun emit (Ljava/lang/Object;)Lreactor/core/publisher/Mono;
 	public final fun emitCompleteSignal (Lreactor/core/publisher/Mono;)Lreactor/core/publisher/Mono;

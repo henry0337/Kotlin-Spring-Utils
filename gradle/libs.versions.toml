@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.4.0"
-spring-boot = "4.0.7"
+spring-boot = "4.0.8"
 spring-dependency-management = "1.1.7"
 dokka = "2.2.0"
 binary-compatibility-validator = "0.18.1"

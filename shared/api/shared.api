@@ -234,10 +234,9 @@ public final class dev/myrlennia237/component/helper/EnvironmentHelper {
 
 public final class dev/myrlennia237/component/service/I18nService {
 	public fun <init> (Lorg/springframework/context/MessageSource;)V
-	public final fun translate (Ljava/lang/String;)Ljava/lang/String;
+	public final fun translate (Ljava/lang/String;Ljava/util/Locale;[Ljava/lang/Object;)Ljava/lang/String;
 	public final fun translate (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
-	public final fun translate (Ljava/lang/String;[Ljava/lang/Object;Ljava/util/Locale;)Ljava/lang/String;
-	public static synthetic fun translate$default (Ldev/myrlennia237/component/service/I18nService;Ljava/lang/String;[Ljava/lang/Object;Ljava/util/Locale;ILjava/lang/Object;)Ljava/lang/String;
+	public static synthetic fun translate$default (Ldev/myrlennia237/component/service/I18nService;Ljava/lang/String;Ljava/util/Locale;[Ljava/lang/Object;ILjava/lang/Object;)Ljava/lang/String;
 }
 
 public final class dev/myrlennia237/component/service/MailBodyType : java/lang/Enum {
