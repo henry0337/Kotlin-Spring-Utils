@@ -54,19 +54,19 @@ public abstract interface annotation class dev/myrlennia237/annotation/spring/Ap
 	public abstract fun title ()Ljava/lang/String;
 }
 
-public abstract interface annotation class dev/myrlennia237/annotation/spring/EffectiveReadOnlyTransactional : java/lang/annotation/Annotation {
-	public abstract fun name ()Ljava/lang/String;
-	public abstract fun propagation ()Lorg/springframework/transaction/annotation/Propagation;
-	public abstract fun timeout ()I
-}
-
-public abstract interface annotation class dev/myrlennia237/annotation/spring/EffectiveTransactional : java/lang/annotation/Annotation {
-	public abstract fun name ()Ljava/lang/String;
-	public abstract fun propagation ()Lorg/springframework/transaction/annotation/Propagation;
-	public abstract fun timeout ()I
-}
-
 public abstract interface annotation class dev/myrlennia237/annotation/spring/EnableReactiveSecurityCustomization : java/lang/annotation/Annotation {
+}
+
+public abstract interface annotation class dev/myrlennia237/annotation/spring/ReadOnlyTransactional : java/lang/annotation/Annotation {
+	public abstract fun name ()Ljava/lang/String;
+	public abstract fun propagation ()Lorg/springframework/transaction/annotation/Propagation;
+	public abstract fun timeout ()I
+}
+
+public abstract interface annotation class dev/myrlennia237/annotation/spring/Transactional : java/lang/annotation/Annotation {
+	public abstract fun name ()Ljava/lang/String;
+	public abstract fun propagation ()Lorg/springframework/transaction/annotation/Propagation;
+	public abstract fun timeout ()I
 }
 
 public final class dev/myrlennia237/component/ImmutableList : java/util/AbstractList {
@@ -148,12 +148,95 @@ public final class dev/myrlennia237/component/dto/PagedResponseKt {
 	public static final synthetic fun toPagedResponse (Lorg/springframework/data/domain/Page;)Ldev/myrlennia237/component/dto/PagedResponse;
 }
 
+public abstract interface class dev/myrlennia237/component/event/ContextInitializedEventListener : org/springframework/context/event/GenericApplicationListener {
+	public fun onApplicationEvent (Lorg/springframework/context/ApplicationEvent;)V
+	public abstract fun onContextInitialized (Lorg/springframework/boot/context/event/ApplicationContextInitializedEvent;)V
+	public fun supportsEventType (Lorg/springframework/core/ResolvableType;)Z
+}
+
+public final class dev/myrlennia237/component/event/ContextInitializedEventListener$DefaultImpls {
+	public static fun onApplicationEvent (Ldev/myrlennia237/component/event/ContextInitializedEventListener;Lorg/springframework/context/ApplicationEvent;)V
+	public static fun supportsEventType (Ldev/myrlennia237/component/event/ContextInitializedEventListener;Lorg/springframework/core/ResolvableType;)Z
+}
+
+public abstract interface class dev/myrlennia237/component/event/EnvironmentPreparedEventListener : org/springframework/context/event/GenericApplicationListener {
+	public fun onApplicationEvent (Lorg/springframework/context/ApplicationEvent;)V
+	public abstract fun onEnvironmentPrepared (Lorg/springframework/boot/context/event/ApplicationEnvironmentPreparedEvent;)V
+	public fun supportsEventType (Lorg/springframework/core/ResolvableType;)Z
+}
+
+public final class dev/myrlennia237/component/event/EnvironmentPreparedEventListener$DefaultImpls {
+	public static fun onApplicationEvent (Ldev/myrlennia237/component/event/EnvironmentPreparedEventListener;Lorg/springframework/context/ApplicationEvent;)V
+	public static fun supportsEventType (Ldev/myrlennia237/component/event/EnvironmentPreparedEventListener;Lorg/springframework/core/ResolvableType;)Z
+}
+
+public abstract interface class dev/myrlennia237/component/event/FailedEventListener : org/springframework/context/event/GenericApplicationListener {
+	public fun onApplicationEvent (Lorg/springframework/context/ApplicationEvent;)V
+	public abstract fun onApplicationFailed (Lorg/springframework/boot/context/event/ApplicationFailedEvent;)V
+	public fun supportsEventType (Lorg/springframework/core/ResolvableType;)Z
+}
+
+public final class dev/myrlennia237/component/event/FailedEventListener$DefaultImpls {
+	public static fun onApplicationEvent (Ldev/myrlennia237/component/event/FailedEventListener;Lorg/springframework/context/ApplicationEvent;)V
+	public static fun supportsEventType (Ldev/myrlennia237/component/event/FailedEventListener;Lorg/springframework/core/ResolvableType;)Z
+}
+
+public abstract interface class dev/myrlennia237/component/event/PreparedEventListener : org/springframework/context/event/GenericApplicationListener {
+	public fun onApplicationEvent (Lorg/springframework/context/ApplicationEvent;)V
+	public abstract fun onApplicationPrepared (Lorg/springframework/boot/context/event/ApplicationPreparedEvent;)V
+	public fun supportsEventType (Lorg/springframework/core/ResolvableType;)Z
+}
+
+public final class dev/myrlennia237/component/event/PreparedEventListener$DefaultImpls {
+	public static fun onApplicationEvent (Ldev/myrlennia237/component/event/PreparedEventListener;Lorg/springframework/context/ApplicationEvent;)V
+	public static fun supportsEventType (Ldev/myrlennia237/component/event/PreparedEventListener;Lorg/springframework/core/ResolvableType;)Z
+}
+
+public abstract interface class dev/myrlennia237/component/event/ReadyEventListener : org/springframework/context/event/GenericApplicationListener {
+	public fun onApplicationEvent (Lorg/springframework/context/ApplicationEvent;)V
+	public abstract fun onApplicationReady (Lorg/springframework/boot/context/event/ApplicationReadyEvent;)V
+	public fun supportsEventType (Lorg/springframework/core/ResolvableType;)Z
+}
+
+public final class dev/myrlennia237/component/event/ReadyEventListener$DefaultImpls {
+	public static fun onApplicationEvent (Ldev/myrlennia237/component/event/ReadyEventListener;Lorg/springframework/context/ApplicationEvent;)V
+	public static fun supportsEventType (Ldev/myrlennia237/component/event/ReadyEventListener;Lorg/springframework/core/ResolvableType;)Z
+}
+
+public abstract interface class dev/myrlennia237/component/event/StartedEventListener : org/springframework/context/event/GenericApplicationListener {
+	public fun onApplicationEvent (Lorg/springframework/context/ApplicationEvent;)V
+	public abstract fun onApplicationStarted (Lorg/springframework/boot/context/event/ApplicationStartedEvent;)V
+	public fun supportsEventType (Lorg/springframework/core/ResolvableType;)Z
+}
+
+public final class dev/myrlennia237/component/event/StartedEventListener$DefaultImpls {
+	public static fun onApplicationEvent (Ldev/myrlennia237/component/event/StartedEventListener;Lorg/springframework/context/ApplicationEvent;)V
+	public static fun supportsEventType (Ldev/myrlennia237/component/event/StartedEventListener;Lorg/springframework/core/ResolvableType;)Z
+}
+
+public abstract interface class dev/myrlennia237/component/event/StartingEventListener : org/springframework/context/event/GenericApplicationListener {
+	public fun onApplicationEvent (Lorg/springframework/context/ApplicationEvent;)V
+	public abstract fun onApplicationStarting (Lorg/springframework/boot/context/event/ApplicationStartingEvent;)V
+	public fun supportsEventType (Lorg/springframework/core/ResolvableType;)Z
+}
+
+public final class dev/myrlennia237/component/event/StartingEventListener$DefaultImpls {
+	public static fun onApplicationEvent (Ldev/myrlennia237/component/event/StartingEventListener;Lorg/springframework/context/ApplicationEvent;)V
+	public static fun supportsEventType (Ldev/myrlennia237/component/event/StartingEventListener;Lorg/springframework/core/ResolvableType;)Z
+}
+
+public final class dev/myrlennia237/component/helper/EnvironmentHelper {
+	public fun <init> (Lorg/springframework/core/env/Environment;)V
+	public final fun isDevelopment ()Z
+	public final fun isProduction ()Z
+	public final fun isStaging ()Z
+}
+
 public final class dev/myrlennia237/component/service/I18nService {
 	public fun <init> (Lorg/springframework/context/MessageSource;)V
-	public final fun translate (Ljava/lang/String;)Ljava/lang/String;
+	public final fun translate (Ljava/lang/String;Ljava/util/Locale;[Ljava/lang/Object;)Ljava/lang/String;
 	public final fun translate (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
-	public final fun translate (Ljava/lang/String;[Ljava/lang/Object;Ljava/util/Locale;)Ljava/lang/String;
-	public static synthetic fun translate$default (Ldev/myrlennia237/component/service/I18nService;Ljava/lang/String;[Ljava/lang/Object;Ljava/util/Locale;ILjava/lang/Object;)Ljava/lang/String;
+	public static synthetic fun translate$default (Ldev/myrlennia237/component/service/I18nService;Ljava/lang/String;Ljava/util/Locale;[Ljava/lang/Object;ILjava/lang/Object;)Ljava/lang/String;
 }
 
 public final class dev/myrlennia237/component/service/MailBodyType : java/lang/Enum {
@@ -207,6 +290,7 @@ public final class dev/myrlennia237/exception/HttpClientException : dev/myrlenni
 
 public final class dev/myrlennia237/exception/ImplementationNeededException : java/lang/RuntimeException {
 	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 }
@@ -224,7 +308,9 @@ public final class dev/myrlennia237/utils/CollectionUtils {
 
 public final class dev/myrlennia237/utils/CommonUtils {
 	public static final field INSTANCE Ldev/myrlennia237/utils/CommonUtils;
-	public final fun TODO (Ljava/lang/String;)Ljava/lang/Object;
+	public static final fun TODO ()Ljava/lang/Void;
+	public static final fun TODO (Ljava/lang/String;)Ljava/lang/Void;
+	public static synthetic fun TODO$default (Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/Void;
 	public static final fun requireNonNull (Ljava/lang/Object;)V
 	public static final fun requireNonNull (Ljava/lang/Object;Ljava/lang/String;)V
 	public static synthetic fun requireNonNull$default (Ljava/lang/Object;Ljava/lang/String;ILjava/lang/Object;)V

@@ -20,22 +20,20 @@ public class I18nService(private val messageSource: MessageSource) {
      * Nếu [code] không tồn tại trong resource bundle, hàm sẽ log cảnh báo và trả về chuỗi rỗng.
      *
      * @param code Message code cần tra cứu
-     * @param args Tham số thay thế cho các placeholder trong message, nếu có
      * @param locale Locale dùng để resolve message
+     * @param args Tham số thay thế cho các placeholder trong message, nếu có
      * @return Message đã dịch, hoặc chuỗi rỗng nếu không tìm thấy [code].
      * @author <a href="https://github.com/henry0337">Myrlennia</a>
      */
     @JvmOverloads
     public fun translate(
         code: String,
-        args: Array<Any>? = null,
-        locale: Locale = LocaleContextHolder.getLocale()
-    ): String {
-        return try {
-            messageSource.getMessage(code, args, locale)
-        } catch (_: NoSuchMessageException) {
-            logger.warn("Không tìm thấy message với code '{}' cho locale '{}'.", code, locale)
-            ""
-        }
+        locale: Locale = LocaleContextHolder.getLocale(),
+        vararg args: Any
+    ): String = try {
+        messageSource.getMessage(code, args, locale)
+    } catch (_: NoSuchMessageException) {
+        logger.warn("Không tìm thấy message với code '{}' cho locale '{}'.", code, locale)
+        ""
     }
 }

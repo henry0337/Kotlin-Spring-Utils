@@ -19,16 +19,16 @@ public class ReactorHelper {
      * @param data      Dữ liệu sẽ được phát ra
      * @see Mono.just
      */
-    public fun <T : Any> only(data: T): Mono<T> = Mono.just(data)
+    public fun <T : Any> emit(data: T): Mono<T> = Mono.just(data)
 
     /**
-     * Tạo một [Mono] mới phát ra một [instance] được chỉ định nếu nó không `null`, ngược lại sẽ phát ra [Mono.empty].
+     * Tạo một [Mono] mới phát ra một [instance] được chỉ định nếu nó không `null`, nếu `null` thì sẽ phát ra [Mono.empty].
      *
      * @param T                 Kiểu dữ liệu của dữ liệu đầu vào
      * @param instance          Dữ liệu sẽ được phát ra
      * @see Mono.justOrEmpty
      */
-    public fun <T : Any> onlyOrEmpty(instance: T?): Mono<T> = Mono.justOrEmpty(instance)
+    public fun <T : Any> emitThisOrEmpty(instance: T?): Mono<T> = Mono.justOrEmpty(instance)
 
     /**
      * Tạo một [Mono] mà không phát ra bất cứ dữ liệu nào cả.
@@ -45,21 +45,42 @@ public class ReactorHelper {
      * @see Flux.empty
      */
     public fun <T : Any> emptyFlux(): Flux<T> = Flux.empty()
+    
+    /**
+     * Tạo ra một [Mono] sẽ phát ra một [error] được chỉ định ngay lập tức sau khi được subscribe tới.
+     *
+     * @param error     Exception cần được ném ra
+     * @see Mono.error
+     */
+    public fun <T : Any> error(error: Exception): Mono<T> = Mono.error(error)
+    
+    /**
+     * Trì hoãn việc tạo ra một [Mono] phát ra [error] cho đến khi có một [Subscriber][org.reactivestreams.Subscriber]
+     * thực hiện subscribe vào nó.
+     * 
+     * @param error Exception cần được ném ra khi được subscribe tới
+     * @return [Mono] phát ra lỗi cần được ném ra.
+     * @see Mono.defer
+     * @see Mono.error
+     */
+    public fun <T : Any> deferError(error: Exception): Mono<T> = Mono.defer { Mono.error(error) }
 
     /**
-     * Lấy ra giá trị được bọc trong một [Mono] được chỉ định bằng cách **chặn luồng vô thời hạn** cho đến khi nhận được
-     * tín hiệu kế tiếp.
+     * Lấy ra giá trị được bọc trong một [Mono] bằng cách **chặn luồng vô thời hạn** cho đến khi nhận được
+     * tín hiệu kế tiếp từ chính [Mono] đó.
      *
      * @param T     Kiểu dữ liệu được wrap trong [Mono]
      * @param mono  Đối tượng [Mono] cần lấy giá trị được wrap tương ứng
      * @return Giá trị được wrap bên trong nếu tồn tại, nếu như [Mono.empty] thì trả về `null`.
+     * @see Mono.block
      */
-    public fun <T : Any> waitUntilCompleted(mono: Mono<T>): T? = mono.block()
+    public fun <T : Any> awaitMonoComplete(mono: Mono<T>): T? = mono.block()
 
     /**
-     * Đánh dấu một [Mono] sẽ được bỏ qua giá trị trả về, kết quả thực tế sẽ được thay bằng `Mono<Void>`.
+     * Chuyển đổi sang một [Mono] chỉ phát ra tín hiệu hoàn thành hoặc lỗi dựa trên kết quả thực tế.
+     * 
+     * `Mono<Void>` sẽ được trả về theo quy chuẩn của Project Reactor.
      * @see Mono.then
      */
-    @Suppress("kotlin:S6508")
-    public fun <T : Any> discardReturnValue(mono: Mono<T>): Mono<Void> = mono.then()
+    public fun <T : Any> emitCompleteSignal(mono: Mono<T>): Mono<Void> = mono.then()
 }

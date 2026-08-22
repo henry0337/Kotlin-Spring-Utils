@@ -17,6 +17,7 @@ public object CommonUtils {
      * @param message   Message báo lỗi nếu như `instance` null
      * @return Chính instance đó nếu nó không `null`.
      * @throws IllegalArgumentException nếu [instance] là `null`.
+     * @see Assert.notNull
      */
     @JvmStatic
     @JvmOverloads
@@ -48,7 +49,7 @@ public object CommonUtils {
     @JvmStatic
     @JvmOverloads
     @IgnorableReturnValue
-    public fun <T> TODO(message: String = ""): T {
+    public fun TODO(message: String = ""): Nothing {
         throw ImplementationNeededException(message)
     }
 }
